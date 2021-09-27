@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import styles from './stylesheets/App.module.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  
+  if(!loggedIn){
+    return (
+      <div className={styles.App}>
+        <div className={styles.SectionBar}>
+          <div>
+            Home
+          </div>
+          <div>
+            Placeholder
+          </div>
+          <div>
+            Placeholder 2
+          </div>
+          <div>
+            Accounts
+          </div>
+          <div className={styles.LoginInfo}>
+            Log in
+          </div>
+        </div>
+        <div>
+          
+        </div>
+
+      </div>
+    );
+  }
 }
 
 export default App;
