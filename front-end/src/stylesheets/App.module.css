@@ -1,0 +1,26 @@
+*{
+    background-color: black;
+    color:white;
+}
+
+.App{
+    position: fixed;
+    height:100%;
+    width: 100%;
+    display:grid;
+    grid-template-columns: 25% 75%;
+    font-size:20px;
+}
+
+.SectionBar div{
+    padding: 10px;
+}
+
+.SectionBar{
+    border-right: white 1px solid;
+    padding: 20px;
+}
+
+.LoginInfo{
+    position: relative;
+}
