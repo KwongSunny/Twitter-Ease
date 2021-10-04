@@ -1,9 +1,6 @@
-*{
+.App{
     background-color: black;
     color:white;
-}
-
-.App{
     position: fixed;
     height:100%;
     width: 100%;
