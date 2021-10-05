@@ -1,9 +1,6 @@
-*{
+.App{
     background-color: black;
     color:white;
-}
-
-.App{
     position: fixed;
     height:100%;
     width: 100%;
@@ -19,8 +16,4 @@
 .SectionBar{
     border-right: white 1px solid;
     padding: 20px;
-}
-
-.LoginInfo{
-    position: relative;
 }

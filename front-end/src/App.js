@@ -1,24 +1,27 @@
 import * as React from 'react';
 import styles from './stylesheets/App.module.css';
+import LoginBox from './components/LoginBox';
+//import * as accountsUtil from '../back-end/... account functions
 
 function App() {
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  
-  if(!loggedIn){
+
+  //if(!loggedIn){
     return (
       <div className={styles.App}>
+        <LoginBox/>
+
         <div className={styles.SectionBar}>
           <div>
             Home
           </div>
           <div>
-            Placeholder
+            Google
           </div>
           <div>
             Placeholder 2
           </div>
           <div>
-            Accounts
+            Manage Accounts
           </div>
           <div className={styles.LoginInfo}>
             Log in
@@ -31,6 +34,6 @@ function App() {
       </div>
     );
   }
-}
+//}
 
 export default App;
