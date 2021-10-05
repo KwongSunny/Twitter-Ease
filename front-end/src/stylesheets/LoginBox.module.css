@@ -11,7 +11,7 @@
 
 .LoginBox{
     position: absolute;
-    background-color: #030303;
+    background-color: #14171A;
     text-align: center;
     font-size: 16px;
     border: solid white 1px;
@@ -28,7 +28,9 @@
 
 .LoginBox input{
     color:white;
-    background: #0D0D0D;
+    background: #14171A;
+    margin-top: 8px;
+    padding: 5px;
     width:70%;
 }
 
