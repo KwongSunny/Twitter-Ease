@@ -5,26 +5,28 @@ import LoginBox from './components/LoginBox';
 
 function App() {
 
+  const [currentPage, setCurrentPage] = React.useState('home');
+
   //if(!loggedIn){
     return (
       <div className={styles.App}>
         <LoginBox/>
 
         <div className={styles.SectionBar}>
-          <div>
+          <div onClick ={()=>{setCurrentPage('home')}}>
             Home
           </div>
-          <div>
-            Google
+          <div onClick ={()=>{setCurrentPage('')}}>
+            Placeholder
           </div>
-          <div>
+          <div onClick ={()=>{setCurrentPage('')}}>
             Placeholder 2
           </div>
-          <div>
+          <div onClick ={()=>{setCurrentPage('accounts')}}>
             Manage Accounts
           </div>
-          <div className={styles.LoginInfo}>
-            Log in
+          <div onClick ={()=>{setCurrentPage('')}}>
+            Switch Accounts
           </div>
         </div>
         <div>

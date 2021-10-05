@@ -14,5 +14,5 @@ export default highlightButton;
 //checks the string password for a capital letter and a symbol
 //returns a boolean
 function checkValidPassword(password){
-
+    
 }
