@@ -3,6 +3,7 @@
 //returns a JSON of separated red, green, blue values in base 10
 function hexStringToJson(hexString){
     let string = hexString.substring(1);
+    
     let r_val = null;
     let g_val = null;
     let b_val = null;
@@ -13,4 +14,4 @@ function hexStringToJson(hexString){
         blue: b_val
     };
 }
-console.log(hexStringToRaw("#012345"));
+console.log(hexStringToJson("#012345"));
