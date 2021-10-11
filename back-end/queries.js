@@ -1,6 +1,7 @@
 //connecting to Potsgres database from Node
 require('dotenv').config()          // dot config
 const Pool = require('pg').Pool
+
 /*const pool = new Pool({
     user: 'me',
     host: 'localhost',
