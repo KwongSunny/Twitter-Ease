@@ -1,8 +1,8 @@
 //set up server using express
 const express = require('express')
+const port = process.env.PORT || 3002 // defaults to localhost -> 3000
 const app = express()
 const database = require('./queries')
-const port = process.env.PORT || 5000 // defaults to localhost -> 3000
 app.use(express.json())
 app.use(
     express.urlencoded({
