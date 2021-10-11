@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 const database = require('./queries')
-const PORT = 3000 || process.env.PORT // defaults to localhost -> 3000
+const PORT = process.env.PORT || 3000 // defaults to localhost -> 3000
 app.use(express.json())
 app.use(
     express.urlencoded({
