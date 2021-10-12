@@ -14,7 +14,7 @@ function LoginBox(props){
     let validCredentials = true;
 
     return(
-        <div className = {loginBoxStyles.Login}>
+        <div id = "login_all" className = {loginBoxStyles.LoginAll}>
             {!isLoggedIn && <div id = "opaque_screen" className = {loginBoxStyles.OpaqueScreen}/>}
             <div id = "login_box" className = {loginBoxStyles.LoginBox}>
                 {
@@ -34,8 +34,7 @@ function LoginBox(props){
                                 //check credentials
                                 //validCredentials = await accountsUtil.checkValidAccount(usernameInput, passwordInput);
                                 if(validCredentials){
-                                    document.getElementById("login_box").style.display = "none";
-                                    document.getElementById("opaque_screen").style.display = "none";
+                                    document.getElementById("login_all").style.display = 'none';
                                 }
                                 else{
                                     document.getElementById("incorrectCredMsg").style.display = "inline";
@@ -50,14 +49,14 @@ function LoginBox(props){
                                 }
                             }, 10)
                         }}
-                        onMouseLeave = {() => {
-                            console.log('bye');
-                        }}
-                    >Log in</div><br /><br />
-                    <div className = {loginBoxStyles.LoginOptions}>
-                        <div><span style = {{color: "gray"}} onClick = {() => {SetIsRegistering(false)}}>Log In</span><span style = {{color:'darkgray'}}> | </span><span onClick = {() => {SetIsRegistering(true)}}>Register</span></div><br />
-                        <div><span>Forgot Password?</span></div>
-                    </div>
+                        // onMouseLeave = {() => {
+                        //     console.log('bye');
+                        // }}
+                        >Log in</div><br /><br />
+                        <div className = {loginBoxStyles.LoginOptions}>
+                            <div><span style = {{color: "gray"}} onClick = {() => {SetIsRegistering(false)}}>Log In</span><span style = {{color:'darkgray'}}> | </span><span onClick = {() => {SetIsRegistering(true)}}>Register</span></div><br />
+                            <div><span>Forgot Password?</span></div>
+                        </div>
                     </form>
                 }
 

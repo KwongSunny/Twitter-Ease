@@ -1,0 +1,24 @@
+.AccountPage{
+    display:grid;
+    grid-template-columns: 30% 70%;
+    height:100%;
+}
+
+.AccountList{
+    border-right: solid 1px white;
+}
+
+.AccountListItem{
+    font-size: 16px;
+    border: solid white 1px;
+    padding: 12px;
+}
+
+.AccountItem{
+
+}
+
+.AccountItemHandle{
+    padding: 20px;
+    border-bottom:solid white 1px;
+}
