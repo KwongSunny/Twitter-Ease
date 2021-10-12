@@ -1,6 +1,9 @@
 const pool = require('./config')
 // get all users
 const getUsers = (req,res) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
     pool.query('SELECT * FROM accounts ORDER BY id', (error,result) => {
         if(error){
             throw error
