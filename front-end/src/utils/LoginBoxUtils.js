@@ -47,9 +47,4 @@ function checkValidPassword(password){
 
     //return password === /^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{8,}$/; // using regex to check if theres at least one upper case letter, symbol, and number
 }
-  console.log(checkValidPassword('nwvv!#@QDS123'))
-  console.log(checkValidPassword('12345536547658'))
-  console.log(checkValidPassword('Aa12!'))
-  console.log(checkValidPassword('VVVVVVVVVVV'))
-  console.log(checkValidPassword('Testcode123!'))
-  console.log(checkValidPassword(''))
+
