@@ -15,5 +15,4 @@ const connection = `postgresql://${process.env.DB_USER}:${process.env.DB_PW}@${p
 const pool = new Pool({
     connectionString:production ? process.env.DATABASE_URL:connection,ssl:{rejectUnauthorized: false},production
 })
-
 module.exports = pool

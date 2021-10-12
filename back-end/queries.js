@@ -13,6 +13,9 @@ const getUsers = (req,res) => {
 }
 // get user by id
 const getUserById = (req,res) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
     const id = req.params.id
     console.log(id)
     pool.query('SELECT * FROM accounts WHERE id = $1',[id],(error,result) => {
@@ -24,6 +27,9 @@ const getUserById = (req,res) => {
 }
 // post new user 
 const createUser = (req,res) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
     const{id,email,password} = req.body
     pool.query('INSERT INTO accounts (id,email,password) VALUES ($1,$2,$3)',[id,email,password],(error,result)=>{
         if(error){
@@ -34,6 +40,9 @@ const createUser = (req,res) => {
 }
 // update user
 const updateUser = (req,res) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
     const id = req.params.id
     const {password} = req.body
     pool.query(
@@ -47,6 +56,9 @@ const updateUser = (req,res) => {
 }
 // delete user
 const deleteUser = (req,res) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
     const id = req.params.id
     pool.query('DELETE FROM accounts WHERE id = $1',[id],(error,result)=>{
         if(error){  
