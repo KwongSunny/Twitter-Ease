@@ -1,11 +1,6 @@
 //set up server using express
 const express = require('express')
 const PORT = process.env.PORT || 3002 // defaults to localhost -> 3000
-const production = process.env.NODE_ENV === 'production'
-const origin = {
-  origin: production ? 'https://twitter-ease-api.herokuapp.com/' : '*'
-}
-app.use(cors(origin))
 
 const app = express()
 const database = require('./queries')
