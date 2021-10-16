@@ -8,7 +8,7 @@ const validation = (res,req,next) => {
     const {id,password} = req.body
     pool.query('SELECT id AND password WHERE id=$1 and password=$s2',[id,password],(error,result) => {
         if(error) {
-            return false
+            return res.status(404).json({Message: 'id does not exist'})
         }
         else {
             return true
