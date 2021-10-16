@@ -1,5 +1,6 @@
 //set up server using express
 const express = require('express')
+const { check, oneOf } = require('express-validator')
 const PORT = process.env.PORT || 3002 // defaults to localhost -> 3000
 const production = process.env.NODE_ENV === 'production'
 const origin = {
@@ -20,7 +21,7 @@ app.get('/', (req, res) => {
 })
 app.get('/accounts', database.getUsers)
 app.get('/accounts/:id', database.getUserById)
-app.post('/accounts', database.createUser)
+app.post('/accounts',database.validation,database.createUser)
 app.put('/accounts/:id', database.updateUser)
 app.delete('/accounts/:id', database.deleteUser)
 

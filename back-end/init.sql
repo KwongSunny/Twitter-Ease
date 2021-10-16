@@ -5,5 +5,5 @@ CREATE TABLE accounts (
     account JSON
 );
 
-INSERT INTO accounts(ID, email, password, account)
-VALUES('test123','test123@gmail.com','password','{}');
+INSERT INTO accounts(ID, email, password)
+VALUES('test123','test123@gmail.com','password');

@@ -1,5 +1,20 @@
 const pool = require('./config')
 // get all users
+
+const validation = (res,req,next) => {
+    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+        return res.status(401).json({status: 'error',message: 'Unauthorized'})
+    }
+    const {id,password} = req.body
+    pool.query('SELECT id AND password WHERE id=$1 and password=$s2',[id,password],(error,result) => {
+        if(error) {
+            return false
+        }
+        else {
+            return true
+        }
+    })
+}
 const getUsers = (req,res) => {
     if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
@@ -69,6 +84,7 @@ const deleteUser = (req,res) => {
 }
 // export modules 
 module.exports = {
+    validation,
     getUsers,
     getUserById,
     createUser,
