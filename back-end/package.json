@@ -17,7 +17,9 @@
     "express-validator": "^6.13.0",
     "pg": "^8.7.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
