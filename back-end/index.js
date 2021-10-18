@@ -21,7 +21,6 @@ app.get('/validate/:id/:password', database.validation)
 app.post('/accounts', database.createUser)
 app.put('/accounts/:id', database.updateUser)
 app.delete('/accounts/:id', database.deleteUser)
-
 app.listen(PORT,() => {
     console.log(`Running on port ${PORT}.`)
 })    
