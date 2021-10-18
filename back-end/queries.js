@@ -1,24 +1,24 @@
+  
 const pool = require('./config')
-// get all users
-
-const validation = (res,req,next) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
-        return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
-    const {id,password} = req.body
-    pool.query('SELECT id AND password WHERE id=$1 and password=$s2',[id,password],(error,result) => {
-        if(error) {
-            return false
+// check if account is right and exists
+const validation = (req,res) => {
+    const email = req.params.email
+    const password = req.params.password
+    pool.query("SELECT id,password FROM accounts WHERE email=$1 AND password=$2",[email,password],(error,result)=>{
+        if(result.rows == '') {
+            res.status(404).json({Message:'accounts not found'})
         }
         else {
-            return true
+        res.status(200).json(result.rows)
+        console.log(result.rows)
         }
     })
 }
+// get all users
 const getUsers = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     pool.query('SELECT * FROM accounts ORDER BY id', (error,result) => {
         if(error){
             throw error
@@ -28,10 +28,11 @@ const getUsers = (req,res) => {
 }
 // get user by id
 const getUserById = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const id = req.params.id
+    const password = req.params.password
     console.log(id)
     pool.query('SELECT * FROM accounts WHERE id = $1',[id],(error,result) => {
         if(error) {
@@ -42,9 +43,9 @@ const getUserById = (req,res) => {
 }
 // post new user 
 const createUser = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const{id,email,password} = req.body
     pool.query('INSERT INTO accounts (id,email,password) VALUES ($1,$2,$3)',[id,email,password],(error,result)=>{
         if(error){
@@ -55,9 +56,9 @@ const createUser = (req,res) => {
 }
 // update user
 const updateUser = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const id = req.params.id
     const {password} = req.body
     pool.query(
@@ -71,9 +72,9 @@ const updateUser = (req,res) => {
 }
 // delete user
 const deleteUser = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const id = req.params.id
     pool.query('DELETE FROM accounts WHERE id = $1',[id],(error,result)=>{
         if(error){  
@@ -91,4 +92,3 @@ module.exports = {
     updateUser,
     deleteUser,
   }
-  

@@ -13,12 +13,13 @@ app.use(
 app.get('/', (req, res) => {
     res.json({ info: 'Postgres API' })
 })
+
 app.get('/accounts', database.getUsers)
 app.get('/accounts/:id', database.getUserById)
-app.post('/accounts',database.validation,database.createUser)
+app.get('/validate/:id/:password', database.validation)
+app.post('/accounts', database.createUser)
 app.put('/accounts/:id', database.updateUser)
 app.delete('/accounts/:id', database.deleteUser)
-
 app.listen(PORT,() => {
     console.log(`Running on port ${PORT}.`)
 })    

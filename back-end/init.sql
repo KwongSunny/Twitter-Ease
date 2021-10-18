@@ -1,8 +1,8 @@
+/* this is only used to initialize database in heroku server, useless if workin local */
 CREATE TABLE accounts (
     ID VARCHAR(64) PRIMARY KEY,
     email VARCHAR(64),
-    password VARCHAR(64),
-    account JSON
+    password VARCHAR(64)
 );
 
 INSERT INTO accounts(ID, email, password)
