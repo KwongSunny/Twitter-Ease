@@ -19,7 +19,7 @@
     "pg": "^8.7.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   },
   "keywords": [],
   "author": "",
