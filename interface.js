@@ -11,21 +11,23 @@ Functions that interface between front and back end
         boolean, true if the account exists, false otherwise
     priority: high (as of 10/4)
 */
-function checkValidAccount(accountInfo) {
+async function checkValidAccount(accountInfo) {
     const email_part = accountInfo.email
     const password_part = accountInfo.password
-    const xhr = new XMLHttpRequest();
-    const url = `https://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`
-    const data = JSON.stringify({email_part,password_part});
-    xhr.responseType = 'json';
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState == XMLHttpRequest.DONE) {
-            return xhr.response();
+    try {
+        const response = new fetch(`twitter-ease-api.herokuapp.com/accounts/${email_part}/${password_part}`)
+        if(response.ok) {
+            const jsonResponse = await response.json();
+            if(jsonResponse != ''){
+                return true
+            }
         }
+        throw new Error("Request failed!")
     }
-    xhr.open('GET',url)
-    xhr.send(data)
-    
+    catch(error) {
+        console.log(error)
+        return false
+    }
 }
 
 /*
@@ -38,17 +40,7 @@ function checkValidAccount(accountInfo) {
     priority: high (as of 10/4)
 */
 function registerAccount(accountInfo) {
-    const xhr = new XMLHttpRequest();
-    const url = 'https://twitter-ease-api.herokuapp.com/accounts'
-    const data = JSON.stringify(accountInfo);
-    xhr.responseType = 'json';
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState == XMLHttpRequest.DONE) {
-            return xhr.response();
-        }
-    }
-    xhr.open('POST',url)
-    xhr.send(data)
+    
 }
 
 /*
