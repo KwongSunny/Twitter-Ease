@@ -51,7 +51,9 @@ function registerAccount(accountInfo) {
         boolean: true if sucessful tweet, false otherwise
     priority: medium (as of 10/4)
 */
-function postTweet(tweet);
+function postTweet(tweet) {
+
+}
 
 /*
     Backend retrieves `num` amount of recent tweets from the account 
@@ -62,4 +64,13 @@ function postTweet(tweet);
         Json {tweet1, tweet2, tweet3...}
     priority: low (as of 10/4)
 */
-function retrieveTweets(twitterAccount, num);
+function retrieveTweets(twitterAccount, num) {
+
+}
+
+module.exports = {
+    checkValidAccount,
+    registerAccount,
+    postTweet,
+    retrieveTweets
+}
