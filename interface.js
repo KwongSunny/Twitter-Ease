@@ -9,10 +9,24 @@ Functions that interface between front and back end
         accountInfo - Json {email, password}
     @returns: 
         boolean, true if the account exists, false otherwise
-
     priority: high (as of 10/4)
 */
-function checkValidAccount(accountInfo);
+function checkValidAccount(accountInfo) {
+    const email_part = accountInfo.email
+    const password_part = accountInfo.password
+    const xhr = new XMLHttpRequest();
+    const url = `https://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`
+    const data = JSON.stringify({email_part,password_part});
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == XMLHttpRequest.DONE) {
+            return xhr.response();
+        }
+    }
+    xhr.open('GET',url)
+    xhr.send(data)
+    
+}
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
@@ -23,7 +37,19 @@ function checkValidAccount(accountInfo);
     
     priority: high (as of 10/4)
 */
-function registerAccount(accountInfo);
+function registerAccount(accountInfo) {
+    const xhr = new XMLHttpRequest();
+    const url = 'https://twitter-ease-api.herokuapp.com/accounts'
+    const data = JSON.stringify(accountInfo);
+    xhr.responseType = 'json';
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState == XMLHttpRequest.DONE) {
+            return xhr.response();
+        }
+    }
+    xhr.open('POST',url)
+    xhr.send(data)
+}
 
 /*
     Frontend sends the backend a tweet to post
@@ -31,7 +57,6 @@ function registerAccount(accountInfo);
         tweet - Json {tweet_text} 
     @returns: 
         boolean: true if sucessful tweet, false otherwise
-
     priority: medium (as of 10/4)
 */
 function postTweet(tweet);
@@ -43,7 +68,6 @@ function postTweet(tweet);
         num: number of tweets to be retrieved - int
     @returns: 
         Json {tweet1, tweet2, tweet3...}
-
     priority: low (as of 10/4)
 */
 function retrieveTweets(twitterAccount, num);
