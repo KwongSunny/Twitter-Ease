@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.get('/accounts', database.getUsers)
 app.get('/accounts/:id', database.getUserById)
-app.get('/validate/:id/:password', database.validation)
+app.get('/validate/:email/:password', database.validation)
 app.post('/accounts', database.createUser)
 app.put('/accounts/:id', database.updateUser)
 app.delete('/accounts/:id', database.deleteUser)

@@ -3,13 +3,13 @@ const pool = require('./config')
 const validation = (req,res) => {
     const email = req.params.email
     const password = req.params.password
-    pool.query("SELECT id,password FROM accounts WHERE email=$1 AND password=$2",[email,password],(error,result)=>{
+    pool.query("SELECT email,password FROM accounts WHERE email=$1 AND password=$2",[email,password],(error,result)=>{
         if(result.rows == '') {
             res.status(404).json({Message:'accounts not found'})
         }
         else {
         res.status(200).json(result.rows)
-        console.log(result.rows)
+        //console.log(result.rows)
         }
     })
 }
