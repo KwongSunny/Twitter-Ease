@@ -1,4 +1,3 @@
-
 /*
 Functions that interface between front and back end
 */
@@ -13,22 +12,7 @@ Functions that interface between front and back end
 
     priority: high (as of 10/4)
 */
-function checkValidAccount(accountInfo) {
-    const email_part = accountInfo.email
-    const password_part = accountInfo.password
-    const xhr = new XMLHttpRequest();
-    const url = `https://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`
-    const data = JSON.stringify({email_part,password_part});
-    xhr.responseType = 'json';
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState == XMLHttpRequest.DONE) {
-            return xhr.response();
-        }
-    }
-    xhr.open('GET',url)
-    xhr.send(data)
-    
-}
+function checkValidAccount(accountInfo);
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
@@ -39,19 +23,7 @@ function checkValidAccount(accountInfo) {
     
     priority: high (as of 10/4)
 */
-function registerAccount(accountInfo) {
-    const xhr = new XMLHttpRequest();
-    const url = 'https://twitter-ease-api.herokuapp.com/accounts'
-    const data = JSON.stringify(accountInfo);
-    xhr.responseType = 'json';
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState == XMLHttpRequest.DONE) {
-            return xhr.response();
-        }
-    }
-    xhr.open('POST',url)
-    xhr.send(data)
-}
+function registerAccount(accountInfo);
 
 /*
     Frontend sends the backend a tweet to post

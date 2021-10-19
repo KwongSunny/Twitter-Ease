@@ -5,6 +5,10 @@ const Pool = require('pg').Pool
 const production = process.env.NODE_ENV === 'production'
 const connection = `postgresql://${process.env.DB_USER}:${process.env.DB_PW}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`
 const pool = new Pool({
+<<<<<<< HEAD
     connectionString:production ? process.env.DATABASE_URL:connection ,ssl:{rejectUnauthorized: false}//{rejectUnauthorized: false}
+=======
+    connectionString:production ? process.env.DATABASE_URL:connection ,ssl:{rejectUnauthorized: false}
+>>>>>>> main
 })
 module.exports = pool
