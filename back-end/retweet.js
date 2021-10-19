@@ -9,7 +9,7 @@ function retweet()
     let params={
         q:'#COVID19 min_retweets:20 lang:en', 
         result_type:'recent',
-        count:1 // how many posts to retweet 
+        count:10 // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -33,4 +33,4 @@ function retweet()
 
 }
 retweet(); 
-setInterval(retweet,60000)
+setInterval(retweet,60000) 
