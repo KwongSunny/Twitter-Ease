@@ -14,6 +14,7 @@
 //checks the string password for a capital letter and a symbol
 //returns a boolean
 function checkValidPassword(password){
+    let re;
     if(password.length == 0){
         console.log("Password cannot be empty");
         return false;

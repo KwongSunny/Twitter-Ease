@@ -1,3 +1,36 @@
+.AccountInfo{
+    padding: 30px 0px;
+    border-bottom: solid white 1px;
+}
+
+.AccountTweetButtons div{
+    vertical-align: middle;
+}
+
+.AccountImageButton{
+    display:inline-block;
+}
+
+.AccountImageButton img{
+    height: 40px;
+    vertical-align: middle;
+}
+
+.AccountTweetButton{
+    display:inline-block;
+    margin: 0px 10px;
+    padding: 8px 10px;
+    border: white 1px solid;
+    border-radius: 30px;
+    background-color:#1DA1F2;
+    margin-right: 5%;
+}
+
+.AccountTweetButtons{
+    display: flex;
+    justify-content: flex-end;
+}
+
 .AccountPage{
     display:grid;
     grid-template-columns: 30% 70%;
@@ -6,19 +39,49 @@
 
 .AccountList{
     border-right: solid 1px white;
+    overflow-y: scroll;
 }
 
 .AccountListItem{
     font-size: 16px;
-    border: solid white 1px;
+    border-bottom: solid white 1px;
     padding: 12px;
 }
 
 .AccountItem{
-
+    height: 100%;
+    display: grid;
+    grid-template-rows: 80px;
 }
 
 .AccountItemHandle{
-    padding: 20px;
+    text-align: center;
     border-bottom:solid white 1px;
+}
+
+.AccountTweetBox{
+    text-align: center;
+    padding: 30px 30px;
+
+}
+
+.AccountTweetBox textarea{
+    width: 100%;
+    background-color: #111111;
+    color: white;
+    height:100px;
+    resize:none;
+}
+
+.AddAccount{
+    border: solid white 1px;
+    border-radius: 30px;    
+    display:inline-block;
+    padding: 8px 10px;
+}
+
+.AddingAccount{
+    margin-top: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
