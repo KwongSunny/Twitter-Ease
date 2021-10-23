@@ -1,4 +1,5 @@
 import * as React from 'react';
+import twitterImagesButton from '../images/twitter_images_button.png';
 import accountStyles from '../stylesheets/Accounts.module.css';
 
 function Accounts(props){
@@ -6,6 +7,8 @@ function Accounts(props){
     const [accounts, setAccounts] = React.useState([{email: 'testuser1@test.com', password: 'password1', handle: 'testuser1'}, {email: 'johndoe1@gmail.com', password: '123abc', handle: 'johndoe1'}]);
     const [currentAccount, setCurrentAccount] = React.useState('');
     const [addingAccount, setAddingAccount] = React.useState(false);
+    //currentAccount's recent tweets
+    const [recentTweets, setRecentTweets] = React.useState([{value: 'tweet1'},{value: 'tweet2'},{value: 'tweet3'}]);
 
     let foundAccount = accounts.find((account) => account.handle === currentAccount);
     if(!foundAccount) foundAccount = accounts[0];
@@ -37,8 +40,30 @@ function Accounts(props){
             <div>
                 {//if the currentAccount exists, then show information about the current Twitter account
                     !addingAccount && <div className = {accountStyles.AccountItem}>
-                        <div className = {accountStyles.AccountItemHandle}>@{foundAccount.handle}</div><br/>
-
+                        <div className = {accountStyles.AccountItemHandle}><p>@{foundAccount.handle}</p></div>
+                        <div>
+                            <div className = {accountStyles.AccountInfo}>
+                                <div className = {accountStyles.AccountTweetBox}>
+                                    <textarea/><br/>
+                                </div>
+                                <div className = {accountStyles.AccountTweetButtons}>
+                                    <div className = {accountStyles.AccountImageButton}><img styles = {{height:"100%"}}src = {twitterImagesButton}/></div>
+                                    <div className = {accountStyles.AccountTweetButton}>Tweet</div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className = {accountStyles.AccountButton}>Scheduled Tweets</div>
+                            </div>
+                            <div className = {accountStyles.RecentTweetsList}>
+                                {
+                                    recentTweets.map((tweet)=>{
+                                        return(<div>
+                                            {tweet.value}
+                                        </div>)
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
 
                 }

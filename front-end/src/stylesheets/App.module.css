@@ -16,3 +16,8 @@
     width:100%;
     bottom: 0px;
 }
+
+.Page{
+    top: 0px;
+    height: calc(100% - 50px);
+}
