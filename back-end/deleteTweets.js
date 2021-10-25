@@ -19,7 +19,6 @@ twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets
                     console.log('Post deleted!!! with retweetID - ' + deleteId)
                 if (err)
                     console.log('Already DELETED...')
-
             })
         }
     }
