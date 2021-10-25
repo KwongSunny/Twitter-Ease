@@ -23,4 +23,4 @@ twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets
             })
         }
     }
-})
+})  
