@@ -2,7 +2,7 @@
 Functions that interface between front and back end
 */
 
-const twit_funcs = require("./back-end/dm");
+const twit_funcs = require("./back-end");
 
 //BACKEND TODO:
 /*
