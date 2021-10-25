@@ -10,7 +10,6 @@ function tweet(message){
 }
 
 var message = 'Testing123';
-
 tweet(message); 
 
 

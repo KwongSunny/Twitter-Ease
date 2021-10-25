@@ -29,8 +29,6 @@ function retweet()
                     }
                 }
             })
-
-
 }
 retweet(); 
 setInterval(retweet,60000) 

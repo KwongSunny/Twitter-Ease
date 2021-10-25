@@ -1,3 +1,4 @@
+// twitter dev account keys to access API
 const twit = require('twit');
 const twitterAPI = new twit({
     consumer_key : process.env.api_key,
