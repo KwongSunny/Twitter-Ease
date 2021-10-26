@@ -1,11 +1,11 @@
 //set up server using express
 const express = require('express')
-const PORT = process.env.PORT || 3002 // defaults to localhost -> 3000
-const cors = require('cors')
+const PORT = process.env.PORT || 3000 // defaults to localhost -> 3000
 const app = express()
+const cors = require('cors')
 const database = require('./queries')
 const { check } = require('express-validator')
-app.use(cors)
+app.use(cors())
 app.use(express.json())
 app.use(
     express.urlencoded({

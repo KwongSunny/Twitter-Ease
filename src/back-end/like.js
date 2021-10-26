@@ -4,12 +4,12 @@ const twit = require('./twitter');
 
 console.log('bot is starting'); 
 
-function retweet()
+function like()
 {
     let params={
-        q:'#COVID19 min_retweets:20 lang:en', 
+        q:'#cat min_retweets:20 lang:en', 
         result_type:'recent',
-        count:5 // how many posts to retweet 
+        count:2 // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -32,5 +32,5 @@ function retweet()
 
 
 }
-retweet(); 
-setInterval(retweet,60000)
+like(); 
+// setInterval(like,60000)
