@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from '../stylesheets/App.module.css';
 import loginBoxStyles from '../stylesheets/LoginBox.module.css'
 import loginBoxUtils from '../utils/LoginBoxUtils';
+import backendUtils from '../interface';
 
 function LoginBox(props){
     const loggedIn = false;
@@ -32,7 +33,8 @@ function LoginBox(props){
                                 usernameInput = document.getElementById("username_field").value;
                                 passwordInput = document.getElementById("password_field").value;
                                 //check credentials
-                                //validCredentials = await accountsUtil.checkValidAccount(usernameInput, passwordInput);
+                                validCredentials = await backendUtils.checkValidAccount({email:usernameInput, password:passwordInput});
+                                console.log(validCredentials);
                                 if(validCredentials){
                                     document.getElementById("login_all").style.display = 'none';
                                 }
