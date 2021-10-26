@@ -241,17 +241,33 @@ function tweeting(txt){// same thing as tweet() but this takes a param
     })
 }
 
-// setting up a user stream 
+// ---------------- setting up a user stream 
 var stream = twit.twitterAPI.stream('user');
 stream.on ('follow', followed);  
 
 
-// anyone who followed, this will happen 
+// ---------------- anyone who followed, this will happen 
 function followed(eventMsg) {
     var name = eventMsg.source.name;
     var screenName = eventMsg. source.screen_name; 
     tweeting('@' + screenName + 'Thanks for following me')
 }
+
+
+// ---------------- scheduling tweets 
+function scheduleTweet(){
+   console.log('The bot is starting')
+
+
+   const job = schedule.scheduleJob({hour: 17, minute: 6}, function(){
+      twit.twitterAPI.post('statuses/update', {status:'testing123' },function(err,data,response) {
+           console.log(data); 
+       })
+      job.cancel(); // stop the repetition of the job 
+   });
+}
+
+
 
 
 
@@ -284,6 +300,7 @@ console.log('bot is starting');
 
 // followed(); 
 
+//scheduleTweet();
 
 
 
