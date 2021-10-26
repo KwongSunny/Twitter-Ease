@@ -4,12 +4,12 @@ const twit = require('./twitter');
 
 console.log('bot is starting'); 
 
-function retweet()
+function likeNretweet()
 {
     let params={
-        q:'#COVID19 min_retweets:20 lang:en', 
+        q:'#cats min_retweets:20 lang:en', 
         result_type:'recent',
-        count:5 // how many posts to retweet 
+        count:2 // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -18,12 +18,12 @@ function retweet()
                 {
                     for(let dat of tweets)
                     {
-                        let likeId = dat.id_str;
-                        twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, (err, response)=>
-                        twit.twitterAPI.post('favorites/create', {id: likeId}, (err, response)=>
+                        let tweetID = dat.id_str;
+                        twit.twitterAPI.post('statuses/retweet/:id', {id: tweetID}, (err, response)=>
+                        twit.twitterAPI.post('favorites/create', {id: tweetID}, (err, response)=>
                         {
                             if (response)
-                                console.log('Post liked & retweeted!!! with likeId/tweetID - ' + likeId)
+                                console.log('Post liked & retweeted!!! with likeId/tweetID - ' + tweetID)
                             if (err)
                                 console.log('Already LIKED & RETWEETED...')
                         }))
@@ -33,5 +33,5 @@ function retweet()
 
 
 }
-retweet(); 
-setInterval(retweet,60000)
+likeNretweet(); 
+// setInterval(likeNretweet,60000)
