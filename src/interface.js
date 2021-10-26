@@ -14,8 +14,9 @@ Functions that interface between front and back end
 async function checkValidAccount(accountInfo) {
     let email_part = accountInfo.email;
     let password_part = accountInfo.password;
+    
     try {
-        let response = await fetch(`twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`);
+        let response = await axios.get(`twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`);
         if(response.ok) {
             let jsonResponse = response.json();
             if(jsonResponse !== ''){
@@ -28,6 +29,7 @@ async function checkValidAccount(accountInfo) {
         console.log(error);
         return false;
     }
+    
 }
 
 console.log(checkValidAccount({email:"test123@gmail.com", password:"password"}));
