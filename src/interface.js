@@ -1,9 +1,7 @@
+import axios from 'axios';
 /*
 Functions that interface between front and back end
 */
-
-const twit_funcs = require("./back-end/dm");
-
 //BACKEND TODO:
 /*
     Front end gives the backend a Json with username and password values, check if these values are in the account database
@@ -14,23 +12,25 @@ const twit_funcs = require("./back-end/dm");
     priority: high (as of 10/4)
 */
 async function checkValidAccount(accountInfo) {
-    const email_part = accountInfo.email
-    const password_part = accountInfo.password
+    let email_part = accountInfo.email;
+    let password_part = accountInfo.password;
     try {
-        const response = new fetch(`twitter-ease-api.herokuapp.com/accounts/${email_part}/${password_part}`)
+        let response = await fetch(`twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`);
         if(response.ok) {
-            const jsonResponse = await response.json();
-            if(jsonResponse != ''){
-                return true
+            let jsonResponse = response.json();
+            if(jsonResponse !== ''){
+                return true;
             }
         }
-        throw new Error("Request failed!")
+        throw new Error("Request failed!");
     }
     catch(error) {
-        console.log(error)
-        return false
+        console.log(error);
+        return false;
     }
 }
+
+console.log(checkValidAccount({email:"test123@gmail.com", password:"password"}));
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
@@ -68,8 +68,7 @@ function postTweet(tweet) {}
 function retrieveTweets(twitterAccount, num) {}
 // ^ 
 
-
-module.export = {
+export default {
     checkValidAccount,
     registerAccount,
     postTweet,

@@ -6,7 +6,6 @@ import Sectionbar from './components/Sectionbar';
 //import * as accountsUtil from '../back-end/... account functions
 
 function App() {
-
   const [darkMode, setDarkMode] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState('accounts');
 

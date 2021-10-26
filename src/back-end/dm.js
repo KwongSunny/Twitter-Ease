@@ -1,6 +1,6 @@
 require("dotenv").config();
 const twit = require('./twitter');
-
+console.log("TESTING: " + process.env.REACT_APP_TEST);
 
 //-----------------SEND DIRECT MESSAGE
 
@@ -18,7 +18,7 @@ function sendDM(userID,message){
     })
 }
 
-sendDM(christy_o_o, "hi")
+//sendDM(christy_o_o, "hi")
 
 module.exports = {
     sendDM
