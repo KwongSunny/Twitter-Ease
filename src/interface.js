@@ -1,4 +1,4 @@
-import axios from 'axios';
+import fetch from 'node-fetch'
 /*
 Functions that interface between front and back end
 */
@@ -14,25 +14,23 @@ Functions that interface between front and back end
 async function checkValidAccount(accountInfo) {
     let email_part = accountInfo.email;
     let password_part = accountInfo.password;
-    
+
     try {
-        let response = await axios.get(`twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`);
+        const response = await fetch(`http://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`)
         if(response.ok) {
-            let jsonResponse = response.json();
-            if(jsonResponse !== ''){
-                return true;
+            const jsonResponse = await response.json();
+            if(jsonResponse != ''){
+                return true
             }
         }
-        throw new Error("Request failed!");
+        throw new Error("Request failed!")
     }
     catch(error) {
-        console.log(error);
-        return false;
+        return false
     }
-    
 }
 
-console.log(checkValidAccount({email:"test123@gmail.com", password:"password"}));
+console.log(await checkValidAccount({email:"test123@gmail.com",password:"password"}));
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
