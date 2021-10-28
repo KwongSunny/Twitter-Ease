@@ -3,8 +3,10 @@
     border-bottom: solid white 1px;
 }
 
-.AccountTweetButtons div{
-    vertical-align: middle;
+.AccountTweetButtons{
+    height: 40px;
+    display: grid;
+    grid-template-columns: 70% 10% 20%;
 }
 
 .AccountImageButton{
@@ -12,23 +14,19 @@
 }
 
 .AccountImageButton img{
-    height: 40px;
-    vertical-align: middle;
+    height: 30px;
 }
 
-.AccountTweetButton{
-    display:inline-block;
-    margin: 0px 10px;
-    padding: 8px 10px;
-    border: white 1px solid;
+.AccountScheduleButton{
+    float: left;
+}
+
+.AccountTweetButton span{
+    border: solid 1px white;
     border-radius: 30px;
-    background-color:#1DA1F2;
-    margin-right: 5%;
-}
-
-.AccountTweetButtons{
-    display: flex;
-    justify-content: flex-end;
+    padding: 6px 12px;
+    margin-top: -6px;
+    background-color: #1DA1F2;
 }
 
 .AccountPage{

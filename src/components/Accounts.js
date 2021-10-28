@@ -3,34 +3,46 @@ import twitterImagesButton from '../images/twitter_images_button.png';
 import accountStyles from '../stylesheets/Accounts.module.css';
 
 function Accounts(props){
+    const twitterAccounts = props.twitterAccounts;
+    const setTwitterAccounts = props.setTwitterAccounts;
+    
     //const accounts = utils.RetrieveAccounts(email, password); //backend
-    const [accounts, setAccounts] = React.useState([{email: 'testuser1@test.com', password: 'password1', handle: 'testuser1'}, {email: 'johndoe1@gmail.com', password: '123abc', handle: 'johndoe1'}]);
+    //const [accounts, setAccounts] = React.useState([{email: 'testuser1@test.com', password: 'password1', handle: 'testuser1'}, {email: 'johndoe1@gmail.com', password: '123abc', handle: 'johndoe1'}]);
     const [currentAccount, setCurrentAccount] = React.useState('');
     const [addingAccount, setAddingAccount] = React.useState(false);
     //currentAccount's recent tweets
     const [recentTweets, setRecentTweets] = React.useState([{value: 'tweet1'},{value: 'tweet2'},{value: 'tweet3'}]);
+    const [schedulingTweets, setSchedulingTweets] = React.useState(false);
 
-    let foundAccount = accounts.find((account) => account.handle === currentAccount);
-    if(!foundAccount) foundAccount = accounts[0];
+    let foundAccount = twitterAccounts.find((account) => account.handle === currentAccount);
+    if(!foundAccount) foundAccount = twitterAccounts[0];
 
     return(
         <div className = {accountStyles.AccountPage}>
             <div className = {accountStyles.AccountList}>
                 {//if there are accounts, show them
-                    accounts.length > 0 && <div>
+                    twitterAccounts.length > 0 && <div>
                         {
-                            accounts.map((account) => {
-                                return(
-                                    <div className = {accountStyles.AccountListItem} onClick = {() => {setCurrentAccount(account.handle); setAddingAccount(false)}}>
-                                        @{account.handle}
-                                    </div>)
+                            twitterAccounts.map((account) => {
+                                if(account.handle === currentAccount && !addingAccount){
+                                    return(
+                                        <div style = {{backgroundColor:"#202020"}} className = {accountStyles.AccountListItem} onClick = {() => {setCurrentAccount(account.handle); setAddingAccount(false)}}>
+                                            @{account.handle}
+                                        </div>)
+                                }
+                                else{
+                                    return(
+                                        <div className = {accountStyles.AccountListItem} onClick = {() => {setCurrentAccount(account.handle); setAddingAccount(false)}}>
+                                            @{account.handle}
+                                        </div>)
+                                }
                             })
                         }
                         <div className = {accountStyles.AccountListItem} onClick = {() => setAddingAccount(true)}>[+] Add an Account</div>
                     </div>
                 }
                 {//if there are no accounts
-                    accounts.length === 0 && <div>
+                    twitterAccounts.length === 0 && <div>
                         {
                             'Looks like you have no attached Twitter accounts.'
                         }
@@ -47,12 +59,12 @@ function Accounts(props){
                                     <textarea/><br/>
                                 </div>
                                 <div className = {accountStyles.AccountTweetButtons}>
+                                    <div></div>
                                     <div className = {accountStyles.AccountImageButton}><img styles = {{height:"100%"}}src = {twitterImagesButton}/></div>
-                                    <div className = {accountStyles.AccountTweetButton}>Tweet</div>
+                                    <div className = {accountStyles.AccountTweetButton}><span>Tweet</span></div>
                                 </div>
                             </div>
                             <div>
-                                <div className = {accountStyles.AccountButton}>Scheduled Tweets</div>
                             </div>
                             <div className = {accountStyles.RecentTweetsList}>
                                 {
@@ -82,8 +94,8 @@ function Accounts(props){
                                     document.getElementById("add_account_password").value = '';
                                     //addTwitterAccount returns JSON of the account if successfully added account, null otherwise
                                     //if(addTwitterAccount(twitterEmail, twitterPassword)){
-                                        accounts.push({email: twitterEmail, password: twitterPassword, handle: twitterEmail})
-                                        setAccounts(accounts);
+                                        setTwitterAccounts(twitterAccounts.push({email: twitterEmail, password: twitterPassword, handle: twitterEmail}))
+                                        //setAccounts(accounts);
                                         setAddingAccount(false);
                                     //}
                                     //else{

@@ -1,0 +1,21 @@
+.Scheduler{
+    display: absolute;
+
+}
+
+.ScheduleList{
+    border-right: solid 1px white;
+    overflow-y: scroll;
+}
+
+.ScheduleListItem{
+    font-size: 16px;
+    border-bottom: solid white 1px;
+    padding: 12px;
+}
+
+.SchedulerPage{
+    display:grid;
+    grid-template-columns: 30% 70%;
+    height:100%;
+}
