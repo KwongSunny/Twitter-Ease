@@ -3,7 +3,7 @@ const express = require('express')
 const PORT = process.env.PORT || 3000 // defaults to localhost -> 3000
 const app = express()
 const cors = require('cors')
-const database = require('./queries')
+const database = require('./queries.js')
 const { check } = require('express-validator')
 app.use(cors())
 app.use(express.json())
