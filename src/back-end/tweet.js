@@ -1,4 +1,4 @@
-require("dotenv").config();
+import pkg from 'dotenv';
 const twit = require('./twitter');
 const prompt = require('prompt-sync')({sigint: true});
 
