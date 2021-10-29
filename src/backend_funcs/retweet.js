@@ -13,7 +13,7 @@ function retweet()
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
-            let tweets=data.status;
+            let tweets=data.statuses
             if(!err)
                 {
                     for(let dat of tweets)
