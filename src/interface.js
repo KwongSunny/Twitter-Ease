@@ -27,7 +27,23 @@ async function checkValidAccount(accountInfo) {
     }
 }
 
-console.log(await checkValidAccount({email:"test123@gmail.com",password:"password2"}));
+
+//returns an array of jsons filled with twitter accounts bound to the twitter ease account
+/*
+    @parameters:
+        accountInfo - Json {email, password}
+    @returns:
+        [{
+            twitterHandle,
+            twitterEmail,
+            twitterPassword,
+        },...]
+        *Whatever you think we need, honesly you can just return every piece of information to make it easier
+*/
+function retrieveTwitterAccounts(accountInfo){
+
+
+}
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
@@ -65,8 +81,10 @@ function postTweet(tweet) {}
 function retrieveTweets(twitterAccount, num) {}
 // ^ 
 
+
 export default {
     checkValidAccount,
+    retrieveTwitterAccounts,
     registerAccount,
     postTweet,
     retrieveTweets
