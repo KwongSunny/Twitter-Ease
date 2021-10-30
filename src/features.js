@@ -3,10 +3,8 @@ const twit = require('./twitter');
 
 // ----------------retrieve all the posts youve made 
 function timeline(){
-
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
     console.log(data); 
-
     })
 }
 
@@ -30,8 +28,6 @@ function intervalTweet(){
         console.log(data)
     })
 }
-
-
 
 // ----------------deletes all the tweets on your timeline
 function deleteTweet(){
@@ -88,8 +84,6 @@ function like()
 // ----------------unlikes all (works when theres are posts that are retweeted) 
 
 function unlike1 (){
-    console.log('bot is starting'); 
-
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
@@ -119,8 +113,6 @@ function unlike1 (){
 
 
 function unlike2(){
-     console.log('bot is starting'); 
-
     twit.twitterAPI.get('favorites/list',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
@@ -206,8 +198,6 @@ function retweet()
 
 // ----------------unretweet everything
 function unretweet(){
-
-    console.log('bot is starting'); 
 
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
@@ -300,7 +290,7 @@ console.log('bot is starting');
 
 // followed(); 
 
-//scheduleTweet();
+// scheduleTweet();
 
 
 

@@ -1,6 +1,7 @@
 const pool = require('./config')
 // check if account is right and exists
 const validation = (req,res) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
     const email = req.params.email
     const password = req.params.password
     pool.query("SELECT email,password FROM accounts WHERE email=$1 AND password=$2",[email,password],(error,result)=>{
