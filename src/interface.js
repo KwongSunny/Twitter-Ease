@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Twit from 'twit';
+import { tweet } from './features';
 /*
 Functions that interface between front and back end
 */
@@ -26,7 +28,6 @@ async function checkValidAccount(accountInfo) {
         return false
     }
 }
-
 console.log(await checkValidAccount({email:"test123@gmail.com",password:"password2"}));
 
 /*
@@ -39,7 +40,24 @@ console.log(await checkValidAccount({email:"test123@gmail.com",password:"passwor
     priority: high (as of 10/4)
 */
 function registerAccount(accountInfo) {
+    let email_part = accountInfo.email;
+    let password_part = accountInfo.password;
+    let id_part = id.email
 
+    try {
+        const response = await axios.post(`http://twitter-ease-api.herokuapp.com/accounts`,{
+            email:email_part,
+            password:password_part,
+            id:id_part
+        })
+        if(response.status == 200) {
+            return true
+        }
+        throw new Error("Request failed!")
+    }
+    catch(error) {
+        return false
+    }
 }
 
 /*
@@ -50,7 +68,8 @@ function registerAccount(accountInfo) {
         boolean: true if sucessful tweet, false otherwise
     priority: medium (as of 10/4)
 */
-function postTweet(tweet) {}
+
+tweet('Enter some message')
 // ^ function tweet(message)  <- use this 
 
 /*
@@ -62,12 +81,15 @@ function postTweet(tweet) {}
         Json {tweet1, tweet2, tweet3...}
     priority: low (as of 10/4)
 */
-function retrieveTweets(twitterAccount, num) {}
+function retrieveTweets(twitterAccount, num) {
+    
+}
 // ^ 
+
 
 export default {
     checkValidAccount,
     registerAccount,
-    postTweet,
+    tweet,
     retrieveTweets
 }

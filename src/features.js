@@ -1,5 +1,5 @@
 require("dotenv").config();
-const twit = require('./twitter');
+const twit = require("twit");
 
 // ----------------retrieve all the posts youve made 
 function timeline(){
@@ -9,11 +9,13 @@ function timeline(){
 }
 
 // ----------------posts a tweet 
-function tweet(){ 
-    var message = 'Testing123';
+function tweet(message){ 
+    const input = prompt(message)
+    if(input != null) {
     twit.twitterAPI.post('statuses/update', {status:message },function(err,data,response) {
         console.log(data)
     })
+}
 }
 
 
@@ -258,14 +260,20 @@ function scheduleTweet(){
 }
 
 
-
-
-
-
-
-
-
-console.log('bot is starting'); 
+module.exports = {
+    timeline,
+    tweet,
+    deleteTweet,
+    intervalTweet,
+    like,
+    unlike1,
+    unlike2,
+    likeNretweet,
+    retweet,
+    unretweet,
+    followed,
+    scheduleTweet
+}
 // timeline(); 
 
 // tweet(); 

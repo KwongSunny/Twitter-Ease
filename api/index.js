@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors')
 const database = require('./queries')
 const { check } = require('express-validator')
+
 app.use(cors())
 app.use(express.json())
 app.use(
