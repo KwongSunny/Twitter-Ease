@@ -1,5 +1,9 @@
+*{
+    color:lightgray;
+}
+
 .App{
-    background-color: black;
+    background-color: #15202B;
     color:white;
     position: fixed;
     height:100%;
@@ -19,5 +23,5 @@
 
 .Page{
     top: 0px;
-    height: calc(100% - 50px);
+    height: calc(100vh - 50px);
 }

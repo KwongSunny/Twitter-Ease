@@ -47,14 +47,14 @@ function LoginBox(props){
                                 }
                             }
                         }
-                        onMouseOver = {() => {
-                            setTimeout(function incrementColor(){
-                                if(document.getElementById('loginButton').style.backgroundColor !== '#1DA1F2'){
-                                    //increment the hex value
-                                    //incrementColor();
-                                }
-                            }, 10)
-                        }}
+                        // onMouseOver = {() => {
+                        //     setTimeout(function incrementColor(){
+                        //         if(document.getElementById('loginButton').style.backgroundColor !== '#1DA1F2'){
+                        //             //increment the hex value
+                        //             //incrementColor();
+                        //         }
+                        //     }, 10)
+                        // }}
                         // onMouseLeave = {() => {
                         //     console.log('bye');
                         // }}

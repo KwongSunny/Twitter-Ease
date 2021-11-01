@@ -12,7 +12,7 @@ function Sectionbar(props){
                 sections.map((section) => {
                     if(currentPage === section){
                         return(
-                            <div style = {{textDecoration: "underline"}} onClick = {() => {setCurrentPage(section)}}>
+                            <div style = {{textDecoration: "underline", textUnderlineOffset: "5px"}} onClick = {() => {setCurrentPage(section)}}>
                                 {section}
                             </div>
                         );

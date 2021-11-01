@@ -4,9 +4,22 @@ import styles from '../stylesheets/Scheduler.module.css';
 function Scheduler(props){
     const twitterAccounts = props.twitterAccounts;
     const scheduledTweetsList = props.scheduledTweets;
-    const setScheduledTweeets = props.setScheduledTweeets;
+    const setScheduledTweets = props.setScheduledTweets;
     const [currentSchedule, setCurrentSchedule] = React.useState('');
-    const [addingSchedule, setAddingSchedule] = React.useState(false);
+    const [addingSchedule, setAddingSchedule] = React.useState(true);
+
+    /*
+        Schedule{
+            name: 'schedule1',
+            text: 'hello world!',
+            day: '0010001', (each digit represents a dotw, ex: 1 is wednesday and sunday)
+            time: '23:59',
+            accounts:
+                [
+                    'johndoe1', 'test1', 'twittereaseofficial'
+                ] (list of twitter handles from the list of twitter accounts)
+        }
+    */
 
     return(
         <div className = {styles.SchedulerPage}>
@@ -17,7 +30,7 @@ function Scheduler(props){
                             scheduledTweetsList.map((schedule) => {
                                 return(
                                     <div className = {styles.ScheduleListItem} onClick = {() => {setCurrentSchedule(schedule.name); setAddingSchedule(false)}}>
-                                        Schedule a
+                                        {schedule.name}
                                     </div>)
                             })
                         }
@@ -35,62 +48,47 @@ function Scheduler(props){
             <div>
                 {//if the currentSchedule exists, reveal information about it
                     !addingSchedule && <div className = {styles.ScheduleInfo}>
-                        <div><p></p></div>
-                        <div>
-                            <div className = {styles.ScheduleDates}>
-                                <div>
-                                    Please give your Schedule a name <br/>
-                                    <textarea className = {styles.scheduleNameInput}/><br/>
-                                    What would you like this scheduler to tweet? <br/>
-                                    <textarea className = {styles.scheduleTextInput}/><br/>
-                                    What days do you want this scheduler to run on?<br/>
-                                    <form>
-                                        <input type = 'checkbox'/><span>Mon</span>
-                                        <input type = 'checkbox'/><span>Tue</span>
-                                        <input type = 'checkbox'/><span>Wed</span>
-                                        <input type = 'checkbox'/><span>Thur</span>
-                                        <input type = 'checkbox'/><span>Fri</span>
-                                        <input type = 'checkbox'/><span>Sat</span>
-                                        <input type = 'checkbox'/><span>Sun</span>
-                                    </form><br/>
-                                
-                                    What time do you want the scheduler to post?
-                                    <input type = 'time'/><br/>
-                                     <div>Apply</div>
-                                 </div>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
+                        Empty Schedule
                     </div>
 
                 }
                 {//if currentAccount does not exist, then show a UI to add an account
                     addingSchedule && <div className = {styles.AddingSchedule}>
-                        <div>
-                            <div className = {styles.ScheduleDates}>
-                                <div>
-                                    Please give your Schedule a name <br/>
-                                    <textarea className = {styles.scheduleNameInput}/><br/>
-                                    What would you like this scheduler to tweet? <br/>
-                                    <textarea className = {styles.scheduleTextInput}/><br/>
-                                    What days do you want this scheduler to run on?<br/>
-                                    <form>
-                                        <input type = 'checkbox'/><span>Mon</span>
-                                        <input type = 'checkbox'/><span>Tue</span>
-                                        <input type = 'checkbox'/><span>Wed</span>
-                                        <input type = 'checkbox'/><span>Thur</span>
-                                        <input type = 'checkbox'/><span>Fri</span>
-                                        <input type = 'checkbox'/><span>Sat</span>
-                                        <input type = 'checkbox'/><span>Sun</span>
-                                    </form><br/>
-                                
-                                    What time do you want the scheduler to post?<br/>
-                                    <input type = 'time'/><br/>
-                                     <div>Apply</div>
-                                 </div>
-                            </div>
+                        Schedule Name<br/>
+                        <textarea className = {styles.ScheduleNameInput}/><br/>
+                        What would you like this scheduler to tweet? <br/>
+                        <textarea className = {styles.ScheduleTextInput}/><br/>
+                        What days do you want this scheduler to run on?<br/>
+                        <form className = {styles.DotwButtons}>
+                            <span className = {styles.DotwButton}>M</span>
+                            <span className = {styles.DotwButton}>T</span>
+                            <span className = {styles.DotwButton}>W</span>
+                            <span className = {styles.DotwButton}>T</span>
+                            <span className = {styles.DotwButton}>F</span>
+                            <span className = {styles.DotwButton}>S</span>
+                            <span className = {styles.DotwButton}>S</span>
+                        </form>
+                    
+                        What time do you want the scheduler to post?<br/>
+                        <div className = {styles.TimeDiv}>
+                            <input type = 'time' value = '12:00'/><br/>
                         </div>
+
+                        Select the Twitter Accounts you want this schedule to be added to:<br/>
+                        <div className = {styles.TwitterAccountList}>
+                            {
+                                twitterAccounts.map((account) => {
+                                    return(
+                                        <div className = {styles.TwitterAccount}>
+                                            {account.handle}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+
+
+                        <div style = {{marginTop:'20px'}}><span className = {styles.AddScheduleButton}>Add</span></div>
                     </div>
                 }
             </div>

@@ -1,8 +1,9 @@
 .Sectionbar div{
     padding: 10px;
+    cursor:pointer;
 }
 
 .Sectionbar{
-    border-right: white 1px solid;
+    border-right: gray 2px solid;
     padding: 20px;
 }

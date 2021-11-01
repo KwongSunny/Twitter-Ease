@@ -1,16 +1,21 @@
+.AddScheduleButton{
+    border: solid 1px gray;
+    border-radius: 30px;
+    padding: 6px 12px;
+    background-color: #1DA1F2;
+}
+
 .Scheduler{
     display: absolute;
-
 }
 
 .ScheduleList{
-    border-right: solid 1px white;
-    overflow-y: scroll;
+    border-right: solid 2px gray;
 }
 
 .ScheduleListItem{
     font-size: 16px;
-    border-bottom: solid white 1px;
+    border-bottom: solid gray 1px;
     padding: 12px;
 }
 
@@ -18,4 +23,67 @@
     display:grid;
     grid-template-columns: 30% 70%;
     height:100%;
+}
+
+.AddingSchedule{
+    padding: 30px;
+}
+
+textarea{
+    background-color:#25303B;
+    height: 1.2em;
+    color: white;
+    padding: 5px;
+    resize: none;
+    width: calc(100% - 15px);
+}
+
+.ScheduleTextInput{
+    height: 4em;
+}
+
+.DotwButton{
+    height: 40px;
+    min-width: 40px;
+    background-color: 35404B;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DotwButton:hover{
+    background-color: #1DA1F2;
+    cursor: pointer;
+}
+
+.DotwButtons{
+    display: flex;
+    padding: 10px 0px;
+}
+
+.DotwButtons span{
+    margin: 0px 10px;
+}
+
+.TimeDiv{
+    display:flex;
+    padding: 10px 0px;
+}
+
+.TimeDiv input{
+    background-color:#35404B;
+    color: white;
+}
+
+.TwitterAccount{
+    border: solid gray 1px;
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.TwitterAccountList{
+    min-height: 30vh;
+    width: 80%;
+    border: solid gray 2px;
 }

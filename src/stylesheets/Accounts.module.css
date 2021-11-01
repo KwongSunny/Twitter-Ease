@@ -1,6 +1,6 @@
 .AccountInfo{
     padding: 30px 0px;
-    border-bottom: solid white 1px;
+    border-bottom: solid gray 1px;
 }
 
 .AccountTweetButtons{
@@ -15,35 +15,35 @@
 
 .AccountImageButton img{
     height: 30px;
-}
-
-.AccountScheduleButton{
-    float: left;
+    cursor: pointer;
 }
 
 .AccountTweetButton span{
-    border: solid 1px white;
+    border: solid 1px gray;
     border-radius: 30px;
     padding: 6px 12px;
     margin-top: -6px;
     background-color: #1DA1F2;
+    cursor: pointer;
 }
 
 .AccountPage{
     display:grid;
     grid-template-columns: 30% 70%;
     height:100%;
+    max-height: calc(100vh - 50px);
 }
 
 .AccountList{
-    border-right: solid 1px white;
-    overflow-y: scroll;
+    border-right: solid 2px gray;
+    max-height: inherit;
 }
 
 .AccountListItem{
     font-size: 16px;
-    border-bottom: solid white 1px;
+    border-bottom: solid gray 1px;
     padding: 12px;
+    cursor:pointer;
 }
 
 .AccountItem{
@@ -54,7 +54,7 @@
 
 .AccountItemHandle{
     text-align: center;
-    border-bottom:solid white 1px;
+    border-bottom:solid gray 2px;
 }
 
 .AccountTweetBox{
@@ -65,14 +65,14 @@
 
 .AccountTweetBox textarea{
     width: 100%;
-    background-color: #111111;
+    background-color: #25303B;
     color: white;
     height:100px;
     resize:none;
 }
 
 .AddAccount{
-    border: solid white 1px;
+    border: solid gray 1px;
     border-radius: 30px;    
     display:inline-block;
     padding: 8px 10px;
@@ -82,4 +82,17 @@
     margin-top: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.RecentTweet{
+    border: solid gray 1px;
+    padding: 10px;
+}
+
+.RecentTweetsList{
+    min-height: 30vh;
+    max-height: 30vh;
+    border: solid 2px gray;
+    margin: 30px;
+    overflow: auto;
 }
