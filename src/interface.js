@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Twit from 'twit';
 /*
 Functions that interface between front and back end
 */
@@ -13,10 +14,8 @@ Functions that interface between front and back end
 */
 async function checkValidAccount(accountInfo) {
     let email_part = accountInfo.email;
-    let password_part = accountInfo.password;
-
-    try {
-        const response = await axios.get(`http://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`)
+    let password_part = accountInfo.password;    try {
+        const response = axios.get(`http://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`)
         if(response.status == 200) {
             return true
         }
@@ -25,24 +24,6 @@ async function checkValidAccount(accountInfo) {
     catch(error) {
         return false
     }
-}
-
-
-//returns an array of jsons filled with twitter accounts bound to the twitter ease account
-/*
-    @parameters:
-        accountInfo - Json {email, password}
-    @returns:
-        [{
-            twitterHandle,
-            twitterEmail,
-            twitterPassword,
-        },...]
-        *Whatever you think we need, honesly you can just return every piece of information to make it easier
-*/
-function retrieveTwitterAccounts(accountInfo){
-
-
 }
 
 /*
@@ -55,7 +36,24 @@ function retrieveTwitterAccounts(accountInfo){
     priority: high (as of 10/4)
 */
 function registerAccount(accountInfo) {
+    let email_part = accountInfo.email;
+    let password_part = accountInfo.password;
+    let id_part = accountInfo.id;
 
+    try {
+        const response = axios.post(`http://twitter-ease-api.herokuapp.com/accounts`,{
+            email:email_part,
+            password:password_part,
+            id:id_part
+        })
+        if(response.status == 200) {
+            return true
+        }
+        throw new Error("Request failed!")
+    }
+    catch(error) {
+        return false
+    }
 }
 
 /*
@@ -66,7 +64,7 @@ function registerAccount(accountInfo) {
         boolean: true if sucessful tweet, false otherwise
     priority: medium (as of 10/4)
 */
-function postTweet(tweet) {}
+
 // ^ function tweet(message)  <- use this 
 
 /*
@@ -78,14 +76,14 @@ function postTweet(tweet) {}
         Json {tweet1, tweet2, tweet3...}
     priority: low (as of 10/4)
 */
-function retrieveTweets(twitterAccount, num) {}
+function retrieveTweets(twitterAccount, num) {
+    
+}
 // ^ 
 
 
 export default {
     checkValidAccount,
-    retrieveTwitterAccounts,
     registerAccount,
-    postTweet,
     retrieveTweets
 }
