@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Twit from 'twit';
+import { tweet } from './features';
 /*
 Functions that interface between front and back end
 */
@@ -26,24 +28,7 @@ async function checkValidAccount(accountInfo) {
         return false
     }
 }
-
-
-//returns an array of jsons filled with twitter accounts bound to the twitter ease account
-/*
-    @parameters:
-        accountInfo - Json {email, password}
-    @returns:
-        [{
-            twitterHandle,
-            twitterEmail,
-            twitterPassword,
-        },...]
-        *Whatever you think we need, honesly you can just return every piece of information to make it easier
-*/
-function retrieveTwitterAccounts(accountInfo){
-
-
-}
+console.log(await checkValidAccount({email:"test123@gmail.com",password:"password2"}));
 
 /*
     Backend must add the account information to the account database, you have to generate a UID for each user and also check that this email doesn't already exist
@@ -55,7 +40,24 @@ function retrieveTwitterAccounts(accountInfo){
     priority: high (as of 10/4)
 */
 function registerAccount(accountInfo) {
+    let email_part = accountInfo.email;
+    let password_part = accountInfo.password;
+    let id_part = id.email
 
+    try {
+        const response = await axios.post(`http://twitter-ease-api.herokuapp.com/accounts`,{
+            email:email_part,
+            password:password_part,
+            id:id_part
+        })
+        if(response.status == 200) {
+            return true
+        }
+        throw new Error("Request failed!")
+    }
+    catch(error) {
+        return false
+    }
 }
 
 /*
@@ -66,7 +68,8 @@ function registerAccount(accountInfo) {
         boolean: true if sucessful tweet, false otherwise
     priority: medium (as of 10/4)
 */
-function postTweet(tweet) {}
+
+tweet('Enter some message')
 // ^ function tweet(message)  <- use this 
 
 /*
@@ -78,14 +81,15 @@ function postTweet(tweet) {}
         Json {tweet1, tweet2, tweet3...}
     priority: low (as of 10/4)
 */
-function retrieveTweets(twitterAccount, num) {}
+function retrieveTweets(twitterAccount, num) {
+    
+}
 // ^ 
 
 
 export default {
     checkValidAccount,
-    retrieveTwitterAccounts,
     registerAccount,
-    postTweet,
+    tweet,
     retrieveTweets
 }
