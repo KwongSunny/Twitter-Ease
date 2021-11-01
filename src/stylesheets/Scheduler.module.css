@@ -17,6 +17,7 @@
     font-size: 16px;
     border-bottom: solid gray 1px;
     padding: 12px;
+    cursor: pointer;
 }
 
 .SchedulerPage{
@@ -35,7 +36,7 @@ textarea{
     color: white;
     padding: 5px;
     resize: none;
-    width: calc(100% - 15px);
+    width: 80%;
 }
 
 .ScheduleTextInput{
@@ -45,7 +46,7 @@ textarea{
 .DotwButton{
     height: 40px;
     min-width: 40px;
-    background-color: 35404B;
+    background-color: transparent;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -76,8 +77,8 @@ textarea{
     color: white;
 }
 
-.TwitterAccount{
-    border: solid gray 1px;
+.TwitterAccountListItem{
+    border-bottom: solid gray 1px;
     width: 100%;
     padding: 10px 0px;
 }

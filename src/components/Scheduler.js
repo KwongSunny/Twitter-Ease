@@ -5,8 +5,15 @@ function Scheduler(props){
     const twitterAccounts = props.twitterAccounts;
     const scheduledTweetsList = props.scheduledTweets;
     const setScheduledTweets = props.setScheduledTweets;
-    const [currentSchedule, setCurrentSchedule] = React.useState('');
-    const [addingSchedule, setAddingSchedule] = React.useState(true);
+    const [currentScheduleName, setCurrentScheduleName] = React.useState(scheduledTweetsList[0]?scheduledTweetsList[0].name:'');
+    const currentSchedule = currentScheduleName !== ''? scheduledTweetsList.find(schedule => schedule.name === currentScheduleName):
+        {  
+            name: '',
+            text: '',
+            day: '0000000',
+            time: '12:00',
+            accounts: []
+        }
 
     /*
         Schedule{
@@ -28,13 +35,22 @@ function Scheduler(props){
                     scheduledTweetsList.length > 0 && <div>
                         {
                             scheduledTweetsList.map((schedule) => {
-                                return(
-                                    <div className = {styles.ScheduleListItem} onClick = {() => {setCurrentSchedule(schedule.name); setAddingSchedule(false)}}>
-                                        {schedule.name}
-                                    </div>)
+                                if(currentScheduleName === schedule.name){
+                                    return(
+                                        <div style = {{backgroundColor: '#'}} className = {styles.ScheduleListItem} onClick = {() => {setCurrentScheduleName(schedule.name)}}>
+                                            {schedule.name}
+                                        </div>
+                                    )
+                                }
+                                else{
+                                    return(
+                                        <div className = {styles.ScheduleListItem} onClick = {() => {setCurrentScheduleName(schedule.name)}}>
+                                            {schedule.name}
+                                        </div>)
+                                }
                             })
                         }
-                        <div className = {styles.ScheduleListItem} onClick = {() => {setAddingSchedule(true)}}>[+] Add a Scheduled Tweet</div>
+                        <div className = {styles.ScheduleListItem} onClick = {() => {setCurrentScheduleName('')}}>[+] Add a Scheduled Tweet</div>
                     </div>
                 }
                 {//if there are no scheduled tweets
@@ -47,26 +63,124 @@ function Scheduler(props){
             </div>
             <div>
                 {//if the currentSchedule exists, reveal information about it
-                    !addingSchedule && <div className = {styles.ScheduleInfo}>
+                    currentScheduleName !== ''  && <div className = {styles.ScheduleInfo}>
                         Empty Schedule
                     </div>
 
                 }
                 {//if currentAccount does not exist, then show a UI to add an account
-                    addingSchedule && <div className = {styles.AddingSchedule}>
-                        Schedule Name<br/>
+                    currentScheduleName === ''  && <div className = {styles.AddingSchedule}>
+                        <div style = {{margin: '10px 0px'}}>Schedule Name</div>
                         <textarea className = {styles.ScheduleNameInput}/><br/>
-                        What would you like this scheduler to tweet? <br/>
+                        <div style = {{margin: '10px 0px'}}>What would you like this scheduler to tweet?</div>
                         <textarea className = {styles.ScheduleTextInput}/><br/>
-                        What days do you want this scheduler to run on?<br/>
+                        <div style = {{marginTop: '10px'}}>What days do you want this scheduler to run on?</div>
                         <form className = {styles.DotwButtons}>
-                            <span className = {styles.DotwButton}>M</span>
-                            <span className = {styles.DotwButton}>T</span>
-                            <span className = {styles.DotwButton}>W</span>
-                            <span className = {styles.DotwButton}>T</span>
-                            <span className = {styles.DotwButton}>F</span>
-                            <span className = {styles.DotwButton}>S</span>
-                            <span className = {styles.DotwButton}>S</span>
+                            <span id = "Mon_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Mon_Button");
+                                if(currentSchedule.day.substring(0,1) === '0'){
+                                    currentSchedule.day = '1' + currentSchedule.day.substring(1);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = '0' + currentSchedule.day.substring(1);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>M</span>
+                            <span id = "Tue_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Tue_Button");
+                                if(currentSchedule.day.substring(1,2) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 1) + '1' + currentSchedule.day.substring(2);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 1) + '0' + currentSchedule.day.substring(2);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>T</span>
+                            <span id = "Wed_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Wed_Button");
+                                if(currentSchedule.day.substring(2,3) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 2) + '1' + currentSchedule.day.substring(3);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 2) + '0' + currentSchedule.day.substring(3);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>W</span>
+                            <span id = "Thu_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Thu_Button");
+                                if(currentSchedule.day.substring(3,4) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 3) + '1' + currentSchedule.day.substring(4);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 3) + '0' + currentSchedule.day.substring(4);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>T</span>
+                            <span id = "Fri_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Fri_Button");
+                                if(currentSchedule.day.substring(4,5) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 4) + '1' + currentSchedule.day.substring(5);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 4) + '0' + currentSchedule.day.substring(5);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>F</span>
+                            <span id = "Sat_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Sat_Button");
+                                if(currentSchedule.day.substring(5,6) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 5) + '1' + currentSchedule.day.substring(6);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 5) + '0' + currentSchedule.day.substring(6);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>S</span>
+                            <span id = "Sun_Button" className = {styles.DotwButton} onClick = {() => {
+                                let button = document.getElementById("Sun_Button");
+                                if(currentSchedule.day.substring(6,7) === '0'){
+                                    currentSchedule.day = currentSchedule.day.substring(0, 6) + '1' + currentSchedule.day.substring(7);
+                                    button.style.backgroundColor = '#1DA1F2';
+                                    button.style.color = 'white';
+                                }
+                                else{
+                                    currentSchedule.day = currentSchedule.day.substring(0, 6) + '0' + currentSchedule.day.substring(7);
+                                    button.style.backgroundColor = 'transparent';
+                                    button.style.color = 'lightgray';
+                                }
+                                console.log(currentSchedule);
+                            }
+                            }>S</span>
                         </form>
                     
                         What time do you want the scheduler to post?<br/>
@@ -74,12 +188,12 @@ function Scheduler(props){
                             <input type = 'time' value = '12:00'/><br/>
                         </div>
 
-                        Select the Twitter Accounts you want this schedule to be added to:<br/>
+                        <div style = {{margin: '10px 0px'}}>Applicable Twitter Accounts</div>
                         <div className = {styles.TwitterAccountList}>
                             {
                                 twitterAccounts.map((account) => {
                                     return(
-                                        <div className = {styles.TwitterAccount}>
+                                        <div className = {styles.TwitterAccountListItem}>
                                             {account.handle}
                                         </div>
                                     )

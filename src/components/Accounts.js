@@ -22,7 +22,7 @@ function Accounts(props){
 
     return(
         <div className = {styles.AccountPage}>
-            <div className = {styles.AccountList} data-simplebar>
+            <div className = {styles.AccountList} data-simplebar data-simplebar-auto-hide = "false">
                 {//if there are accounts, show them
                     twitterAccounts.length > 0 && <div>
                         {
@@ -79,7 +79,8 @@ function Accounts(props){
                             <div>
                             </div>
                             <div style = {{padding: '30px 0px 0px 30px'}}>Recent Tweets</div>
-                            <div className = {styles.RecentTweetsList}>
+                            <div className = {styles.RecentTweetsList} data-simplebar data-simplebar-auto-hide="false">
+                                <div>
                                 {
                                     twitterAccounts.find(account => account.handle === currentAccount)?.recentTweets.map((tweet, index) => {
                                         return(
@@ -102,6 +103,7 @@ function Accounts(props){
                                         )                                                                              
                                     })
                                 }
+                                </div>
                             </div>
                         </div>
                     </div>

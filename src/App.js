@@ -27,18 +27,17 @@ function App() {
           recentTweets: [
             {id: '9876', text: 'How to use Google', liked: false, retweeted: false},
             {id: '8765', text: 'Google for furniture', liked: false, retweeted: false},
-            {id: '3892', text: 'How to internet', liked: false, retweeted: false}]
+            {id: '3892', text: 'How to internet', liked: true, retweeted: true}]
         },
         {
           email: 'twittereaseofficial@gmail.com', 
           password: 'nvi13o1l', 
           handle: 'twittereaseofficial', 
           recentTweets: [
-            {id: '4259', text: 'How to use Google', liked: false, retweeted: false},
-            {id: '1352', text: 'Google for furniture', liked: false, retweeted: false},
-            {id: '3029', text: 'How to internet', liked: false, retweeted: false}]
-        },
-      
+            {id: '4259', text: 'Remember to like and subscribe', liked: true, retweeted: true},
+            {id: '1352', text: 'Use our app!', liked: false, retweeted: false},
+            {id: '3029', text: '#twitterease is easy', liked: false, retweeted: false}]
+        }
       ]);
   const [scheduledTweets, setScheduledTweets] = React.useState(
     [
