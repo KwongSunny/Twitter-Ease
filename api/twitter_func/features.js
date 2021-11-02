@@ -9,17 +9,22 @@ const twit = require('./twitter')
 }
 
 // ----------------posts a tweet 
+
  function tweet(message) { 
         twit.twitterAPI.post('statuses/update', {status:message},function(err,data,response) {
-        console.log(data)
+            console.log(data)
+        }
+        )
+    }
 
-    })
-}
+
 
 // ----------------interval tweeting 
- function intervalTweet(){
+
 
     let message = 'test123';
+
+function intervalTweet(message){
 
     var r = Math.floor(Math.random()*100); 
 
@@ -52,13 +57,15 @@ const twit = require('./twitter')
 }
 
 // ----------------searches for a specific tag to like 
- function like()
+
+function like(query, resultType, count)
 {
     let params={
-        q:'#cat min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:2 // how many posts to retweet 
+        q:query,
+        result_type:resultType,
+        count:count // how many posts to retweet 
     }
+
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
@@ -136,12 +143,14 @@ const twit = require('./twitter')
 
 // ----------------likes & retweets at the same time given a keyword
 
- function likeNretweet()
+
+function likeNretweet(query, resultType, count)
+
 {
     let params={
-        q:'#cats min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:2 // how many posts to retweet 
+        q:query, 
+        result_type:resultType,
+        count:count // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -167,12 +176,13 @@ const twit = require('./twitter')
 }
 // ----------------retweets posts given a key word
 
- function retweet()
+function retweet(query, resultType, count)
+
 {
     let params={
-        q:'#COVID19 min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:10 // how many posts to retweet 
+        q:query, 
+        result_type:resultType,
+        count:count// how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -243,12 +253,14 @@ stream.on ('follow', followed);
 
 
 // ---------------- scheduling tweets 
- function scheduleTweet(){
+
+function scheduleTweet(message,hour, minute){
+
    console.log('The bot is starting')
 
 
-   const job = schedule.scheduleJob({hour: 17, minute: 6}, function(){
-      twit.twitterAPI.post('statuses/update', {status:'testing123' },function(err,data,response) {
+   const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
+      twit.twitterAPI.post('statuses/update', {status: message },function(err,data,response) {
            console.log(data); 
        })
       job.cancel(); // stop the repetition of the job 
