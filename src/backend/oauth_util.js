@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key || process.env.api_key
 const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key || process.env.api_secret
-const TEMPLATE = fs.readFileSync(path.resolve(__dirname, 'client', 'template.html'), { encoding: 'utf8' })
+const TEMPLATE = fs.readFileSync(path.resolve('public', 'index.html'), { encoding: 'utf8' })
 
 const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',

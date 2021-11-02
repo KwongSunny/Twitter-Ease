@@ -30,7 +30,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
 
   app.get('/', home)
   // path to client 
-  app.use(express.static(path.resolve(__dirname, 'client')))
+  app.use(express.static(path.resolve('public', 'index.html')))
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
