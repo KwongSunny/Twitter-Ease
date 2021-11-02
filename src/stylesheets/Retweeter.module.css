@@ -1,0 +1,64 @@
+.AccountList{
+    border-right: solid 2px gray;
+    max-height: inherit;
+}
+
+.AccountListItem{
+    font-size: 16px;
+    border-bottom: solid gray 1px;
+    padding: 12px;
+    cursor:pointer;
+}
+
+.AddRetweetButton{
+    border: solid 1px gray;
+    border-radius: 30px;
+    padding: 6px 12px;
+    background-color: #1DA1F2;
+    color: white;
+    cursor: pointer;
+}
+
+.RetweetPage{
+    display:grid;
+    grid-template-columns: 30% 70%;
+    height:100%;
+    max-height: calc(100vh - 50px);
+}
+
+.RetweetTextInput{
+    height: 4em;
+}
+
+.AccountItemHandle{
+    text-align: center;
+    border-bottom:solid gray 2px;
+}
+
+textarea{
+    background-color:#25303B;
+    height: 1.2em;
+    color: white;
+    padding: 5px;
+    resize: none;
+    width: 80%;
+}
+
+.AddingRetweet{
+    padding: 30px;
+}
+
+.TwitterAccountListItem{
+    border-bottom: solid gray 1px;
+    width: calc(100% - 10px);
+    padding: 10px 0px;
+    cursor: pointer;
+    padding-left: 10px;
+}
+
+.TwitterAccountList{
+    min-height: 30vh;
+    max-height: 30vh;
+    width: 80%;
+    border: solid gray 2px;
+}

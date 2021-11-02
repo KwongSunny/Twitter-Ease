@@ -7,7 +7,7 @@ function Scheduler(props){
     const setScheduledTweets = props.setScheduledTweets;
     const currentScheduleName = props.currentScheduleName;
     const setCurrentScheduleName = props.setCurrentScheduleName;
-    const currentSchedule = currentScheduleName !== ''? scheduledTweetsList.find(schedule => schedule.name === currentScheduleName):
+    const currentSchedule = (currentScheduleName !== '')? scheduledTweetsList.find(schedule => schedule.name === currentScheduleName):
         {  
             name: '',
             text: '',
@@ -27,7 +27,7 @@ function Scheduler(props){
                 ] (list of twitter handles from the list of twitter accounts)
         }
     */
-
+        console.log(currentSchedule);
     return(
         <div className = {styles.SchedulerPage}>
             <div className = {styles.ScheduleList}>
@@ -37,7 +37,7 @@ function Scheduler(props){
                             scheduledTweetsList.map((schedule) => {
                                 if(currentScheduleName === schedule.name){
                                     return(
-                                        <div style = {{backgroundColor: '#'}} className = {styles.ScheduleListItem} onClick = {() => {setCurrentScheduleName(schedule.name)}}>
+                                        <div style = {{backgroundColor: '#25303B'}} className = {styles.ScheduleListItem} key = {currentScheduleName + 'ScheduleItem'} onClick = {() => {setCurrentScheduleName(schedule.name)}}>
                                             {schedule.name}
                                         </div>
                                     )
@@ -65,12 +65,13 @@ function Scheduler(props){
                 {//if the currentSchedule exists, reveal information about it
                     currentScheduleName !== ''  && <div className = {styles.AddingSchedule}>
                     <div style = {{margin: '10px 0px'}}>Schedule Name</div>
-                    <textarea id = 'NewScheduleName' className = {styles.ScheduleNameInput} defaultValue = {currentSchedule.name} readOnly = {false}/><br/>
+                    <textarea id = 'NewScheduleName' className = {styles.ScheduleNameInput} defaultValue = {currentSchedule.name} key = {currentScheduleName + 'Name'}/><br/>
                     <div style = {{margin: '10px 0px'}}>What would you like this scheduler to tweet?</div>
-                    <textarea id = 'NewScheduleText' className = {styles.ScheduleTextInput} defaultValue = {currentSchedule.text}/><br/>
+                    <textarea id = 'NewScheduleText' className = {styles.ScheduleTextInput} defaultValue = {currentSchedule.text} key = {currentScheduleName + 'Text'}/><br/>
                     <div style = {{marginTop: '10px'}}>What days do you want this scheduler to run on?</div>
                     <form className = {styles.DotwButtons}>
-                        <span id = "Mon_Button" style = {(currentSchedule.day.substring(0,1) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Mon_Button" style = {(currentSchedule.day.substring(0,1) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Mon'}
+                        onClick = {() => {
                             let button = document.getElementById("Mon_Button");
                             if(currentSchedule.day.substring(0,1) === '0'){
                                 currentSchedule.day = '1' + currentSchedule.day.substring(1);
@@ -85,7 +86,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>M</span>
-                        <span id = "Tue_Button" style = {(currentSchedule.day.substring(1,2) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Tue_Button" style = {(currentSchedule.day.substring(1,2) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Tue'}
+                        onClick = {() => {
                             let button = document.getElementById("Tue_Button");
                             if(currentSchedule.day.substring(1,2) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 1) + '1' + currentSchedule.day.substring(2);
@@ -100,7 +102,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>T</span>
-                        <span id = "Wed_Button" style = {(currentSchedule.day.substring(2,3) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Wed_Button" style = {(currentSchedule.day.substring(2,3) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Wed'}
+                        onClick = {() => {
                             let button = document.getElementById("Wed_Button");
                             if(currentSchedule.day.substring(2,3) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 2) + '1' + currentSchedule.day.substring(3);
@@ -115,7 +118,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>W</span>
-                        <span id = "Thu_Button" style = {(currentSchedule.day.substring(3,4) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Thu_Button" style = {(currentSchedule.day.substring(3,4) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Thu'}
+                        onClick = {() => {
                             let button = document.getElementById("Thu_Button");
                             if(currentSchedule.day.substring(3,4) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 3) + '1' + currentSchedule.day.substring(4);
@@ -130,7 +134,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>T</span>
-                        <span id = "Fri_Button" style = {(currentSchedule.day.substring(4,5) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Fri_Button" style = {(currentSchedule.day.substring(4,5) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Fri'}
+                        onClick = {() => {
                             let button = document.getElementById("Fri_Button");
                             if(currentSchedule.day.substring(4,5) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 4) + '1' + currentSchedule.day.substring(5);
@@ -145,7 +150,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>F</span>
-                        <span id = "Sat_Button" style = {(currentSchedule.day.substring(5,6) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Sat_Button" style = {(currentSchedule.day.substring(5,6) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Sat'}
+                        onClick = {() => {
                             let button = document.getElementById("Sat_Button");
                             if(currentSchedule.day.substring(5,6) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 5) + '1' + currentSchedule.day.substring(6);
@@ -160,7 +166,8 @@ function Scheduler(props){
                             console.log(currentSchedule);
                         }
                         }>S</span>
-                        <span id = "Sun_Button" style = {(currentSchedule.day.substring(6,7) === '1')?{backgroundColor: '#1DA1F2'}:{backgroundColor:'unset'}} className = {styles.DotwButton} onClick = {() => {
+                        <span id = "Sun_Button" style = {(currentSchedule.day.substring(6,7) === '1')?{backgroundColor: '#1DA1F2', color:'white'}:{backgroundColor:'unset'}} className = {styles.DotwButton} key = {currentScheduleName + 'Sun'}
+                        onClick = {() => {
                             let button = document.getElementById("Sun_Button");
                             if(currentSchedule.day.substring(6,7) === '0'){
                                 currentSchedule.day = currentSchedule.day.substring(0, 6) + '1' + currentSchedule.day.substring(7);
@@ -179,7 +186,7 @@ function Scheduler(props){
                 
                     What time do you want the scheduler to post?<br/>
                     <div className = {styles.TimeDiv}>
-                        <input id = 'NewScheduleTime' type = 'time'/><br/>
+                        <input id = 'NewScheduleTime' type = 'time' key = {currentScheduleName + 'Time'} defaultValue = {currentSchedule.time}/><br/>
                     </div>
 
                     <div style = {{margin: '10px 0px'}}>Applicable Twitter Accounts</div>
@@ -187,24 +194,27 @@ function Scheduler(props){
                         {
                             twitterAccounts.map((account) => {
                                 return(
-                                    <div id = {account.handle + 'ListItem'} className = {styles.TwitterAccountListItem} onClick = {() => {
-                                        //adds the current account to list of accounts tied to the current schedule
-                                        let index = currentSchedule.accounts.indexOf(account.handle);
-                                        if(index === -1)
-                                            currentSchedule.accounts.push(account.handle);
-                                        else
-                                            currentSchedule.accounts.splice(index, 1);
-                                        //change the color, MUST COME AFTER THE PREVIOUS segment
-                                        let element = document.getElementById(account.handle + 'ListItem');
-                                        if(currentSchedule.accounts.find(accountHandle => accountHandle === account.handle)){
-                                            element.style.backgroundColor = '#35404B';
-                                            element.style.color = 'white';
+                                    <div id = {account.handle + 'ListItem'} className = {styles.TwitterAccountListItem}
+                                        style = {currentSchedule.accounts.find(acc => acc === account.handle)?{backgroundColor:'#35404B', color:'white'}:{backgroundColor:'unset'}}
+                                        onClick = {() => {
+                                            //adds the current account to list of accounts tied to the current schedule
+                                            let index = currentSchedule.accounts.indexOf(account.handle);
+                                            if(index === -1)
+                                                currentSchedule.accounts.push(account.handle);
+                                            else
+                                                currentSchedule.accounts.splice(index, 1);
+                                            //change the color, MUST COME AFTER THE PREVIOUS segment
+                                            let element = document.getElementById(account.handle + 'ListItem');
+                                            if(currentSchedule.accounts.find(accountHandle => accountHandle === account.handle)){
+                                                element.style.backgroundColor = '#35404B';
+                                                element.style.color = 'white';
+                                            }
+                                            else{
+                                                element.style.backgroundColor = 'unset';
+                                                element.style.color = 'lightgray';
+                                            }
                                         }
-                                        else{
-                                            element.style.backgroundColor = 'unset';
-                                            element.style.color = 'lightgray';
-                                        }
-                                    }}>
+                                    }>
                                         {account.handle}
                                     </div>
                                 )
@@ -222,7 +232,7 @@ function Scheduler(props){
                         //checkEmptySchedule()
 
                         let newList = scheduledTweetsList;
-                        newList.push(currentSchedule);
+                        newList.find(sched => sched.name === currentScheduleName);
                         setScheduledTweets(newList);
                         console.log(scheduledTweetsList);
                     }}
@@ -381,13 +391,16 @@ function Scheduler(props){
                         </div>
 
 
-                        <div style = {{marginTop:'20px'}}><span className = {styles.AddScheduleButton} onClick = {() => {
+                        <div style = {{marginTop:'20px'}}><span className = {styles.AddScheduleButton} key = {currentScheduleName + 'AddButton'}
+                        onClick = {() => {
                             currentSchedule.name = document.getElementById('NewScheduleName').value;
                             currentSchedule.text = document.getElementById('NewScheduleText').value;
                             currentSchedule.time = document.getElementById('NewScheduleTime').value;
 
                             //check if empty slots
                             //checkEmptySchedule()
+
+                            if(scheduledTweetsList.find(sched => sched.name === currentSchedule.name)) return;
 
                             let newList = scheduledTweetsList;
                             newList.push(currentSchedule);

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {tweet} from '../api/twitter_func/features'
+import {tweet} from './api/twitter_func/features'
 /*
 Functions that interface between front and back end
 */
@@ -85,7 +85,6 @@ async function registerAccount(accountInfo) {
     priority: medium (as of 10/4)
 */
 
-tweet('Enter some message')
 // ^ function tweet(message)  <- use this 
 
 /*

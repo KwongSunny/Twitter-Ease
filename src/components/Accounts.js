@@ -7,6 +7,7 @@ import twitterLikedButton from '../images/twitter_liked_button.png';
 import twitterRetweetButton from '../images/twitter_retweet_button.png';
 import twitterRetweetedButton from '../images/twitter_retweeted_button.png';
 import styles from '../stylesheets/Accounts.module.css';
+import axios from 'axios';
 
 function Accounts(props){
     const twitterAccounts = props.twitterAccounts;
@@ -87,14 +88,23 @@ function Accounts(props){
                                             <div className = {styles.RecentTweet}>
                                                 {tweet.text}
                                                 <div style = {{height: '20px', margin: '8px 0px'}}>
-                                                    <img id = {'retweet_' + tweet.id} style = {{height: '100%', cursor: 'pointer'}} src = {tweet.retweeted?twitterRetweetedButton:twitterRetweetButton}/>
+                                                    <img id = {'retweet_' + tweet.id} style = {{height: '100%', cursor: 'pointer'}} src = {tweet.retweeted?twitterRetweetedButton:twitterRetweetButton} key = {tweet.id + 'RTButton'}
+                                                    onClick = {() => {
+                                                        let img = document.getElementById('retweet_' + tweet.id);
+                                                        tweet.retweeted = !tweet.retweeted;
+                                                        tweet.retweeted?  (img.src = twitterRetweetedButton) : (img.src = twitterRetweetButton);
+                            
+                                                        //interface.retweet(id)
+                                                        setTwitterAccounts(twitterAccounts);
+                                                    }}/>
                                                     {'  '}
-                                                    <img id = {'like_' + tweet.id} style = {{height: '100%', cursor: 'pointer'}} src = {tweet.liked?twitterLikedButton:twitterLikeButton} onClick = {() => {
+                                                    <img id = {'like_' + tweet.id} style = {{height: '100%', cursor: 'pointer'}} src = {tweet.liked?twitterLikedButton:twitterLikeButton} key = {tweet.id + 'LikeButton'}
+                                                    onClick = {() => {
                                                         console.log(`Liked tweet: ${tweet.id + ' ' + tweet.text}`);
                                                         let img = document.getElementById('like_' + tweet.id);
-                                                        console.log(img.src.toString().search('liked'));
-                                                        img.src.toString().search('liked' === -1)? (img.src = twitterLikedButton) : (img.src = twitterLikeButton);
                                                         tweet.liked = !tweet.liked;
+                                                        tweet.liked?  (img.src = twitterLikedButton) : (img.src = twitterLikeButton);
+                            
                                                         //interface.likeTweet(id)
                                                         setTwitterAccounts(twitterAccounts);
                                                     }}/>
@@ -111,32 +121,9 @@ function Accounts(props){
                 }
                 {//if currentAccount does not exist, then show a UI to add an account
                     addingAccount && <div className = {styles.AddingAccount}>
-                        <form>
-                            Email:
-                            <input id = "add_account_email" type = "text"/><br/><br/>
-                            Password:
-                            <input id = "add_account_password" type = "password"/><br/><br/>
-                            <div className = {styles.AddAccount}
-                                onClick = {() => {
-                                    let twitterEmail = document.getElementById("add_account_email").value;
-                                    let twitterPassword = document.getElementById("add_account_password").value;
-                                    document.getElementById("add_account_email").value = '';
-                                    document.getElementById("add_account_password").value = '';
-                                    //addTwitterAccount returns JSON of the account if successfully added account, null otherwise
-                                    //if(addTwitterAccount(twitterEmail, twitterPassword)){
-                                        setTwitterAccounts(twitterAccounts.push({email: twitterEmail, password: twitterPassword, handle: twitterEmail}))
-                                        //setAccounts(accounts);
-                                        setAddingAccount(false);
-                                    //}
-                                    //else{
-
-
-                                    //}
-                                }}
-                            >
-                                Add Account
-                            </div>
-                        </form>
+                        <div className = {styles.LoginTwitterButton}>
+                            <a href = '/twitter/authorize'>Log into Twitter</a>
+                        </div>
                     </div>
                 }
             </div>

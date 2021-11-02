@@ -4,6 +4,7 @@ import LoginBox from './components/LoginBox';
 import Accounts from './components/Accounts';
 import Sectionbar from './components/Sectionbar';
 import Scheduler from './components/Scheduler';
+import Retweeter from './components/Retweeter';
 //import * as accountsUtil from '../back-end/... account functions
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
         name: 'Weekend',
         text: 'Have a great weekend Twitter!',
         day: '0000111',
-        time: '7:00',
+        time: '07:00',
         accounts: ['twittereaseofficial'],
       },
       {
@@ -56,10 +57,29 @@ function App() {
         accounts: ['twittereaseofficial', 'theoriginaljohndoe'],
       }
     ]);
+  const [retweetList, setRetweetList] = React.useState(
+    [
+      {
+        name: 'TwitterEase RT',
+        keywords: 'twitter ease, twitter ease official, twitterease, twittereaseofficial',
+        filter: 'bad, horrible, inefficient',
+        accounts: ['twittereaseofficial']
+      },
+      {
+        name: 'Art RT',
+        keywords: 'art, paint, draw',
+        filter: 'fake, traced, copy',
+        accounts: ['testuser1']
+      }
+    ]
+  )
+  const [currentRetweetName, setCurrentRetweetName] = React.useState(retweetList[0]?retweetList[0].name:'');
   const [currentScheduleName, setCurrentScheduleName] = React.useState(scheduledTweets[0]?scheduledTweets[0].name:'');
   const [darkMode, setDarkMode] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState('Accounts');
-  const sections = ['Accounts', 'Scheduler'];
+  const sections = ['Accounts', 'Scheduler', 'Retweeter'];
+
+  const url = window.location.href;
 
   //if(!loggedIn){
     return (
@@ -69,12 +89,20 @@ function App() {
           <div className = {styles.Page}>
             {currentPage === 'Accounts' && <Accounts twitterAccounts = {twitterAccounts} setTwitterAccounts = {setTwitterAccounts}/>}
             {currentPage === 'Scheduler' && 
-            <Scheduler 
-              twitterAccounts = {twitterAccounts} 
-              scheduledTweets = {scheduledTweets} 
-              setScheduledTweets = {setScheduledTweets} 
-              currentScheduleName = {currentScheduleName} 
-              setCurrentScheduleName = {setCurrentScheduleName}
+              <Scheduler 
+                twitterAccounts = {twitterAccounts} 
+                scheduledTweets = {scheduledTweets} 
+                setScheduledTweets = {setScheduledTweets} 
+                currentScheduleName = {currentScheduleName} 
+                setCurrentScheduleName = {setCurrentScheduleName}
+            />}
+            {currentPage === 'Retweeter' && 
+              <Retweeter 
+                twitterAccounts = {twitterAccounts}
+                retweetList = {retweetList}
+                setRetweetList = {setRetweetList}
+                currentRetweetName = {currentRetweetName}
+                setCurrentRetweetName = {setCurrentRetweetName}
             />}
           </div>
           <div className = {styles.Bottombar} onClick = {() => {setDarkMode(!darkMode)}}>

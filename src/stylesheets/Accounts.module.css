@@ -95,3 +95,18 @@
     border: solid 2px gray;
     margin: 30px;
 }
+
+.LoginTwitterButton{
+    display:flex;
+    justify-content: center;
+}
+
+.LoginTwitterButton a{
+    text-decoration: none;
+    border: solid gray 1px;
+    border-radius: 30px;
+    padding: 20px;
+    background-color: #1DA1F2;
+    margin-top:-50px;
+    color: white;
+}
