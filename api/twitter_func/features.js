@@ -1,28 +1,30 @@
-require("dotenv").config();
-const twit = require('./twitter');
+require('dotenv').config()
+const twit = require('./twitter')
 
 // ----------------retrieve all the posts youve made 
-function timeline(){
-
+ function timeline(){
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
     console.log(data); 
-
     })
 }
 
 // ----------------posts a tweet 
-function tweet(){ 
-    var message = 'Testing123';
-    twit.twitterAPI.post('statuses/update', {status:message },function(err,data,response) {
-        console.log(data)
-    })
-}
+
+ function tweet(message) { 
+        twit.twitterAPI.post('statuses/update', {status:message},function(err,data,response) {
+            console.log(data)
+        }
+        )
+    }
+
 
 
 // ----------------interval tweeting 
-function intervalTweet(){
+
 
     let message = 'test123';
+
+function intervalTweet(message){
 
     var r = Math.floor(Math.random()*100); 
 
@@ -31,10 +33,8 @@ function intervalTweet(){
     })
 }
 
-
-
 // ----------------deletes all the tweets on your timeline
-function deleteTweet(){
+ function deleteTweet(){
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
@@ -57,13 +57,15 @@ function deleteTweet(){
 }
 
 // ----------------searches for a specific tag to like 
-function like()
+
+function like(query, resultType, count)
 {
     let params={
-        q:'#cat min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:2 // how many posts to retweet 
+        q:query,
+        result_type:resultType,
+        count:count // how many posts to retweet 
     }
+
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
@@ -87,9 +89,7 @@ function like()
 
 // ----------------unlikes all (works when theres are posts that are retweeted) 
 
-function unlike1 (){
-    console.log('bot is starting'); 
-
+ function unlike1 (){
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
@@ -118,9 +118,7 @@ function unlike1 (){
 // ----------------unlike all (unlike posts that are just liked) 
 
 
-function unlike2(){
-     console.log('bot is starting'); 
-
+ function unlike2(){
     twit.twitterAPI.get('favorites/list',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
@@ -146,12 +144,13 @@ function unlike2(){
 // ----------------likes & retweets at the same time given a keyword
 
 
-function likeNretweet()
+function likeNretweet(query, resultType, count)
+
 {
     let params={
-        q:'#cats min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:2 // how many posts to retweet 
+        q:query, 
+        result_type:resultType,
+        count:count // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -177,12 +176,13 @@ function likeNretweet()
 }
 // ----------------retweets posts given a key word
 
-function retweet()
+function retweet(query, resultType, count)
+
 {
     let params={
-        q:'#COVID19 min_retweets:20 lang:en', 
-        result_type:'recent',
-        count:10 // how many posts to retweet 
+        q:query, 
+        result_type:resultType,
+        count:count// how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -205,9 +205,7 @@ function retweet()
 }
 
 // ----------------unretweet everything
-function unretweet(){
-
-    console.log('bot is starting'); 
+ function unretweet(){
 
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
@@ -235,47 +233,56 @@ function unretweet(){
 
 // ---------------- when someone follows you, you tweet and @ them 
 
-function tweeting(txt){// same thing as tweet() but this takes a param
+ function tweeting(txt){// same thing as tweet() but this takes a param
     twit.twitterAPI.post('statuses/update', {status:txt },function(err,data,response) {
         console.log(data)
     })
 }
-
+/*
 // ---------------- setting up a user stream 
 var stream = twit.twitterAPI.stream('user');
 stream.on ('follow', followed);  
-
+*/
 
 // ---------------- anyone who followed, this will happen 
-function followed(eventMsg) {
-    var name = eventMsg.source.name;
-    var screenName = eventMsg. source.screen_name; 
+ function followed(eventMsg) {
+    const name = eventMsg.source.name;
+    const screenName = eventMsg. source.screen_name; 
     tweeting('@' + screenName + 'Thanks for following me')
 }
 
 
 // ---------------- scheduling tweets 
-function scheduleTweet(){
+
+function scheduleTweet(message,hour, minute){
+
    console.log('The bot is starting')
 
 
-   const job = schedule.scheduleJob({hour: 17, minute: 6}, function(){
-      twit.twitterAPI.post('statuses/update', {status:'testing123' },function(err,data,response) {
+   const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
+      twit.twitterAPI.post('statuses/update', {status: message },function(err,data,response) {
            console.log(data); 
        })
       job.cancel(); // stop the repetition of the job 
    });
 }
 
+module.exports = {
+    timeline,
+    tweet,
+    deleteTweet,
+    intervalTweet,
+    like,
+    unlike1,
+    unlike2,
+    likeNretweet,
+    retweet,
+    unretweet,
+    followed,
+    scheduleTweet
+}
 
 
-
-
-
-
-
-
-console.log('bot is starting'); 
 // timeline(); 
 
 // tweet(); 
@@ -300,7 +307,7 @@ console.log('bot is starting');
 
 // followed(); 
 
-//scheduleTweet();
+// scheduleTweet();
 
 
 

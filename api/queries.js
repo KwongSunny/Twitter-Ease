@@ -1,6 +1,7 @@
 const pool = require('./config')
 // check if account is right and exists
 const validation = (req,res) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000")
     const email = req.params.email
     const password = req.params.password
     pool.query("SELECT email,password FROM accounts WHERE email=$1 AND password=$2",[email,password],(error,result)=>{
@@ -55,9 +56,9 @@ const createUser = (req,res) => {
 }
 // update user
 const updateUser = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const id = req.params.id
     const {password} = req.body
     pool.query(
@@ -71,9 +72,9 @@ const updateUser = (req,res) => {
 }
 // delete user
 const deleteUser = (req,res) => {
-    if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
+    /*if(!req.header('apiKey') || req.header('apiKey') !== process.env.API_KEY) {
         return res.status(401).json({status: 'error',message: 'Unauthorized'})
-    }
+    }*/
     const id = req.params.id
     pool.query('DELETE FROM accounts WHERE id = $1',[id],(error,result)=>{
         if(error){  
