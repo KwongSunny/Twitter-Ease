@@ -5,6 +5,9 @@ import loginBoxUtils from '../utils/LoginBoxUtils';
 import backendUtils from '../interface';
 
 function LoginBox(props){
+    const easeAccount = props.easeAccount;
+    const setEaseAccount = props.setEaseAccount;
+
     const loggedIn = false;
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [isRegistering, SetIsRegistering] = React.useState(false);
@@ -33,24 +36,25 @@ function LoginBox(props){
                                 usernameInput = document.getElementById("username_field").value;
                                 passwordInput = document.getElementById("password_field").value;
                                 //check credentials
-                                validCredentials = await backendUtils.checkValidAccount({email:usernameInput, password:passwordInput});
+                                //validCredentials = await backendUtils.checkValidAccount({email:usernameInput, password:passwordInput});
                                 console.log(validCredentials);
                                 if(validCredentials){
-                                    document.getElementById("login_all").style.display = 'none';
+                                    //document.getElementById("login_all").style.display = 'none';
+                                    setEaseAccount({email:usernameInput, password:passwordInput});
                                 }
                                 else{
-                                    document.getElementById("incorrectCredMsg").style.display = "inline";
+                                    //document.getElementById("incorrectCredMsg").style.display = "inline";
                                 }
                             }
                         }
-                        onMouseOver = {() => {
-                            setTimeout(function incrementColor(){
-                                if(document.getElementById('loginButton').style.backgroundColor !== '#1DA1F2'){
-                                    //increment the hex value
-                                    //incrementColor();
-                                }
-                            }, 10)
-                        }}
+                        // onMouseOver = {() => {
+                        //     setTimeout(function incrementColor(){
+                        //         if(document.getElementById('loginButton').style.backgroundColor !== '#1DA1F2'){
+                        //             //increment the hex value
+                        //             //incrementColor();
+                        //         }
+                        //     }, 10)
+                        // }}
                         // onMouseLeave = {() => {
                         //     console.log('bye');
                         // }}

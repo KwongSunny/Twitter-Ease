@@ -19,6 +19,7 @@
     "express-validator": "^6.13.0",
     "oauth": "^0.9.15",
     "pg": "^8.7.1",
+    "prompt-sync": "^4.2.0",
     "sys": "0.0.1",
     "twit": "^2.2.11"
   },

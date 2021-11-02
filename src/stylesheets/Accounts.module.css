@@ -1,10 +1,12 @@
 .AccountInfo{
     padding: 30px 0px;
-    border-bottom: solid white 1px;
+    border-bottom: solid gray 1px;
 }
 
-.AccountTweetButtons div{
-    vertical-align: middle;
+.AccountTweetButtons{
+    height: 40px;
+    display: grid;
+    grid-template-columns: 70% 10% 20%;
 }
 
 .AccountImageButton{
@@ -12,40 +14,36 @@
 }
 
 .AccountImageButton img{
-    height: 40px;
-    vertical-align: middle;
+    height: 30px;
+    cursor: pointer;
 }
 
-.AccountTweetButton{
-    display:inline-block;
-    margin: 0px 10px;
-    padding: 8px 10px;
-    border: white 1px solid;
+.AccountTweetButton span{
+    border: solid 1px gray;
     border-radius: 30px;
-    background-color:#1DA1F2;
-    margin-right: 5%;
-}
-
-.AccountTweetButtons{
-    display: flex;
-    justify-content: flex-end;
+    padding: 6px 12px;
+    margin-top: -6px;
+    background-color: #1DA1F2;
+    cursor: pointer;
 }
 
 .AccountPage{
     display:grid;
     grid-template-columns: 30% 70%;
     height:100%;
+    max-height: calc(100vh - 50px);
 }
 
 .AccountList{
-    border-right: solid 1px white;
-    overflow-y: scroll;
+    border-right: solid 2px gray;
+    max-height: inherit;
 }
 
 .AccountListItem{
     font-size: 16px;
-    border-bottom: solid white 1px;
+    border-bottom: solid gray 1px;
     padding: 12px;
+    cursor:pointer;
 }
 
 .AccountItem{
@@ -56,7 +54,7 @@
 
 .AccountItemHandle{
     text-align: center;
-    border-bottom:solid white 1px;
+    border-bottom:solid gray 2px;
 }
 
 .AccountTweetBox{
@@ -66,15 +64,15 @@
 }
 
 .AccountTweetBox textarea{
-    width: 100%;
-    background-color: #111111;
+    width: 95%;
+    background-color: #25303B;
     color: white;
     height:100px;
     resize:none;
 }
 
 .AddAccount{
-    border: solid white 1px;
+    border: solid gray 1px;
     border-radius: 30px;    
     display:inline-block;
     padding: 8px 10px;
@@ -84,4 +82,16 @@
     margin-top: 50%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.RecentTweet{
+    border: solid gray 1px;
+    padding: 10px;
+}
+
+.RecentTweetsList{
+    min-height: 33vh;
+    max-height: 33vh;
+    border: solid 2px gray;
+    margin: 30px;
 }
