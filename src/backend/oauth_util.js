@@ -6,7 +6,7 @@ require('dotenv').config()
 
 const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key || process.env.api_key
 const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key || process.env.api_secret
-const TEMPLATE = fs.readFileSync(path.resolve('public', 'index.html'), { encoding: 'utf8' })
+//const TEMPLATE = fs.readFileSync(path.resolve('../../public', 'index.html'), { encoding: 'utf8' })
 
 const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
@@ -29,6 +29,7 @@ async function getOAuthAccessTokenWith ({ oauthRequestToken, oauthRequestTokenSe
     })
   })
 }
+
 // function to resolve request tokens -> gets passed into twitter() function
 async function getOAuthRequestToken () {
   return new Promise((resolve, reject) => {
@@ -56,10 +57,6 @@ function twitter (method = 'authorize') {
   }
 }
 
-function logout (req, res, next) {
-  res.clearCookie('twitter_screen_name')
-  req.session.destroy(() => res.redirect('/'))
-}
 
 // authenticate request token
 async function callback(req, res) {
@@ -78,28 +75,14 @@ async function callback(req, res) {
   res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
 
   console.log('user succesfully logged in with twitter', user.screen_name)
-  req.session.save(() => res.redirect('/'))
+  req.session.save(() => res.redirect('/dashboard'))
 }
 
-async function home(req, res, next) {
-  console.log('/ req.cookies', req.cookies)
-  if (req.cookies && req.cookies.twitter_screen_name) {
-    console.log('/ authorized', req.cookies.twitter_screen_name)
-    return res.send(TEMPLATE.replace('CONTENT', `
-      <h1>Hello ${req.cookies.twitter_screen_name}</h1>
-      <br>
-      <a href="/twitter/logout">logout</a>
-    `))
-  }
-  return next()
-}
 
 module.exports = {
   twitter,
   oauthGetUserById,
   getOAuthAccessTokenWith,
   getOAuthRequestToken,
-  logout,
   callback,
-  home
 }

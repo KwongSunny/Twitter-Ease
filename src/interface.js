@@ -102,17 +102,60 @@ function retrieveTweets(twitterAccount, num) {
     
 }
 // ^ 
-async function oauth() {
-    try {
-        const response = await axios.get(`http://127.0.0.1:3000/twitter/authorize`)
-        if(response.status == 200) {
-            return response.status
-        }
-        throw new Error("Request failed!")
+
+// oauth login
+async function login() {
+      try {
+        //OAuth Step 1
+        const response = await axios({
+          url: `${apiPath}/twitter/authorize'`, 
+          method: 'POST'
+        })
+        const { oauth_token } = response.data;
+        //Oauth Step 2
+        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
     }
-    catch(error) {
-        return error
+    catch (error) {
+        console.error(error); 
     }
 }
+
+useEffect(() => {
+    (async() => {
+      
+        const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
+        
+        if (oauth_token && oauth_verifier) {
+         try {
+            //Oauth Step 3
+            await axios({
+              url: `${apiPath}/twitter/oauth/access_token`,  
+              method: 'POST',
+              data: {oauth_token, oauth_verifier}
+            });
+         } catch (error) {
+          console.error(error); 
+         }
+        }
+        
+        try {
+          //Authenticated Resource Access
+          const {data: {name, profile_image_url_https, status, entities}} = await axios({
+            url: `${apiPath}/twitter/users/profile_banner`,
+            method: 'GET'
+          });
+          
+          setIsLoggedIn(true);
+          setName(name);
+          setImageUrl(profile_image_url_https);
+          setStatus(status.text);
+          setUrl(entities.url.urls[0].expanded_url);
+         } catch (error) {
+          console.error(error); 
+         }
+        
+      
+    })();
+  }, []);
 
 

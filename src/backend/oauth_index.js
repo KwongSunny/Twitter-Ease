@@ -8,7 +8,6 @@ const {
   callback,
   home
 } = require('./oauth_util')
-
 const path = require('path')
 const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE_SECRET
   const app = express()
@@ -28,21 +27,33 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
 
   app.listen(3000, () => console.log('listening on http://127.0.0.1:3000'))
 
-  app.get('/', home)
+
+  // ************ROUTERS AND STUFF**********
   // path to client 
-  app.use(express.static(path.resolve('public', 'index.html')))
+  //app.use(express.static(path.resolve('../../public')))
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
-  app.get('/twitter/logout', logout)
+
+  // simple home page
+  app.get('/', (req, res) => {
+    res.send('Welcome To TwitterEase');
+  });
+  // route to logout
+  app.get('/twitter/logout', (req, res, next) => {
+    res.clearCookie('twitter_screen_name')
+    req.session.destroy(() => res.redirect('/'))
+  })
+  // route to authenticate
   app.get('/twitter/authenticate', twitter('authenticate'))
   app.get('/twitter/authorize', twitter('authorize'))
   app.get('/twitter/callback', callback)
-  app.post('/twitter/tweet', (req,res) => { twit.twitterAPI.post('statuses/update', {status : req.body},function(err,data,response) {
-    console.log(data)
-    res.send(data)
-  }
-  )
-})
+  app.get('/dashboard', (req,res,next) => {
+    req.cookies.twitter_screen_name = data["screen_name"];
+    res.send(`Hello, ${req.cookies.twitter_screen_name}`)
+  })
+
+
+
