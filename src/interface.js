@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {tweet} from '../api/twitter_func/features'
+
 /*
 Functions that interface between front and back end
 */
@@ -85,7 +85,7 @@ async function registerAccount(accountInfo) {
     priority: medium (as of 10/4)
 */
 
-tweet('Enter some message')
+
 // ^ function tweet(message)  <- use this 
 
 /*
@@ -101,5 +101,17 @@ function retrieveTweets(twitterAccount, num) {
     
 }
 // ^ 
+async function oauth() {
+    try {
+        const response = await axios.get(`http://127.0.0.1:3000/twitter/authorize`)
+        if(response.status == 200) {
+            return response.status
+        }
+        throw new Error("Request failed!")
+    }
+    catch(error) {
+        return error
+    }
+}
 
 

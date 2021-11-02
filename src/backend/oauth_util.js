@@ -29,7 +29,7 @@ async function getOAuthAccessTokenWith ({ oauthRequestToken, oauthRequestTokenSe
     })
   })
 }
-
+// function to resolve request tokens -> gets passed into twitter() function
 async function getOAuthRequestToken () {
   return new Promise((resolve, reject) => {
     oauthConsumer.getOAuthRequestToken(function (error, oauthRequestToken, oauthRequestTokenSecret, results) {
@@ -39,6 +39,7 @@ async function getOAuthRequestToken () {
     })
   })
 }
+
 // method defaults to authorize
 function twitter (method = 'authorize') {
   return async (req, res) => {
