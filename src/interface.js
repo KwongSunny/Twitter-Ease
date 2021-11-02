@@ -108,7 +108,7 @@ async function login() {
       try {
         //OAuth Step 1
         const response = await axios({
-          url: `${apiPath}/twitter/authorize'`, 
+          url: `/twitter/authorize'`, 
           method: 'POST'
         })
         const { oauth_token } = response.data;
@@ -120,42 +120,4 @@ async function login() {
     }
 }
 
-useEffect(() => {
-    (async() => {
-      
-        const {oauth_token, oauth_verifier} = queryString.parse(window.location.search);  
-        
-        if (oauth_token && oauth_verifier) {
-         try {
-            //Oauth Step 3
-            await axios({
-              url: `${apiPath}/twitter/oauth/access_token`,  
-              method: 'POST',
-              data: {oauth_token, oauth_verifier}
-            });
-         } catch (error) {
-          console.error(error); 
-         }
-        }
-        
-        try {
-          //Authenticated Resource Access
-          const {data: {name, profile_image_url_https, status, entities}} = await axios({
-            url: `${apiPath}/twitter/users/profile_banner`,
-            method: 'GET'
-          });
-          
-          setIsLoggedIn(true);
-          setName(name);
-          setImageUrl(profile_image_url_https);
-          setStatus(status.text);
-          setUrl(entities.url.urls[0].expanded_url);
-         } catch (error) {
-          console.error(error); 
-         }
-        
-      
-    })();
-  }, []);
-
-
+export default {login};

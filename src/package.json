@@ -4,6 +4,7 @@
   "private": true,
   "main": "index.js",
   "type": "module",
+  "proxy": "https://localhost:3000",
   "engines": {
     "node": "14.17.x"
   },
