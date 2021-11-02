@@ -56,6 +56,7 @@ function App() {
         accounts: ['twittereaseofficial', 'theoriginaljohndoe'],
       }
     ]);
+  const [currentScheduleName, setCurrentScheduleName] = React.useState(scheduledTweets[0]?scheduledTweets[0].name:'');
   const [darkMode, setDarkMode] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState('Accounts');
   const sections = ['Accounts', 'Scheduler'];
@@ -67,7 +68,14 @@ function App() {
           <Sectionbar sections = {sections} currentPage = {currentPage} setCurrentPage = {setCurrentPage}/>
           <div className = {styles.Page}>
             {currentPage === 'Accounts' && <Accounts twitterAccounts = {twitterAccounts} setTwitterAccounts = {setTwitterAccounts}/>}
-            {currentPage === 'Scheduler' && <Scheduler twitterAccounts = {twitterAccounts} scheduledTweets = {scheduledTweets} setScheduledTweets = {setScheduledTweets}/>}
+            {currentPage === 'Scheduler' && 
+            <Scheduler 
+              twitterAccounts = {twitterAccounts} 
+              scheduledTweets = {scheduledTweets} 
+              setScheduledTweets = {setScheduledTweets} 
+              currentScheduleName = {currentScheduleName} 
+              setCurrentScheduleName = {setCurrentScheduleName}
+            />}
           </div>
           <div className = {styles.Bottombar} onClick = {() => {setDarkMode(!darkMode)}}>
 

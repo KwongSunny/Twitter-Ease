@@ -81,10 +81,12 @@ textarea{
     border-bottom: solid gray 1px;
     width: 100%;
     padding: 10px 0px;
+    cursor: pointer;
 }
 
 .TwitterAccountList{
     min-height: 30vh;
+    max-height: 30vh;
     width: 80%;
     border: solid gray 2px;
 }
