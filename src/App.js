@@ -16,7 +16,7 @@ function App() {
                     <div style = {{marginBottom: '30px'}}>Click below to authorize your Twitter Account</div>
                     <div style = {{marginTop:'20px'}}><span className = {styles.AuthorizeButton} onClick = {() => {interfaceUtil.login()}}>Authorize</span></div>
                 </div>
-            }
+            }   
             {
                 loggedIn && <div className = {styles.Page}>
                     <div className = {styles.HeaderBar}><span>{`Welcome User!`}</span></div>

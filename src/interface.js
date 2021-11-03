@@ -122,7 +122,7 @@ const login = () => {
 
 
   // work in progress
-function tweeting {
+async function tweeting() {
       try {
           const response = await axios({
             url:'twitter/tweet',
