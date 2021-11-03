@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "main": "index.js",
-  "proxy": "https://localhost:3000",
   "engines": {
     "node": "14.17.x"
   },
@@ -21,6 +20,7 @@
     "oauth": "^0.9.15",
     "pg": "^8.7.1",
     "prompt-sync": "^4.2.0",
+    "serverless-http": "^2.7.0",
     "sys": "0.0.1",
     "twit": "^2.2.11"
   },

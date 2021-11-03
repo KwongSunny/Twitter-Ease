@@ -103,21 +103,39 @@ function retrieveTweets(twitterAccount, num) {
 }
 // ^ 
 
-// oauth login
-async function login() {
+const login = () => {
+    (async () => {
+      
       try {
         //OAuth Step 1
-        const response = await axios({
-          url: `/twitter/authorize'`, 
-          method: 'POST'
-        })
-        const { oauth_token } = response.data;
-        //Oauth Step 2
-        window.location.href = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`;
-    }
-    catch (error) {
+        const response = await axios.get('twitter/authorize')
+        console.log(response)
+        const oauth_token  = response.data.url
+        console.log(oauth_token)
+        window.location.assign(`${oauth_token}`);
+      } catch (error) {
         console.error(error); 
-    }
-}
+      }
+      
+    })();
+  }
 
-export default {login};
+
+  // work in progress
+function tweeting {
+      try {
+          const response = await axios({
+            url:'twitter/tweet',
+            method:'POST'
+        }) 
+
+          console.log(response)
+          const message = response.data.Message
+          console.log(message)
+      }
+      catch (error) {
+          console.error(error)
+      }
+  }
+
+export default {login,tweeting};

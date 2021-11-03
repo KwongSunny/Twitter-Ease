@@ -1,3 +1,5 @@
+// currently not used 
+
 const pool = require('./config')
 // check if account is right and exists
 const validation = (req,res) => {

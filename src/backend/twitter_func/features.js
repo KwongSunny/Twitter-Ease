@@ -1,4 +1,5 @@
 require('dotenv').config()
+const { response } = require('express');
 const twit = require('./twitter')
 
 // ----------------retrieve all the posts youve made 
@@ -10,19 +11,17 @@ const twit = require('./twitter')
 
 // ----------------posts a tweet 
 
- function tweet(message) { 
-        twit.twitterAPI.post('statuses/update', {status:message},function(err,data,response) {
+ const tweet = (req,res) => { 
+        twit.twitterAPI.post('statuses/update', {status:JSON.stringify(req.body.Message)}, (err,data,response) =>{
             console.log(data)
-        }
-        )
+        })
+        console.log(req.body)
+        res.send(JSON.stringify(req.body.Message))
     }
-
 
 
 // ----------------interval tweeting 
 
-
-    let message = 'test123';
 
 function intervalTweet(message){
 

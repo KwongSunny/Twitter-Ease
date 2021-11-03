@@ -1,12 +1,10 @@
 const oauth = require('oauth')
 const { promisify } = require('util')
-const fs = require('fs')
-const path = require('path')
 require('dotenv').config()
 
 const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key || process.env.api_key
 const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key || process.env.api_secret
-//const TEMPLATE = fs.readFileSync(path.resolve('../../public', 'index.html'), { encoding: 'utf8' })
+
 
 const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
@@ -44,6 +42,7 @@ async function getOAuthRequestToken () {
 // method defaults to authorize
 function twitter (method = 'authorize') {
   return async (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
     console.log(`/twitter/${method}`)
     const { oauthRequestToken, oauthRequestTokenSecret } = await getOAuthRequestToken() // gets the request token using getOAuthRequestToken()
     console.log(`/twitter/${method} ->`, { oauthRequestToken, oauthRequestTokenSecret })
@@ -53,13 +52,14 @@ function twitter (method = 'authorize') {
 
     const authorizationUrl = `https://api.twitter.com/oauth/${method}?oauth_token=${oauthRequestToken}`
     console.log('redirecting user to ', authorizationUrl)
-    res.redirect(authorizationUrl)
+    res.json({url:authorizationUrl})
   }
 }
 
 
 // authenticate request token
 async function callback(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*")
   const { oauthRequestToken, oauthRequestTokenSecret } = req.session
   const { oauth_verifier: oauthVerifier } = req.query
   console.log('/twitter/callback', { oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
