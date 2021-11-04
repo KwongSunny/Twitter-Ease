@@ -112,7 +112,7 @@ const login = () => {
         console.log(response)
         const oauth_token  = response.data.url
         console.log(oauth_token)
-        window.location.assign(`${oauth_token}`);
+        window.location.assign(oauth_token)
       } catch (error) {
         console.error(error); 
       }
@@ -138,4 +138,18 @@ async function tweeting() {
       }
   }
 
-export default {login,tweeting};
+  const logout = () => {
+    (async () => {
+      try {
+        await axios({
+          url: `/twitter/logout`, 
+          method: 'GET'
+        });
+      } catch (error) {
+        console.error(error); 
+      }
+    })();
+  }
+  
+
+export default {login,tweeting,logout};

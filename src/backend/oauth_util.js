@@ -10,7 +10,7 @@ const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
   TWITTER_CONSUMER_API_KEY,
   TWITTER_CONSUMER_API_SECRET_KEY,
-  '1.0A', 'http://localhost:3000/twitter/callback', 'HMAC-SHA1')
+  '1.0A', 'http://localhost:5000/twitter/callback', 'HMAC-SHA1')
 
 // get user by id -> returns body of object type
 async function oauthGetUserById (userId, { oauthAccessToken, oauthAccessTokenSecret } = {}) {
@@ -75,7 +75,7 @@ async function callback(req, res) {
   res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
 
   console.log('user succesfully logged in with twitter', user.screen_name)
-  req.session.save(() => res.redirect('/dashboard'))
+  req.session.save(() => res.redirect('/'))
 }
 
 

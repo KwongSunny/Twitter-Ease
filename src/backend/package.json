@@ -2,12 +2,13 @@
   "name": "accounts-api",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "main": "oauth_index.js",
+  "proxy": "http://localhost:5000",
   "engines": {
     "node": "14.17.x"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node oauth_index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
