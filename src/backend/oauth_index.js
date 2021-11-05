@@ -18,6 +18,8 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
     extended: true
   })
   )
+  app.use(express.raw())
+  app.use(express.text())
   //app.use(express.static('src'))
   //app.use('public',express.static('public'))
   app.use(cookieParser())

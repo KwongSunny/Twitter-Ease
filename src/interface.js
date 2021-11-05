@@ -103,9 +103,10 @@ function retrieveTweets(twitterAccount, num) {
 }
 // ^ 
 
+
+//////////////////////////////// -------------------------->  FUNCTIONS FOR FEATURES <------------------------------- /////////////////////////////////////////
 const login = () => {
-    (async () => {
-      
+    (async () => { 
       try {
         //OAuth Step 1
         const response = await axios.get('twitter/authorize')
@@ -121,18 +122,20 @@ const login = () => {
   }
 
 
-  // work in progress
-async function tweeting() {
-      try {
+/////////////// ---------------------------------------------> FUNCTION TO TWEET 
+async function tweeting(message) {
+    try {
           const response = await axios({
             url:'twitter/tweet',
-            method:'POST'
-        }) 
+            method:'POST',
+            headers:{"Content-Type":"text/plain"}
+            
+          })
 
           console.log(response)
-          const message = response.data.Message
+          const message = response.data
           console.log(message)
-      }
+    }
       catch (error) {
           console.error(error)
       }

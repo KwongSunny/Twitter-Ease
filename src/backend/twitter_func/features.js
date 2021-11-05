@@ -12,13 +12,11 @@ const twit = require('./twitter')
 // ----------------posts a tweet 
 
  const tweet = (req,res) => { 
-        twit.twitterAPI.post('statuses/update', {status:JSON.stringify(req.body.Message)}, (err,data,response) =>{
-            console.log(data)
-        })
-        console.log(req.body)
-        res.send(JSON.stringify(req.body.Message))
+        twit.twitterAPI.post('statuses/update', {status:req.body}, (err,data,response) =>{
+            console.log(req.body)
+            res.send(data)
+        }) 
     }
-
 
 // ----------------interval tweeting 
 
