@@ -19,7 +19,7 @@ async function checkValidAccount(accountInfo) {
 
     try {
         const response = await axios.get(`http://twitter-ease-api.herokuapp.com/validate/${email_part}/${password_part}`)
-        if(response.status == 200) {
+        if(response.status === 200) {
             return true
         }
         throw new Error("Request failed!")
@@ -67,7 +67,7 @@ async function registerAccount(accountInfo) {
             password:password_part,
             id:id_part
         })
-        if(response.status == 200) {
+        if(response.status === 200) {
             return true
         }
         throw new Error("Request failed!")
@@ -109,7 +109,7 @@ const login = () => {
     (async () => { 
       try {
         //OAuth Step 1
-        const response = await axios.get('twitter/authorize')
+        const response = await axios.get('/twitter/authorize')
         console.log(response)
         const oauth_token  = response.data.url
         console.log(oauth_token)
@@ -120,7 +120,6 @@ const login = () => {
       
     })();
   }
-
 
 /////////////// ---------------------------------------------> FUNCTION TO TWEET 
 async function tweeting(message) {
