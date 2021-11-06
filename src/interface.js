@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 
+
 /*
 Functions that interface between front and back end
 */
@@ -121,33 +122,23 @@ const login = () => {
     })();
   }
 
-/////////////// ---------------------------------------------> FUNCTION TO TWEET 
+// function to tweet
 function tweeting(message) {
       axios({
         url:'http://localhost:5000/twitter/tweet',
         method:'POST',
         headers:{"Content-Type":"text/plain"},
-        data:message
+        data: message
       })
-      .then(function (response) {
-        console.log(response);
+      .then(response => {
+        console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
       })
     }
 
-  /*
-const response = axios({
-            url:'twitter/tweet',
-            method:'POST',
-            headers:{"Content-Type":"text/plain"},
-            data: {
-                message
-            }
-          })
-  */
-
+// function to logout
   const logout = () => {
     (async () => {
       try {
@@ -161,5 +152,33 @@ const response = axios({
     })();
   }
   
+// function to pull timeline
+  const homePage = () => {
+      axios({
+          url:'http://localhost:5000/twitter/home',
+          method:'GET',
+      })
+      .then((response) =>{
+          console.log(response)
+      })
+      .catch((error)=> {
+          console.log(error);
+      })
+  }
 
-export default {login,tweeting,logout};
+
+  const retweet = (query) => {
+      axios({
+          url:'http://localhost:5000/twitter/retweet',
+          method:'GET',
+          params: query
+      })
+      .then((response)=> {
+          console.log(response)
+      })
+      .catch((error) => {
+          console.log(error);
+      })
+  }
+
+export default {login,tweeting,logout,homePage,retweet};

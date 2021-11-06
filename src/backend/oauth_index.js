@@ -6,7 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const PORT = process.env.PORT || 5000
 const {
-  tweet
+  tweet, timeline, retweet
 } = require('./twitter_func/features')
 const { twitter, callback} = require('./oauth_util')
 const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE_SECRET
@@ -56,6 +56,8 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
     res.send(`Hello, ${req.cookies.twitter_screen_name}`)
   })
   app.post('/twitter/tweet',tweet)
+  app.get('/twitter/home',timeline)
+  app.get('/twitter/search/:q',retweet)
 
 
 

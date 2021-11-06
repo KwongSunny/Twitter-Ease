@@ -1,11 +1,11 @@
 require('dotenv').config()
-const { response } = require('express');
 const twit = require('./twitter')
 
 // ----------------retrieve all the posts youve made 
- function timeline(){
+ const timeline = (req,res) => {
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
     console.log(data); 
+    res.send(data)
     })
 }
 
@@ -111,10 +111,7 @@ function like(query, resultType, count)
 }
 
 
-
 // ----------------unlike all (unlike posts that are just liked) 
-
-
  function unlike2(){
     twit.twitterAPI.get('favorites/list',function(err,data,response) // gets the tweets of the timeline
     {   
@@ -173,13 +170,12 @@ function likeNretweet(query, resultType, count)
 }
 // ----------------retweets posts given a key word
 
-function retweet(query, resultType, count)
-
+function retweet(req,res,resultType=recent) 
 {
     let params={
-        q:query, 
-        result_type:resultType,
-        count:count// how many posts to retweet 
+        q:req.params, 
+        result_type:resultType
+        //count:count// how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -192,13 +188,14 @@ function retweet(query, resultType, count)
                         twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, (err, response)=>
                         {
                             if (response)
-                                console.log('Post retweeted!!! with retweetID - ' + retweetId)
+                                console.log('Post retweeted with retweetID - ' + retweetId)
                             if (err)
                                 console.log('Already RETWEETED...')
                         })
                     }
                 }
-            })
+            res.send(data)
+        })
 }
 
 // ----------------unretweet everything
@@ -224,7 +221,6 @@ function retweet(query, resultType, count)
             }
         }
     })
-
 }
 
 
@@ -287,10 +283,10 @@ module.exports = {
 // deleteTweet();
 
 // intervalTweet();  // calling the tweeting fcn 
+
 // setInterval(intervalTweet,1000*5)//tweet every 5 seconds
 
 // like(); 
-
 
 // unlike1(); //unlikes all (works when theres are posts that are retweeted) 
 
