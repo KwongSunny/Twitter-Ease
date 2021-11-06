@@ -5,10 +5,10 @@ import interfaceUtil from './interface.js';
 import Cookies from 'js-cookie';
 
 function App() {
-    const [loggedIn, setLoggedIn] = React.useState(false);
-    const [currentPage, setCurrentPage] = React.useState('Home'); //pages: Home, Scheduler, Retweeter, Mass Delete
-    const cookie = Cookies.get();
+    const cookie = Cookies.get('twitter_screen_name');
     console.log('cookie:' + cookie);
+    const [loggedIn, setLoggedIn] = React.useState(cookie);
+    const [currentPage, setCurrentPage] = React.useState('Home'); //pages: Home, Scheduler, Retweeter, Mass Delete
     const accountInfo = {};
 
     return (
