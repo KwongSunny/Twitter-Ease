@@ -72,7 +72,7 @@ async function callback(req, res) {
   console.log(user)
 
   req.session.twitter_screen_name = user.screen_name
-  res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: true })
+  res.cookie('twitter_screen_name', user.screen_name, { maxAge: 900000, httpOnly: false })
 
   console.log('user succesfully logged in with twitter', user.screen_name)
   req.session.save(() => res.redirect('/'))
