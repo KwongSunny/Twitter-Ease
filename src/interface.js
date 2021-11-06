@@ -122,23 +122,31 @@ const login = () => {
   }
 
 /////////////// ---------------------------------------------> FUNCTION TO TWEET 
-async function tweeting(message) {
-    try {
-          const response = await axios({
+function tweeting(message) {
+      axios({
+        url:'http://localhost:5000/twitter/tweet',
+        method:'POST',
+        headers:{"Content-Type":"text/plain"},
+        data:message
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    }
+
+  /*
+const response = axios({
             url:'twitter/tweet',
             method:'POST',
-            headers:{"Content-Type":"text/plain"}
-            
+            headers:{"Content-Type":"text/plain"},
+            data: {
+                message
+            }
           })
-
-          console.log(response)
-          const message = response.data
-          console.log(message)
-    }
-      catch (error) {
-          console.error(error)
-      }
-  }
+  */
 
   const logout = () => {
     (async () => {
