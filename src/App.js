@@ -25,7 +25,7 @@ function App() {
                     <div className = {styles.HeaderBar}><span>{`Welcome User!`}</span></div>
 
                     <textarea style = {{color:'black'}} id = 'textarea'/>
-                    <button style = {{color:'black'}}onClick = {()=>{interfaceUtil.tweeting(document.getElementById('textarea'))}}>Tweet</button>
+                    <button style = {{color:'black'}}onClick = {()=>{console.log(interfaceUtil.tweeting(document.getElementById('textarea').value)}}>Tweet</button>
 
                     <div style = {{marginTop: '20px'}}><span style = {{border: 'solid white 1px', borderRadius:'30px', padding:'10px', cursor: 'pointer'}} onClick = {() => {interfaceUtil.logout()}}>Log Out</span></div>
                 </div>
