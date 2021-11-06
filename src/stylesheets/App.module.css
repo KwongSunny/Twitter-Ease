@@ -41,4 +41,6 @@
 .Page{
     height: 100vh;
     width: 100vw;
+    display: grid;
+    grid-template-columns: 80px calc(100vw - 80px);
 }

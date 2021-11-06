@@ -1,0 +1,49 @@
+.Sidebar{
+    height: 100vh;
+    border-right: 2px white solid;
+}
+
+.SidebarSection{
+    display:flex;
+    justify-content: center;
+    margin: 20px 0px;
+    width: 50px;
+    height: 50px;
+    margin-left: calc(50% - 25px);
+    border-radius:100%;
+    cursor: pointer;
+}
+
+.SidebarSection:hover{
+    background: rgba(245, 255, 255, 0.2);
+}
+
+.SidebarSection img{
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: auto;
+}
+
+.LogoutButton{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    position:absolute;
+    bottom: 0px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    cursor: pointer;
+}
+
+.LogoutButton:hover{
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.LogoutButton img{
+    width: 30px;
+    height: 30px;
+    display: block;
+    margin: auto;
+}
