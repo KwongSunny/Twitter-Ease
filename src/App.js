@@ -29,6 +29,8 @@ function App() {
         ]
     );
     const schedules = {tweetSchedules, setTweetSchedules};
+    const timeline = (loggedIn)?interfaceUtil.homePage():'';
+    console.log('timeline: ' + timeline);
 
     return (
         <div className={styles.App}>
