@@ -118,7 +118,6 @@ const login = () => {
       } catch (error) {
         console.error(error); 
       }
-      
     })();
   }
 
@@ -170,7 +169,7 @@ function tweeting(message) {
 
   const retweet = (query) => {
       axios({
-          url:'http://localhost:5000/twitter/retweet',
+          url:'http://localhost:5000/twitter/retweet/:q',
           method:'GET',
           params: query
       })
@@ -182,4 +181,45 @@ function tweeting(message) {
       })
   }
 
-export default {login,tweeting,logout,homePage,retweet};
+  const mass_deletion = () => {
+      axios({
+          url:'http://localhost:5000/twitter/home',
+          method:'GET'
+      })
+      .then((response) => {
+          console.log(response)
+      })
+      .catch((error)=>{
+          console.log(error)
+      })
+  }
+
+  const unlike_retweeted = () => {
+    axios({
+        url:'http://localhost:5000/twitter/home/unlike1',
+        method:'GET',
+    })
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+}
+
+const like_n_retweet = (query) => {
+    axios({
+        url:'http://localhost:5000/twitter/like-n-retweet/:q',
+        method:'GET',
+        params: query
+    })
+    .then((response)=> {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
+    
+
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet};

@@ -20,7 +20,7 @@ const twit = require('./twitter')
 
 // ----------------interval tweeting 
 
-
+// currently not needed
 function intervalTweet(message){
 
     var r = Math.floor(Math.random()*100); 
@@ -138,13 +138,13 @@ function like(query, resultType, count)
 // ----------------likes & retweets at the same time given a keyword
 
 
-function likeNretweet(query, resultType, count)
+function likeNretweet(req,res, resultType=recent)
 
 {
     let params={
-        q:query, 
+        q:req.params.q, 
         result_type:resultType,
-        count:count // how many posts to retweet 
+        //count:count // how many posts to retweet 
     }
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
@@ -173,7 +173,7 @@ function likeNretweet(query, resultType, count)
 function retweet(req,res,resultType=recent) 
 {
     let params={
-        q:req.params, 
+        q:req.params.q, 
         result_type:resultType
         //count:count// how many posts to retweet 
     }
