@@ -167,11 +167,11 @@ function tweeting(message) {
   }
 
 
-  const retweet = (query) => {
+  const retweet = (q) => {
       axios({
-          url:'http://localhost:5000/twitter/retweet/:q',
+          url:'http://localhost:5000/twitter/retweet?q=',
           method:'GET',
-          params: query
+          params = q
       })
       .then((response)=> {
           console.log(response)
@@ -183,7 +183,7 @@ function tweeting(message) {
 
   const mass_deletion = () => {
       axios({
-          url:'http://localhost:5000/twitter/home',
+          url:'http://localhost:5000/twitter/home/purge',
           method:'GET'
       })
       .then((response) => {
@@ -207,6 +207,19 @@ function tweeting(message) {
     })
 }
 
+const unlike = () => {
+    axios({
+        url:'http://localhost:5000/twitter/home/unlike2',
+        method:'GET',
+    })
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+}
+
 const like_n_retweet = (query) => {
     axios({
         url:'http://localhost:5000/twitter/like-n-retweet/:q',
@@ -220,6 +233,48 @@ const like_n_retweet = (query) => {
         console.log(error);
     })
 }
-    
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet};
+const like = (q) => {
+    axios({
+        url:'http://localhost:5000/twitter/search/like?q=',
+        method:'GET',
+        params: q
+    })
+    .then((response)=> {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
+
+const unretweet = () => {
+    axios({
+        url:'http://localhost:5000/twitter/home/unretweet',
+        method:'GET',
+    })
+    .then((response)=> {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
+
+const scheduler = (message,hour,minute) => {
+      axios({
+        url:'http://localhost:5000/twitter/scheduler',
+        method:'POST',
+        headers:{"Content-Type":"text/plain"},
+        data: message
+      })
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    }
+
+
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet};

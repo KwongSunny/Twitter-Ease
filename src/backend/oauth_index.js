@@ -6,7 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const PORT = process.env.PORT || 5000
 const {
-  tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet
+  tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet, like, unlike2, unretweet, scheduleTweet
 } = require('./twitter_func/features')
 const { twitter, callback} = require('./oauth_util')
 const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE_SECRET
@@ -57,10 +57,20 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   })
   app.post('/twitter/tweet',tweet)
   app.get('/twitter/home',timeline)
-  app.get('/twitter/search/:q',retweet)
-  app.get('/twitter/home',deleteTweet)
+  //app.get('/twitter/search/:q',retweet)
+  app.get('/twitter/search/retweet',retweet)
+  app.get('/twitter/home/purge',deleteTweet)
   app.get('/twitter/home/unlike1',unlike1)
+  app.get('/twitter/home/')
   app.get('/twitter/like-n-retweet/:q',likeNretweet)
+  app.get('/twitter/search/like',like)
+  app.get('/twitter/home/unlike2',unlike2)
+  app.get('/twitter/home/unretweet',unretweet)
+  app.get('/twitter/scheduler',scheduleTweet)
+  
+
+  
+  
 
 
 

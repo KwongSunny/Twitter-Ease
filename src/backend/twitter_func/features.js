@@ -1,4 +1,6 @@
 require('dotenv').config()
+const schedule = require('node-schedule')
+const { query } = require('express');
 const twit = require('./twitter')
 
 // ----------------retrieve all the posts youve made 
@@ -55,10 +57,10 @@ function intervalTweet(message){
 
 // ----------------searches for a specific tag to like 
 
-function like(query, resultType, count)
+function like(res, req, resultType, count)
 {
     let params={
-        q:query,
+        q:req.query.q,
         result_type:resultType,
         count:count // how many posts to retweet 
     }
@@ -173,10 +175,13 @@ function likeNretweet(req,res, resultType=recent)
 function retweet(req,res,resultType=recent) 
 {
     let params={
-        q:req.params.q, 
+        q:req.query.q,
+        //q:req.query,
         result_type:resultType
+        
         //count:count// how many posts to retweet 
     }
+    console.log(params)
     twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
@@ -216,7 +221,6 @@ function retweet(req,res,resultType=recent)
                         console.log('Post untweeted!!! with retweetID - ' + deleteId)
                     if (err)
                         console.log('Already untweeted...')
-
                 })
             }
         }
@@ -238,7 +242,7 @@ stream.on ('follow', followed);
 */
 
 // ---------------- anyone who followed, this will happen 
- function followed(eventMsg) {
+function followed(eventMsg) {
     const name = eventMsg.source.name;
     const screenName = eventMsg. source.screen_name; 
     tweeting('@' + screenName + 'Thanks for following me')
@@ -247,13 +251,10 @@ stream.on ('follow', followed);
 
 // ---------------- scheduling tweets 
 
-function scheduleTweet(message,hour, minute){
-
-   console.log('The bot is starting')
-
+function scheduleTweet(res, req, hour, minute){
 
    const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
-      twit.twitterAPI.post('statuses/update', {status: message },function(err,data,response) {
+      twit.twitterAPI.post('statuses/update', {status: req.body },function(err,data,response) {
            console.log(data); 
        })
       job.cancel(); // stop the repetition of the job 

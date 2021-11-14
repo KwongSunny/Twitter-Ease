@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "express-validator": "^6.13.0",
+    "node-schedule": "^2.0.0",
     "oauth": "^0.9.15",
     "pg": "^8.7.1",
     "prompt-sync": "^4.2.0",
