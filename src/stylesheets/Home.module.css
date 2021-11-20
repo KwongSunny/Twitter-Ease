@@ -1,63 +1,15 @@
-.ApplyButton{
-    border: white solid 2px;
-    border-radius: 30px;
-    padding: 8px;
-}
-
-.ApplyButtonDiv{
-    margin-top: 28px;
-    text-align: right;
-    margin-left: auto;
-    margin-right: auto;
-    width: 500px;
-}
-
-.ApplyButton:hover{
-    cursor: pointer;
-}
-
-.DotwButton{
-    height: 40px;
-    min-width: 40px;
-    background-color: transparent;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.DotwButton:hover{
-    background-color: #1DA1F2;
-    cursor: pointer;
-}
-
-.DotwButtons{
-    display: flex;
-    padding: 10px 0px;
-    justify-content: center;
-}
-
-.DotwButtons span{
-    margin: 0px 10px;
-}
-
 .Header{
     font-size: 24px;
     padding-top: 20px;
     font-weight: bold;
 }
 
-.SchedulerPage{
+.HomePage{
     width: 700px;
     height: 100vh;
     margin: auto;
     text-align: center;
     justify-content: center;
-}
-
-.ScheduleNamebar{
-    font-size: 20px;
-    margin: 20px auto 10px;
 }
 
 .InfoButton{
@@ -87,6 +39,40 @@
     left: 10px;
 }
 
+.Timeline{
+    border: solid white 2px;
+    margin-top: 38px;
+    width: 400px;
+    margin-left:auto;
+    margin-right: auto;
+    min-height: 50vh;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.TimelineItem{
+    height: fit-content;
+    border-bottom: solid white 1px;
+}
+
+.TweetButton{
+    border: white solid 2px;
+    border-radius: 30px;
+    padding: 8px;
+}
+
+.TweetButtonDiv{
+    margin-top: 28px;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+.TweetButton:hover{
+    cursor: pointer;
+}
+
 .TweetInput{
     width: 500px;
     display: block;
@@ -96,5 +82,15 @@
     background: unset;
     resize: none;
     font-size: 16px;
+}
 
+.TweetInputDiv{
+    justify-content: center;
+    margin: 20px;
+    margin-top: 28px;
+}
+
+img{
+
+    height: 26px;
 }

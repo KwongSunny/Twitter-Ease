@@ -13,24 +13,23 @@ function Sidebar(props){
     const currentPage = props.page.currentPage.toLowerCase();
     const setCurrentPage = props.page.setCurrentPage;
     const setLoggedIn = props.setLoggedIn;
-    console.log(currentPage);
 
     return(
         <div className = {styles.Sidebar}>
             <div style = {(currentPage === 'home')?{background: 'rgba(255, 255, 255, 0.3)'}:{background: ''}} className = {styles.SidebarSection} onClick = {() => {setCurrentPage('home')}}>
-                <img src = {homeImg}/>
+                <img src = {homeImg} alt = ''/>
             </div>
             <div style = {(currentPage === 'retweeter')?{background: 'rgba(255, 255, 255, 0.3)'}:{background: ''}} className = {styles.SidebarSection} onClick = {() => {setCurrentPage('retweeter')}}>
-                <img src = {retweeterImg}/>
+                <img src = {retweeterImg} alt = ''/>
             </div>
             <div style = {(currentPage === 'scheduler')?{background: 'rgba(255, 255, 255, 0.3)'}:{background: ''}} className = {styles.SidebarSection} onClick = {() => {setCurrentPage('scheduler')}}>
-                <img src = {schedulerImg}/>
+                <img src = {schedulerImg} alt = ''/>
             </div>
             <div style = {(currentPage === 'deleter')?{background: 'rgba(255, 255, 255, 0.3)'}:{background: ''}} className = {styles.SidebarSection} onClick = {() => {setCurrentPage('deleter')}}>
-                <img src = {deleterImg}/>
+                <img src = {deleterImg} alt = ''/>
             </div>
             <div className = {styles.LogoutButton}>
-                <img src = {logoutImg} onClick = {() => {interfaceUtils.logout(); setLoggedIn(false)}}/>
+                <img src = {logoutImg} alt = '' onClick = {() => {interfaceUtils.logout(); setLoggedIn(false)}}/>
             </div>
         </div>
     )

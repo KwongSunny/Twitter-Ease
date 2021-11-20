@@ -1,0 +1,58 @@
+.Header{
+    font-size: 24px;
+    padding-top: 20px;
+    font-weight: bold;
+}
+
+.InfoButton{
+    border-radius: 100%;
+    height: 20px;
+    line-height: 18px;
+    width: 20px;
+    font-size: 12px;
+    border:solid white 1px;
+    display:inline-block;
+    margin-left: 8px;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.InfoButton:hover{
+    cursor: default;
+}
+
+.RetweeterPage{
+    width: 700px;
+    height: 100vh;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+textarea{
+    resize: none;
+    background:unset;
+    border: inset;
+    width: 500px;
+    display: block;
+    margin: auto;
+    height: 80px;
+}
+
+.RetweetButton{
+    border: white solid 2px;
+    border-radius: 30px;
+    padding: 8px;
+}
+
+.RetweetButtonDiv{
+    margin-top: 28px;
+    text-align: right;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+}
+
+.RetweetButton:hover{
+    cursor: pointer;
+}

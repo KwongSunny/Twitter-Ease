@@ -171,7 +171,7 @@ function tweeting(message) {
       axios({
           url:'http://localhost:5000/twitter/retweet?q=',
           method:'GET',
-          params = q
+          params: q
       })
       .then((response)=> {
           console.log(response)

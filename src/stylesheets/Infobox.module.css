@@ -1,0 +1,17 @@
+.InfoBox{
+    background: #555555;
+    border: solid white 2px;
+    border-radius: 20px;
+    position: relative;
+    height: fit-content;
+    width: 200px;
+    left: 10px;
+    padding: 20px;
+    font-weight: normal;
+    visibility: hidden;
+}
+
+.InfoBox div{
+    font-size: 18px;
+    line-height: 1.3em;
+}
