@@ -229,12 +229,13 @@ function retweet(req,res,resultType=recent)
 
 
 // ---------------- when someone follows you, you tweet and @ them 
-
+/*
  function tweeting(txt){// same thing as tweet() but this takes a param
     twit.twitterAPI.post('statuses/update', {status:txt },function(err,data,response) {
         console.log(data)
     })
 }
+*/
 /*
 // ---------------- setting up a user stream 
 var stream = twit.twitterAPI.stream('user');
@@ -242,12 +243,13 @@ stream.on ('follow', followed);
 */
 
 // ---------------- anyone who followed, this will happen 
+/*
 function followed(eventMsg) {
     const name = eventMsg.source.name;
     const screenName = eventMsg. source.screen_name; 
     tweeting('@' + screenName + 'Thanks for following me')
 }
-
+*/
 
 // ---------------- scheduling tweets 
 
@@ -256,9 +258,10 @@ function scheduleTweet(res, req, hour, minute){
    const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
       twit.twitterAPI.post('statuses/update', {status: req.body },function(err,data,response) {
            console.log(data); 
+           res.send(data)
        })
-      job.cancel(); // stop the repetition of the job 
    });
+   job.cancel(); // stop the repetition of the job 
 }
 
 module.exports = {
@@ -272,7 +275,6 @@ module.exports = {
     likeNretweet,
     retweet,
     unretweet,
-    followed,
     scheduleTweet
 }
 
