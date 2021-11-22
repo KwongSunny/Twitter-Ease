@@ -253,12 +253,12 @@ function followed(eventMsg) {
 
 // ---------------- scheduling tweets 
 
-function scheduleTweet(res, req, hour, minute){
+function scheduleTweet(req, hour, minute){
 
    const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
       twit.twitterAPI.post('statuses/update', {status: req.body },function(err,data,response) {
            console.log(data); 
-           res.send(data)
+           //res.send(data)
        })
    });
    job.cancel(); // stop the repetition of the job 

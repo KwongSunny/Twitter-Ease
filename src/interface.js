@@ -167,11 +167,13 @@ function tweeting(message) {
   }
 
 
-  const retweet = (q) => {
+  const retweet = (query) => {
       axios({
           url:`http://localhost:5000/twitter/search/retweet`,
           method:'GET',
-          params: q
+          params: {
+              q:query
+          }
       })
       .then((response)=> {
           console.log(response)
@@ -251,7 +253,7 @@ const like = (q) => {
 const unretweet = () => {
     axios({
         url:'http://localhost:5000/twitter/home/unretweet',
-        method:'GET',
+        method:'GET'
     })
     .then((response)=> {
         console.log(response)
@@ -277,4 +279,4 @@ const scheduler = (message,hour,minute) => {
     }
 
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet};
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet,scheduler};
