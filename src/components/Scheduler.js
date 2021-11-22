@@ -17,6 +17,11 @@ function Scheduler(props){
         time: currentSchedule.time
     };
 
+    React.useEffect(() => {
+        console.log('test');
+        //document.getElementById('ScheduleTweetInput').defaultValue = stagedSchedule.text;
+    }, [currentSchedule])
+
     return(
         <div className = {styles.SchedulerPage}>
             <div className = {styles.Header}><span>Scheduler</span>                
@@ -38,7 +43,7 @@ function Scheduler(props){
                 <span style = {{marginLeft:'20px', display:'inline-block'}} onClick = {() => {if(props.schedules.scheduleIndex < tweetSchedules.length-1){props.schedules.scheduleIndex++; setCurrentSchedule(tweetSchedules[props.schedules.scheduleIndex])}}}>{'>>'}</span>
             </div>
 
-            <div className = {styles.TweetInputDiv}><textarea className = {styles.TweetInput} id = "HomeTweetInput" defaultValue = {currentSchedule.text} readOnly = {false}/></div>
+            <div className = {styles.TweetInputDiv}><textarea className = {styles.TweetInput} id = "ScheduleTweetInput" key = {'1'}>{stagedSchedule.text}</textarea></div>
 
             <form className = {styles.DotwButtons}>
                 <DotwButton id = {'Mon_Button'} stagedSchedule = {stagedSchedule} currentSchedule = {currentSchedule} text = {'M'} index = {1}/>
@@ -50,11 +55,11 @@ function Scheduler(props){
                 <DotwButton id = {'Sun_Button'} stagedSchedule = {stagedSchedule} currentSchedule = {currentSchedule} text = {'S'} index = {7}/>
             </form>
             <input id = {'Time_Input'} style = {{background: 'unset'}} type = 'time' defaultValue = {currentSchedule.time} readOnly ={false}/>
-            <div><span onClick = {() => {
+            {/* <div><span onClick = {() => {
                 console.log('currentSchedule: ', currentSchedule);
                 console.log('stagedSchedule: ', stagedSchedule);
                 console.log('time: ', document.getElementById('Time_Input').value)
-            }}>ConsoleLog</span></div>
+            }}>ConsoleLog</span></div> */}
 
             <div className = {styles.ApplyButtonDiv}>
                 <span className = {styles.ApplyButton} 
@@ -64,6 +69,7 @@ function Scheduler(props){
                         tweetSchedules[props.schedules.scheduleIndex] = stagedSchedule;
                         //need to update database
                         //    
+                        interfaceUtils.scheduler(stagedSchedule.text, '18', '28');
                     }}
                 >Apply</span>
             </div>

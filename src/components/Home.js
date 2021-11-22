@@ -49,12 +49,11 @@ function Home(props){
                 <div className = {styles.TweetButtonDiv}><span className = {styles.TweetButton} onClick = {() => {interfaceUtil.tweeting(document.getElementById('Home_Tweet_Input').value)}}>Tweet</span></div>
                 <hr style = {{marginTop: '28px'}}/>
                 <div className = {styles.Timeline}>
-                    <div className = {styles.TimelineItem}></div>
                     {
                         timeline.map((tweet) => {
                             return(
                                 <div className = {styles.TimelineItem}>
-                                    <div>{tweet.text}</div>
+                                    <div className = {styles.TimelineItemText}>{tweet.text}</div>
                                     <div style = {{margin: '10px 0px'}}>
                                         <span style = {{width:'30%', display:'inline-block'}}><img src = {rt_img}/></span>
                                         <span style = {{width:'30%', display:'inline-block'}}><img src = {like_img}/></span>

@@ -30,6 +30,7 @@
 }
 
 textarea{
+    border-radius: 10px;
     resize: none;
     background:unset;
     border: inset;
