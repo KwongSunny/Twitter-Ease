@@ -1,5 +1,6 @@
 
 import axios from 'axios'
+import { param } from 'express-validator';
 
 
 /*
@@ -268,7 +269,11 @@ const scheduler = (message,hour,minute) => {
         url:'http://localhost:5000/twitter/scheduler',
         method:'POST',
         headers:{"Content-Type":"text/plain"},
-        data: message
+        data: message,
+        params: {
+            hours:hour,
+            minutes:minute
+        }
       })
       .then(response => {
         console.log(response.data)
