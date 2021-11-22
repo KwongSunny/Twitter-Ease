@@ -169,7 +169,7 @@ function tweeting(message) {
 
   const retweet = (q) => {
       axios({
-          url:`http://localhost:5000/twitter/retweet?q=${params}`,
+          url:`http://localhost:5000/twitter/retweet`,
           method:'GET',
           params: q
       })
