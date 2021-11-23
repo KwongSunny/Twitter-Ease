@@ -1,6 +1,8 @@
 
 import axios from 'axios'
+import { CronJob, job } from 'cron';
 import { param } from 'express-validator';
+import {schedule} from '../src/backend/schedules'
 
 
 /*
@@ -264,24 +266,37 @@ const unretweet = () => {
     })
 }
 
-const scheduler = (message, hour,minute) => {
-      axios({
-        url:'http://localhost:5000/twitter/scheduler',
-        method:'POST',
-        headers:{"Content-Type":"text/plain"},
-        data: {
-            messages:message,
-            hours:hour,
-            minutes:minute
-        }
-      })
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
+const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='*', dayOfWeek='*', repeat=true) => {
+    let job = new CronJob(`${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}` ,function() {
+        console.log(message)
+        axios({
+            url:'http://localhost:5000/twitter/tweet',
+            method:'POST',
+            headers:{"Content-Type":"text/plain"},
+            data: message
+            })
+            .then(response => {
+            console.log(response.data)
+            schedule.push({
+                id: uuidv4(),
+                name: response.data['user']['name'].name,
+                text: message,
+                day: dayOfMonth,
+                time: hour + ":" + minute,
+                active: active,
+                repeating: repeat,
+                twitterHandle: response.data['user']['screen_name'].screen_name })
+            })
+            .catch(function (error) {
+            console.log(error);
+            })
+            if(repeat != true) {
+                job.stop()
+            }
+        })
+        job.start()
     }
 
+    
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet,scheduler};
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet,scheduled_tweets};

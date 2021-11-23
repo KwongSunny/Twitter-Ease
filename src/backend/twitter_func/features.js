@@ -1,7 +1,8 @@
+
 require('dotenv').config()
-const schedule = require('node-schedule')
-const { query } = require('express');
+const CronJob = require('cron').CronJob
 const twit = require('./twitter')
+const database = require('../schedules')
 
 // ----------------retrieve all the posts youve made 
  const timeline = (req,res) => {
@@ -252,17 +253,37 @@ function followed(eventMsg) {
 */
 
 // ---------------- scheduling tweets 
-
-function scheduleTweet(req, hour, minute){
-
-   const job = schedule.scheduleJob({hour: hour, minute: minute}, function(){
-      twit.twitterAPI.post('statuses/update', {status: req.body },function(err,data,response) {
-           console.log(data); 
-           //res.send(data)
+/*
+function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*", dayOfWeek="*"){ 
+   const job = new CronJob("*" + " " + minute + " " + hour +  " " + dayOfMonth + " " + month + " " + dayOfWeek, function(){
+      twit.twitterAPI.post('statuses/update', {status: req.body}, function(err,data,response) {
+           console.log(data);
+           if(err) {
+               console.log(err)
+           }
+           //res.send(data);
+           database.schedule.push({
+               id: uuidv4(),
+               name: data.user.name,
+               text: req.body,
+               day: dayOfMonth,
+               time: hour + ":" + minute,
+               active: active,
+               repeating: repeat,
+               twitterHandle: data.user.twitterHandle
+           })
        })
-   });
-   job.cancel(); // stop the repetition of the job 
+       res.send(data);
+       if(repeat != true) {
+           job.stop()
+       } 
+   })
+   job.start();
 }
+*/
+// express only takes 3 pamraeters
+
+
 
 module.exports = {
     timeline,
@@ -274,8 +295,7 @@ module.exports = {
     unlike2,
     likeNretweet,
     retweet,
-    unretweet,
-    scheduleTweet
+    unretweet
 }
 
 

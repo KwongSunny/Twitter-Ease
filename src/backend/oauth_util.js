@@ -84,5 +84,5 @@ module.exports = {
   oauthGetUserById,
   getOAuthAccessTokenWith,
   getOAuthRequestToken,
-  callback,
+  callback
 }
