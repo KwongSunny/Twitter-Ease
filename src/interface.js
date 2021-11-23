@@ -269,8 +269,8 @@ const scheduler = (message,hour,minute) => {
         url:'http://localhost:5000/twitter/scheduler',
         method:'POST',
         headers:{"Content-Type":"text/plain"},
-        data: message,
-        params: {
+        data: {
+            messages:message,
             hours:hour,
             minutes:minute
         }
