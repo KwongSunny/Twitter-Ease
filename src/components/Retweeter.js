@@ -15,12 +15,13 @@ function Retweeter(){
             </div>
             <hr style = {{marginTop: '28px'}}/>
             <div style = {{margin:'20px 0px 10px', fontSize: '20px'}}>Keywords</div>
-            <div id = 'RTKeywords' className = {styles.RetweetKeywordsDiv}><textarea className = {styles.RetweetKeywordsInput}/></div>
+            <div id = 'RTKeywordsDiv' className = {styles.RetweetKeywordsDiv}><textarea id = 'RTKeywords' className = {styles.RetweetKeywordsInput}/></div>
             <div style = {{margin:'20px 0px 10px', fontSize: '20px'}}>Filters</div>
-            <div id = 'RTFilters' className = {styles.RetweetFilterDiv}><textarea className = {styles.RetweetFilterInput}/></div>
+            <div id = 'RTFiltersDiv' className = {styles.RetweetFilterDiv}><textarea id = 'RTFilters' className = {styles.RetweetFilterInput}/></div>
             <div className = {styles.RetweetButtonDiv}><span className = {styles.RetweetButton} 
                 onClick = {() => {
-                    interfaceUtils.retweet(document.getElementById('RTKeywords'));
+                    console.log(document.getElementById('RTKeywords').value);
+                    interfaceUtils.retweet(document.getElementById('RTKeywords').value);
                 }}
             >Retweet</span></div>
             <hr style = {{marginTop: '28px'}}/>

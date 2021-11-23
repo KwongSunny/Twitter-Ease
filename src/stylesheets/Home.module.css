@@ -40,9 +40,10 @@
 }
 
 .Timeline{
+    border-radius: 10px;
     border: solid white 2px;
     margin-top: 38px;
-    width: 400px;
+    width: 500px;
     margin-left:auto;
     margin-right: auto;
     min-height: 50vh;
@@ -53,6 +54,11 @@
 .TimelineItem{
     height: fit-content;
     border-bottom: solid white 1px;
+}
+
+.TimelineItemText{
+    font-size: 18px;
+    padding: 12px;
 }
 
 .TweetButton{
@@ -82,6 +88,7 @@
     background: unset;
     resize: none;
     font-size: 16px;
+    border-radius: 10px;
 }
 
 .TweetInputDiv{

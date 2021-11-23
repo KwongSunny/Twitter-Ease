@@ -7,6 +7,7 @@ import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import Scheduler from './components/Scheduler';
 import Retweeter from './components/Retweeter';
+import Deleter from './components/Deleter';
 
 function App() {
     const twitterHandle = Cookies.get('twitter_screen_name');
@@ -64,7 +65,7 @@ function App() {
                     }
                     {
                         currentPage === 'deleter' && <div>
-                            Deleter
+                            <Deleter />
                         </div>
                     }
                 </div>
