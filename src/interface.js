@@ -2,7 +2,10 @@
 import axios from 'axios'
 import { CronJob, job } from 'cron';
 import { param } from 'express-validator';
+import schedule from './backend/schedules'
+
 import {schedule} from '../src/backend/schedules'
+import { DatabaseError } from 'pg-protocol';
 
 
 /*
@@ -332,6 +335,9 @@ function scheduled_tweets(message,second,minute,hour,dayOfmonth,month,dayOfweek 
     })
   }
 
+  function get_schedule() {
+      return schedule
+  }
     
 
 export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet,scheduled_tweets};

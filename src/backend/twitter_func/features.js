@@ -26,11 +26,11 @@ const { v4: uuidv4 } = require('uuid');
 // ----------------interval tweeting 
 
 // currently not needed
-function intervalTweet(message){
+function intervalTweet(req,res){
 
     var r = Math.floor(Math.random()*100); 
 
-    twit.twitterAPI.post('statuses/update', {status:message + r },function(err,data,response) {
+    twit.twitterAPI.post('statuses/update', {status:req.body + r },function(err,data,response) {
         console.log(data)
     })
 }
@@ -287,39 +287,37 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
 
 function scheduleTweet(req,res){
     console.log('started')
-    const {second,minute,hour,dayOfmonth,month,dayOfweek,message} = req.body
+    const {second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat=true} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(date)
     console.log(message)
     // based on a precise time not every second, every minute etc
+    if(active == true) {
     const job = schedule.scheduleJob(date, function(){
        twit.twitterAPI.post('statuses/update', {status: message},function(err,data,response) {
             console.log(data); 
-            //res.send(data)
-            //console.log(data['user'].name)
-            //console.log(test)
             database.schedule.push({
                 id: uuidv4(),
-                name: data['user'].name,
-                text: req.body,
+                name: name,
+                text: message,
                 month: month,
                 day: dayOfmonth,
                 dayOfweek:dayOfweek,
                 time: hour + ":" + minute,
+                active:active,
+                repeat:repeat,
                 twitterHandle: data['user'].screen_name
+                
             })
         })  
-            if(repeat = false) {
-                job.cancel() // stop the repetition of the jobj
-            }
+        if(repeat == false) {
+            job.cancel() // stop the repetition of the job
+        }
     })
 }
-
-
- // function to retreive schedule from file database
-function getSchedule(req,res) {
-    
 }
+
+
 
 
 module.exports = {
