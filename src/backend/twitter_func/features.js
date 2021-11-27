@@ -304,6 +304,7 @@ function scheduleTweet(req,res){
                 text: req.body,
                 month: month,
                 day: dayOfmonth,
+                dayOfweek:dayOfweek,
                 time: hour + ":" + minute,
                 twitterHandle: data['user'].screen_name
             })
@@ -316,9 +317,9 @@ function scheduleTweet(req,res){
 
 
  // function to retreive schedule from file database
- function getSchedule(req,res) {
-
- }
+function getSchedule(req,res) {
+    
+}
 
 
 module.exports = {

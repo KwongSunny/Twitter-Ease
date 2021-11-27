@@ -186,6 +186,7 @@ function tweeting(message) {
       })
   }
 
+  // attempts to delete everything from timeline
   const mass_deletion = () => {
       axios({
           url:'http://localhost:5000/twitter/home/purge',
@@ -199,7 +200,8 @@ function tweeting(message) {
       })
   }
 
-  const unlike_retweeted = () => {
+  // UNLIKES RETWEETS ONLY!!! UNLIKES ALL RETWEETS ON YOUR TIMELINE
+  const unlike_retweeted_all = () => {
     axios({
         url:'http://localhost:5000/twitter/home/unlike1',
         method:'GET',
@@ -212,7 +214,8 @@ function tweeting(message) {
     })
 }
 
-const unlike = () => {
+// JUST UNLIKES EVERYTHING ON YOUR TIMELINE
+const unlike_all = () => {
     axios({
         url:'http://localhost:5000/twitter/home/unlike2',
         method:'GET',
@@ -225,7 +228,8 @@ const unlike = () => {
     })
 }
 
-const like_n_retweet = (query) => {
+// like and retweets all that match the given query keyword
+const like_n_retweet_all = (query) => {
     axios({
         url:'http://localhost:5000/twitter/like-n-retweet/:q',
         method:'GET',
@@ -239,7 +243,8 @@ const like_n_retweet = (query) => {
     })
 }
 
-const like = (query) => {
+// unlikes everything given a query keyword
+const mass_like = (query) => {
     axios({
         url:'http://localhost:5000/twitter/search/like',
         method:'GET',
@@ -255,6 +260,7 @@ const like = (query) => {
     })
 }
 
+//unretweets everything on timeline
 const unretweet = () => {
     axios({
         url:'http://localhost:5000/twitter/home/unretweet',
