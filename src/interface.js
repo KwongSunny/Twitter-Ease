@@ -2,8 +2,7 @@
 import axios from 'axios'
 import { CronJob, job } from 'cron';
 import { param } from 'express-validator';
-import schedule from './backend/schedules'
-
+import { v4 as uuidv4 } from 'uuid';
 import {schedule} from '../src/backend/schedules'
 import { DatabaseError } from 'pg-protocol';
 
@@ -311,20 +310,22 @@ const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='
     }
 */
 
-function scheduled_tweets(message,second,minute,hour,dayOfmonth,month,dayOfweek ) {
+function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat=true,twitterHandle) {
     axios({
       url:'http://localhost:5000/twitter/scheduler',
       method:'POST',
       headers:{"Content-Type":"text/plain"},
       data: {
-          message: message,
-          second: second,
-          minute: minute,
-          month: month,
-          hour: hour,
-          dayOfmonth:dayOfmonth,
-          month: month,
-          dayOfweek:dayOfweek
+        id: id,
+        name: name,
+        text: message,
+        month: month,
+        day: dayOfmonth,
+        dayOfweek:dayOfweek,
+        time: hour + ":" + minute + ":" + second,
+        active:active,
+        repeat:repeat,
+        twitterHandle: twitterHandle
       }
     })
     .then(response => {
@@ -340,4 +341,4 @@ function scheduled_tweets(message,second,minute,hour,dayOfmonth,month,dayOfweek 
   }
     
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted,like_n_retweet,like,unlike,unretweet,scheduled_tweets};
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted_all,like_n_retweet_all,mass_like,unlike_all,unretweet,scheduled_tweets,get_schedule};

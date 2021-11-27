@@ -287,7 +287,7 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
 
 function scheduleTweet(req,res){
     console.log('started')
-    const {second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat=true} = req.body
+    const {id,second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat,twitterHandle} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(date)
     console.log(message)
@@ -297,17 +297,16 @@ function scheduleTweet(req,res){
        twit.twitterAPI.post('statuses/update', {status: message},function(err,data,response) {
             console.log(data); 
             database.schedule.push({
-                id: uuidv4(),
+                id: id,
                 name: name,
                 text: message,
                 month: month,
                 day: dayOfmonth,
                 dayOfweek:dayOfweek,
-                time: hour + ":" + minute,
+                time: hour + ":" + minute + ":" + second,
                 active:active,
                 repeat:repeat,
-                twitterHandle: data['user'].screen_name
-                
+                twitterHandle: twitterHandle
             })
         })  
         if(repeat == false) {
