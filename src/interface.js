@@ -239,11 +239,13 @@ const like_n_retweet = (query) => {
     })
 }
 
-const like = (q) => {
+const like = (query) => {
     axios({
-        url:'http://localhost:5000/twitter/search/like?q=',
+        url:'http://localhost:5000/twitter/search/like',
         method:'GET',
-        params: q
+        params: {
+            q:query
+        }
     })
     .then((response)=> {
         console.log(response)
@@ -266,6 +268,8 @@ const unretweet = () => {
     })
 }
 
+
+/*
 const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='*', dayOfWeek='*', repeat=true) => {
     let job = new CronJob(`${minute} ${hour} ${dayOfMonth} ${month} ${dayOfWeek}` ,function() {
         console.log(message)
@@ -296,6 +300,31 @@ const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='
         })
         job.start()
     }
+*/
+
+function scheduled_tweets(message,second,minute,hour,dayOfmonth,month,dayOfweek ) {
+    axios({
+      url:'http://localhost:5000/twitter/scheduler',
+      method:'POST',
+      headers:{"Content-Type":"text/plain"},
+      data: {
+          message: message,
+          second: second,
+          minute: minute,
+          month: month,
+          hour: hour,
+          dayOfmonth:dayOfmonth,
+          month: month,
+          dayOfweek:dayOfweek
+      }
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
 
     
 

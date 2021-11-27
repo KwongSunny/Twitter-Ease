@@ -3,6 +3,8 @@ require('dotenv').config()
 const CronJob = require('cron').CronJob
 const twit = require('./twitter')
 const database = require('../schedules')
+const schedule = require('node-schedule')
+const { v4: uuidv4 } = require('uuid');
 
 // ----------------retrieve all the posts youve made 
  const timeline = (req,res) => {
@@ -283,6 +285,40 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
 */
 // express only takes 3 pamraeters
 
+function scheduleTweet(req,res){
+    console.log('started')
+    const {second,minute,hour,dayOfmonth,month,dayOfweek,message} = req.body
+    const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
+    console.log(date)
+    console.log(message)
+    // based on a precise time not every second, every minute etc
+    const job = schedule.scheduleJob(date, function(){
+       twit.twitterAPI.post('statuses/update', {status: message},function(err,data,response) {
+            console.log(data); 
+            //res.send(data)
+            //console.log(data['user'].name)
+            //console.log(test)
+            database.schedule.push({
+                id: uuidv4(),
+                name: data['user'].name,
+                text: req.body,
+                month: month,
+                day: dayOfmonth,
+                time: hour + ":" + minute,
+                twitterHandle: data['user'].screen_name
+            })
+        })  
+            if(repeat = false) {
+                job.cancel() // stop the repetition of the jobj
+            }
+    })
+}
+
+
+ // function to retreive schedule from file database
+ function getSchedule(req,res) {
+
+ }
 
 
 module.exports = {
@@ -295,7 +331,8 @@ module.exports = {
     unlike2,
     likeNretweet,
     retweet,
-    unretweet
+    unretweet,
+    scheduleTweet
 }
 
 
