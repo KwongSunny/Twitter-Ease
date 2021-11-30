@@ -10,7 +10,6 @@ import liked_img from '../images/twitter_liked_button.png';
 
 function Home(props){
     const twitterHandle = props.twitterHandle;
-    console.log(twitterHandle);
     const tweetDefaultValue = 'Say hi to Twitter..';
     const [timeline, setTimeline] = React.useState();
     React.useEffect(() => {
@@ -20,14 +19,13 @@ function Home(props){
             method:'GET',
         })
         .then((response) =>{
-            console.log(response)
             setTimeline(response.data);
         })
         .catch((error)=> {
             console.log(error);
         })
     }, []);
-    console.log(timeline);
+    console.log('timeline: ', timeline);
 
     if(timeline && timeline.length > 1){
         return(
@@ -50,13 +48,31 @@ function Home(props){
                 <hr style = {{marginTop: '28px'}}/>
                 <div className = {styles.Timeline}>
                     {
-                        timeline.map((tweet) => {
+                        timeline.map((tweet, index) => {
+                            let rt_src = (tweet.retweeted)?rted_img:rt_img;
+                            let like_src = (tweet.favorited)?liked_img:like_img;
+
+                            let tweet_text = tweet.text;
+                            let tweet_hyperlink = '';
+                            if(tweet.retweeted_status){
+                                tweet_text = 'You retweeted: ' + tweet_text.substring(2);
+                                tweet_hyperlink = tweet.retweeted_status.text.substring(tweet.retweeted_status.text.indexOf('https'));
+                            }
+
                             return(
-                                <div className = {styles.TimelineItem}>
-                                    <div className = {styles.TimelineItemText}>{tweet.text}</div>
+                                <div className = {styles.TimelineItem} key = {index}>
+                                    <div className = {styles.TimelineItemText}>{tweet_text}<br /><a href = {tweet_hyperlink}>{tweet_hyperlink}</a></div>
                                     <div style = {{margin: '10px 0px'}}>
-                                        <span style = {{width:'30%', display:'inline-block'}}><img src = {rt_img}/></span>
-                                        <span style = {{width:'30%', display:'inline-block'}}><img src = {like_img}/></span>
+                                        <span id = '' style = {{width:'30%', display:'inline-block'}}><img src = {rt_src} onClick = {() => {
+                                            //DOESNT WORK, ASK BACKEND TEAM
+                                            if(tweet.retweeted) interfaceUtil.unretweet(tweet.id);
+                                            else interfaceUtil.retweet(tweet.id);
+                                        }}/></span>
+                                        <span id = '' style = {{width:'30%', display:'inline-block'}}><img src = {like_src} onClick = {() => {
+                                            //DOESNT WORK, ASK BACKEND TEAM
+                                            if(tweet.retweeted) interfaceUtil.unlike(tweet.id);
+                                            else interfaceUtil.like(tweet.id);
+                                        }}/></span>
                                     </div>
                                 </div>
                             )

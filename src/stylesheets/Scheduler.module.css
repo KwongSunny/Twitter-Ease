@@ -1,3 +1,18 @@
+.AddScheduleButton{
+    margin-left: 12px;
+    border-radius: 100%;
+    border: solid white 1.5px;
+    width: 20px;
+    height: 20px;
+    display:inline-block;
+    line-height: 17px;
+    font-size: 20px;
+}
+
+.AddScheduleButton:hover{
+    cursor:pointer;
+}
+
 .ApplyButton{
     border: white solid 2px;
     border-radius: 30px;
@@ -6,7 +21,7 @@
 
 .ApplyButtonDiv{
     margin-top: 28px;
-    text-align: right;
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
     width: 500px;
@@ -14,6 +29,7 @@
 
 .ApplyButton:hover{
     cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 .DotwButton{
@@ -41,6 +57,20 @@
     margin: 0px 10px;
 }
 
+.EditNameButton{
+    vertical-align: middle;
+    margin-left: 8px;
+
+}
+
+.EditNameButton:hover{
+    cursor: pointer;
+}
+
+.EditNameButton img{
+    height: 20px;
+}
+
 .Header{
     font-size: 24px;
     padding-top: 20px;
@@ -60,13 +90,21 @@
     margin: 20px auto 10px;
 }
 
+.SchedulePicker{
+    display:inline-block;
+}
+
+.SchedulePicker:hover{
+    cursor:pointer;
+}
+
 .InfoButton{
     border-radius: 100%;
     height: 20px;
-    line-height: 18px;
+    line-height: 20px;
     width: 20px;
     font-size: 12px;
-    border:solid white 1px;
+    border:solid white 1.5px;
     display:inline-block;
     margin-left: 8px;
     justify-content: center;
@@ -85,6 +123,22 @@
     height: 250px;
     width: 200px;
     left: 10px;
+}
+
+.NameInput{
+    padding: 0px 8px;
+    outline: none;
+}
+
+.TimeInput{
+    background: unset;
+    outline-style: none;
+    border: inset white 1.5px;
+    border-radius: 10px;
+}
+
+.TimeInput::-webkit-calendar-picker-indicator{
+    filter:invert();
 }
 
 .TweetInput{

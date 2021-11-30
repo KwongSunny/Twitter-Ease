@@ -1,0 +1,28 @@
+.DeleteButton{
+    border: solid 2px white;
+    border-radius: 20px;
+    background: red;
+    width: fit-content;
+    height:fit-content;
+    padding: 10px;
+}
+
+.DeleteButton:hover{
+    cursor:pointer;
+}
+
+.DeleteButtonDiv{
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DeleterPage{
+    width: 700px;
+    height: 100vh;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
