@@ -63,15 +63,30 @@ function Home(props){
                                 <div className = {styles.TimelineItem} key = {index}>
                                     <div className = {styles.TimelineItemText}>{tweet_text}<br /><a href = {tweet_hyperlink}>{tweet_hyperlink}</a></div>
                                     <div style = {{margin: '10px 0px'}}>
-                                        <span id = '' style = {{width:'30%', display:'inline-block'}}><img src = {rt_src} onClick = {() => {
+                                        <span style = {{width:'30%', display:'inline-block'}}><img src = {rt_src} id = {'rt_' + tweet.id_str} onClick = {() => {
                                             //DOESNT WORK, ASK BACKEND TEAM
-                                            if(tweet.retweeted) interfaceUtil.unretweet(tweet.id);
-                                            else interfaceUtil.retweet(tweet.id);
+                                            if(tweet.retweeted){
+                                                interfaceUtil.singleUnretweet(tweet.id_str);
+                                                document.getElementById('rt_' + tweet.id_str).src = rt_img;
+
+                                            }
+                                            else {
+                                                interfaceUtil.singleRetweet(tweet.id_str);
+                                                document.getElementById('rt_' + tweet.id_str).src = rted_img;
+                                            }
+                                            tweet.retweeted = !tweet.retweeted;
                                         }}/></span>
-                                        <span id = '' style = {{width:'30%', display:'inline-block'}}><img src = {like_src} onClick = {() => {
+                                        <span style = {{width:'30%', display:'inline-block'}}><img src = {like_src} id = {'like_' + tweet.id_str} onClick = {() => {
                                             //DOESNT WORK, ASK BACKEND TEAM
-                                            if(tweet.retweeted) interfaceUtil.unlike(tweet.id);
-                                            else interfaceUtil.like(tweet.id);
+                                            if(tweet.favorited){
+                                                interfaceUtil.singleUnlike(tweet.id_str);
+                                                document.getElementById('like_' + tweet.id_str).src = like_img;
+                                            }
+                                            else {
+                                                interfaceUtil.singleLike(tweet.id_str);
+                                                document.getElementById('like_' + tweet.id_str).src = liked_img;
+                                            }
+                                            tweet.favorited = !tweet.favorited;
                                         }}/></span>
                                     </div>
                                 </div>
@@ -88,7 +103,11 @@ function Home(props){
         if(timeline && timeline.errors) message = 'Twitter Rate Limit Exceeded';
         return(
             <div className = {styles.HomePage}>
-                <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span><div className = {styles.InfoButton}>i<Infobox /></div></div>
+                <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span>
+                    <div className = {styles.InfoButton} onMouseOver = {() => {document.getElementById('homeInfobox').style.visibility = 'visible'}} onMouseLeave = {() => {document.getElementById('homeInfobox').style.visibility = 'hidden'}}>
+                        i<Infobox id = {'homeInfobox'} title = {'Home Page'} desc = {'This is your home page, it lets you tweet and see recent Twitter Activity and allows you to like a retweet them.'}/>
+                    </div>
+                </div>
                 <hr style = {{marginTop: '28px'}}/>
                 <div className = {styles.TweetInputDiv}>
                     <textarea 
