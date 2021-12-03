@@ -58,7 +58,7 @@ function intervalTweet(req,res){
     })
 }
 
-// ----------------searches for a specific tag to like 
+// ----------------searches for a specific tag to mass like 
 
 function like(res, req, resultType, count)
 {
@@ -285,7 +285,7 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
 */
 
 // function to like singular tweets by id
-function like(likeId)
+function singular_like(likeId)
 {
     twit.twitterAPI.post('favorites/create', {id: likeId}, function(err,data,response) {
         // console.log(err)
@@ -304,14 +304,14 @@ function unlike(unlikeID){
 }
 
 // retweet tweets by id
-function retweet(retweetId){
+function singular_retweet(retweetId){
     twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, function(err,data,response) {
         console.log(data)
     })
 }
 
 // unretweet tweets by id   
-function unretweet(unretweetID){
+function singular_unretweet(unretweetID){
     twit.twitterAPI.post('statuses/unretweet/:id', {id: unretweetID}, function(err,data,response) {
         console.log(data)
     })
@@ -351,7 +351,7 @@ function scheduleTweet(req,res){
 }
 
 // returns all schedules from the database
-function all_schedules(res,req) {
+function all_schedules(req,res,next) {
     res.send(database.schedule.slice(0))
 }
 
@@ -374,6 +374,7 @@ function updateTweet(req,res,next) {
 }
 
 
+
 module.exports = {
     timeline,
     tweet,
@@ -388,10 +389,10 @@ module.exports = {
     all_schedules,
     scheduleTweet,
     updateTweet,
-    like,
+    singular_like,
     unlike,
-    retweet,
-    unretweet
+    singular_retweet,
+    singular_unretweet
 }
 
 
