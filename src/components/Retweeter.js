@@ -10,7 +10,7 @@ function Retweeter(){
         <div className = {styles.RetweeterPage}>
             <div className = {styles.Header}><span>Retweeter</span>
                 <div className = {styles.InfoButton} onMouseOver = {() => {document.getElementById('retweeterInfobox').style.visibility = 'visible'}} onMouseLeave = {() => {document.getElementById('retweeterInfobox').style.visibility = 'hidden'}}>
-                    i<Infobox id = {'retweeterInfobox'} title = {'Retweeter'} desc = {'Automatically retweet Tweets with specific keywords and phrases! You can also filter out specific terms if needed.'}/>
+                    i<Infobox id = {'retweeterInfobox'} title = {'Retweeter'} desc = {'Automatically retweet Tweets with specific keywords and phrases! You can also filter out specific terms if needed. Currently retweets the ten most recent tweets.'}/>
                 </div>
             </div>
             <hr style = {{marginTop: '28px'}}/>
