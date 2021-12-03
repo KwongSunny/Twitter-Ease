@@ -283,31 +283,65 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
    job.start();
 }
 */
+
+// function to like singular tweets by id
+function like(likeId)
+{
+    twit.twitterAPI.post('favorites/create', {id: likeId}, function(err,data,response) {
+        // console.log(err)
+        console.log(data)
+        // console.log(response)
+    })   
+}
+
+// function to unlike tweets by id
+function unlike(unlikeID){
+
+   
+    twit.twitterAPI.post('favorites/destroy', {id: unlikeID}, function(err,data,response) {
+        console.log(data)
+    })
+}
+
+// retweet tweets by id
+function retweet(retweetId){
+    twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, function(err,data,response) {
+        console.log(data)
+    })
+}
+
+// unretweet tweets by id   
+function unretweet(unretweetID){
+    twit.twitterAPI.post('statuses/unretweet/:id', {id: unretweetID}, function(err,data,response) {
+        console.log(data)
+    })
+}
+
 // express only takes 3 pamraeters
 
 function scheduleTweet(req,res){
     console.log('started')
-    const {id,second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat,twitterHandle} = req.body
+    const {id,second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=true,twitterHandle} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(date)
     console.log(message)
     // based on a precise time not every second, every minute etc
     if(active == true) {
+        database.schedule.push({
+            id: id,
+            name: name,
+            text: message,
+            month: month,
+            day: dayOfmonth,
+            dayOfweek:dayOfweek,
+            time: hour + ":" + minute + ":" + second,
+            active:active,
+            repeat:repeat,
+            twitterHandle: twitterHandle
+        })
     const job = schedule.scheduleJob(date, function(){
        twit.twitterAPI.post('statuses/update', {status: message},function(err,data,response) {
             console.log(data); 
-            database.schedule.push({
-                id: id,
-                name: name,
-                text: message,
-                month: month,
-                day: dayOfmonth,
-                dayOfweek:dayOfweek,
-                time: hour + ":" + minute + ":" + second,
-                active:active,
-                repeat:repeat,
-                twitterHandle: twitterHandle
-            })
         })  
         if(repeat == false) {
             job.cancel() // stop the repetition of the job
@@ -316,7 +350,28 @@ function scheduleTweet(req,res){
 }
 }
 
+// returns all schedules from the database
+function all_schedules(res,req) {
+    res.send(database.schedule.slice(0))
+}
 
+// updates tweeets
+function updateTweet(req,res,next) {
+    const {id} = req.params.id
+    const {second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message} = req.body
+    if(typeof second !== "number" || typeof minute !== "number" || hour !== "number") {
+        return false
+    }
+    // filters schedule by id
+    const filter_id = database.schedule.filter(schedules=>schedules.id == id)[0]    // returns the whole schdule with that id
+    filter_id['text'] = message
+    filter_id['month'] = month
+    filter_id['day'] = dayOfmonth
+    filter_id['dayOfweek'] = dayOfweek
+    filter_id['time'] = hour + ":" + minute + ":" + second
+
+    return filter_id
+}
 
 
 module.exports = {
@@ -330,7 +385,13 @@ module.exports = {
     likeNretweet,
     retweet,
     unretweet,
-    scheduleTweet
+    all_schedules,
+    scheduleTweet,
+    updateTweet,
+    like,
+    unlike,
+    retweet,
+    unretweet
 }
 
 

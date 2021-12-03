@@ -5,6 +5,7 @@ import { param } from 'express-validator';
 import { v4 as uuidv4 } from 'uuid';
 import {schedule} from '../src/backend/schedules'
 import { DatabaseError } from 'pg-protocol';
+import { tupleExpression } from '@babel/types';
 
 
 /*
@@ -310,18 +311,18 @@ const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='
     }
 */
 
-function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat=true,twitterHandle) {
+function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfWeek,message,name,active,repeat,twitterHandle) {
     axios({
       url:'http://localhost:5000/twitter/scheduler',
-      method:'POST',
+      method:'PUT',
       headers:{"Content-Type":"text/plain"},
       data: {
         id: id,
         name: name,
         text: message,
-        month: month,
+        month: month,       
         day: dayOfmonth,
-        dayOfweek:dayOfweek,
+        dayOfweek: dayOfWeek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
         time: hour + ":" + minute + ":" + second,
         active:active,
         repeat:repeat,
@@ -336,9 +337,98 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
     })
   }
 
+  // returns all schedules
   function get_schedule() {
-      return schedule
+      axios({
+          url:"http://localhost:5000/twitter/schedule_database",
+          method:"GET"          
+      })
+      .then((response)=> {
+        console.log(response)
+      })
+      .catch((error) => {
+          console.log(error);
+      })
+    }
+
+  // insert id and what parts you want to modify -> defaults to null if left empty
+  function update_schedules(id,second,minute,hour,month,dayOfmonth,dayOfWeek,message) {
+      axios({
+        url:`http://localhost:5000/twitter/scheduler/${id}`,
+        method:'PUT',
+        headers:{"Content-Type":"text/plain"},
+        data: {
+          text: message,
+          month: month,       
+          day: dayOfmonth,
+          dayOfweek: dayOfWeek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
+          time: hour + ":" + minute + ":" + second
+        }
+      })
+      .then(response => {
+        console.log(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })   
   }
+
+  // likes a single tweet given the id
+  const singleLike = (likeId) => {
+    axios({
+      url:'http://localhost:5000/twitter/singular-like', // change URL
+      method:'POST',
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  // likes a single tweet given the id
+const singleUnlike = (unlikeID) => {
+    axios({
+      url:'http://localhost:5000/twitter/singular-unlike', // change URL
+      method:'POST',
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  // retweets a single tweet given the id
+const singleRetweet = (retweetId) => {
+    axios({
+      url:'http://localhost:5000/twitter/search/singular-retweet', // change URL
+      method:'POST',
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
+  // unretweets a single retweet given the id
+const singleUnretweet = (unretweetID) => {
+    axios({
+      url:'http://localhost:5000/search/singular-unretweet', // change URL
+      method:'POST',
+    })
+    .then(response => {
+      console.log(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
+
     
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted_all,like_n_retweet_all,mass_like,unlike_all,unretweet,scheduled_tweets,get_schedule};
+export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted_all,like_n_retweet_all,mass_like,unlike_all,unretweet,scheduled_tweets,get_schedule,update_schedules};
