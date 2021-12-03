@@ -431,4 +431,4 @@ const singleUnretweet = (unretweetID) => {
 
     
 
-export default {login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted_all,like_n_retweet_all,mass_like,unlike_all,unretweet,scheduled_tweets,get_schedule,update_schedules};
+export default {singleUnretweet,singleUnlike,singleRetweet,singleLike,login,tweeting,logout,homePage,retweet,mass_deletion,unlike_retweeted_all,like_n_retweet_all,mass_like,unlike_all,unretweet,scheduled_tweets,get_schedule,update_schedules};
