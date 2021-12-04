@@ -314,7 +314,7 @@ const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='
 function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfWeek,message,name,active,repeat,twitterHandle) {
     axios({
       url:'http://localhost:5000/twitter/scheduler',
-      method:'PUT',
+      method:'POST',
       headers:{"Content-Type":"text/plain"},
       data: {
         id: id,
