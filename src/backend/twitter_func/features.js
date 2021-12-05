@@ -295,9 +295,7 @@ function singular_like(likeId)
 }
 
 // function to unlike tweets by id
-function unlike(unlikeID){
-
-   
+function unlike(unlikeID){   
     twit.twitterAPI.post('favorites/destroy', {id: unlikeID}, function(err,data,response) {
         console.log(data)
     })
@@ -321,7 +319,7 @@ function singular_unretweet(unretweetID){
 
 function scheduleTweet(req,res){
     console.log('started')
-    const {id,second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=true,twitterHandle} = req.body
+    const {id,second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=false,twitterHandle} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(date)
     console.log(message)
@@ -340,7 +338,7 @@ function scheduleTweet(req,res){
             twitterHandle: twitterHandle
         })
     const job = schedule.scheduleJob(date, function(){
-       twit.twitterAPI.post('statuses/update', {status: message},function(err,data,response) {
+       twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
             console.log(data); 
         })  
         if(repeat == false) {
