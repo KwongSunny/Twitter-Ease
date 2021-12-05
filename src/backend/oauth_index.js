@@ -71,7 +71,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.get('/twitter/schedule_database',all_schedules)
   app.post('/twitter/search/singular-like',singular_like)
   app.post('/twitter/search/singular-unlike',unlike)
-  app.post('/twitter/serach/singular-retweet',singular_retweet)
+  app.post('/twitter/search/singular-retweet',singular_retweet)
   app.post('/twitter/search/singular-unretweet',singular_unretweet)
 
 

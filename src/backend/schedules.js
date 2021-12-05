@@ -2,9 +2,9 @@ const schedule = [
     {
         id: 1234,
         name: "name",
-        text: "message",
+        message: "message",
         month: "month",
-        day: "dayOfmonth",
+        dayOfmonth: "dayOfmonth",
         dayOfweek:"dayOfweek",
         time: "hour:minute",
         active:"active",

@@ -328,25 +328,29 @@ function scheduleTweet(req,res){
         database.schedule.push({
             id: id,
             name: name,
-            text: message,
+            message: message,
             month: month,
-            day: dayOfmonth,
+            dayOfmonth: dayOfmonth,
             dayOfweek:dayOfweek,
             time: hour + ":" + minute + ":" + second,
             active:active,
             repeat:repeat,
             twitterHandle: twitterHandle
         })
+    posted_data = ''
     const job = schedule.scheduleJob(date, function(){
        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
             console.log(data); 
+            posted_data = data
         })  
         if(repeat == false) {
             job.cancel() // stop the repetition of the job
+            res.sendStatus(200)
         }
     })
 }
 }
+
 
 // returns all schedules from the database
 function all_schedules(req,res,next) {
