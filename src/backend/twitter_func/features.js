@@ -285,9 +285,9 @@ function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*"
 */
 
 // function to like singular tweets by id
-function singular_like(likeId)
+function singular_like(req,res)
 {
-    twit.twitterAPI.post('favorites/create', {id: likeId}, function(err,data,response) {
+    twit.twitterAPI.post('favorites/create', {id: req.body}, function(err,data,response) {
         // console.log(err)
         console.log(data)
         // console.log(response)
@@ -295,22 +295,22 @@ function singular_like(likeId)
 }
 
 // function to unlike tweets by id
-function unlike(unlikeID){   
-    twit.twitterAPI.post('favorites/destroy', {id: unlikeID}, function(err,data,response) {
+function unlike(req,res){   
+    twit.twitterAPI.post('favorites/destroy', {id: req.body}, function(err,data,response) {
         console.log(data)
     })
 }
 
 // retweet tweets by id
-function singular_retweet(retweetId){
-    twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, function(err,data,response) {
+function singular_retweet(req,res){
+    twit.twitterAPI.post('statuses/retweet/:id', {id: req.body}, function(err,data,response) {
         console.log(data)
     })
 }
 
 // unretweet tweets by id   
-function singular_unretweet(unretweetID){
-    twit.twitterAPI.post('statuses/unretweet/:id', {id: unretweetID}, function(err,data,response) {
+function singular_unretweet(req,res){
+    twit.twitterAPI.post('statuses/unretweet/:id', {id: req.body}, function(err,data,response) {
         console.log(data)
     })
 }
