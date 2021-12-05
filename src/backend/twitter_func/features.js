@@ -364,7 +364,9 @@ function updateTweet(req,res,next) {
     const {second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message} = req.body
     console.log(message)
     console.log(second)
-
+    if(typeof(second) !== ("number" || "*") || typeof(minute) !== ("number" || "*") || typeof(hour) !== ("number" || "*")) {
+        res.sendStatus(403)
+    }
     // filters schedule by id
     const filter_id = database.schedule.filter(schedules=>schedules.id == id)[0]    // returns the whole schdule with that id
     filter_id['message'] = message
