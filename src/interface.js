@@ -3,7 +3,7 @@ import axios from 'axios'
 import { CronJob, job } from 'cron';
 import { param } from 'express-validator';
 import { v4 as uuidv4 } from 'uuid';
-import {schedule} from '../src/backend/schedules'
+
 import { DatabaseError } from 'pg-protocol';
 import { tupleExpression } from '@babel/types';
 
@@ -311,23 +311,26 @@ const scheduled_tweets = (message, minute='*', hour='*', dayOfMonth='*', month='
     }
 */
 
-function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfWeek,message,name,active,repeat,twitterHandle) {
+function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat,twitterHandle) {
+    const json_string = {
+      id:id,
+      second:second,
+      minute:minute,
+      hour:hour,
+      dayOfmonth:dayOfmonth,
+      month:month,
+      dayOfweek:dayOfweek,
+      message:message,
+      name:name,
+      active:active,
+      repeat:repeat,
+      twitterHandle:twitterHandle
+    };
     axios({
       url:'http://localhost:5000/twitter/scheduler',
       method:'POST',
-      headers:{"Content-Type":"text/plain"},
-      data: {
-        id: id,
-        name: name,
-        text: message,
-        month: month,       
-        day: dayOfmonth,
-        dayOfweek: dayOfWeek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
-        time: hour + ":" + minute + ":" + second,
-        active:active,
-        repeat:repeat,
-        twitterHandle: twitterHandle
-      }
+      headers:{"Content-Type":"application/json"},
+      data: json_string
     })
     .then(response => {
       console.log(response.data)
@@ -336,6 +339,7 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfW
       console.log(error);
     })
   }
+
 
   // returns all schedules
   function get_schedule() {
@@ -376,8 +380,10 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfW
   // likes a single tweet given the id
   const singleLike = (likeId) => {
     axios({
-      url:'http://localhost:5000/twitter/singular-like', // change URL
+      url:'http://localhost:5000/twitter/search/singular-like', // change URL
       method:'POST',
+      headers:{"Content-Type":"text/plain"},
+      data: likeId
     })
     .then(response => {
       console.log(response.data)
@@ -390,8 +396,10 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,month,dayOfmonth,dayOfW
   // likes a single tweet given the id
 const singleUnlike = (unlikeID) => {
     axios({
-      url:'http://localhost:5000/twitter/singular-unlike', // change URL
+      url:'http://localhost:5000/twitter/search/singular-unlike', // change URL
       method:'POST',
+      headers:{"Content-Type":"text/plain"},
+      data: unlikeID
     })
     .then(response => {
       console.log(response.data)
@@ -406,6 +414,8 @@ const singleRetweet = (retweetId) => {
     axios({
       url:'http://localhost:5000/twitter/search/singular-retweet', // change URL
       method:'POST',
+      headers:{"Content-Type":"text/plain"},
+      data: retweetId
     })
     .then(response => {
       console.log(response.data)
@@ -418,8 +428,9 @@ const singleRetweet = (retweetId) => {
   // unretweets a single retweet given the id
 const singleUnretweet = (unretweetID) => {
     axios({
-      url:'http://localhost:5000/search/singular-unretweet', // change URL
+      url:'http://localhost:5000/twitter/search/singular-unretweet', // change URL
       method:'POST',
+      data: unretweetID
     })
     .then(response => {
       console.log(response.data)
