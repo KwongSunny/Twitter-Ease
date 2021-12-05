@@ -18,10 +18,18 @@ function Retweeter(){
             <div id = 'RTKeywordsDiv' className = {styles.RetweetKeywordsDiv}><textarea id = 'RTKeywords' className = {styles.RetweetKeywordsInput}/></div>
             <div style = {{margin:'20px 0px 10px', fontSize: '20px'}}>Filters</div>
             <div id = 'RTFiltersDiv' className = {styles.RetweetFilterDiv}><textarea id = 'RTFilters' className = {styles.RetweetFilterInput}/></div>
+            <div>
+                <input id = 'likeRetweets' type = 'checkbox'/>
+                Like retweets?
+            </div>
             <div className = {styles.RetweetButtonDiv}><span className = {styles.RetweetButton} 
                 onClick = {() => {
-                    console.log(document.getElementById('RTKeywords').value);
-                    interfaceUtils.retweet(document.getElementById('RTKeywords').value);
+                    if(document.getElementById('likeRetweets').checked){
+                        interfaceUtils.like_n_retweet_all(document.getElementById('RTKeywords').value);
+                    }
+                    else{
+                        interfaceUtils.retweet(document.getElementById('RTKeywords').value);
+                    }
                 }}
             >Retweet</span></div>
             <hr style = {{marginTop: '28px'}}/>

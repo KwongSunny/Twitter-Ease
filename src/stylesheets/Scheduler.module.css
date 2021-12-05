@@ -32,6 +32,15 @@
     background-color: rgba(255, 255, 255, 0.4);
 }
 
+.DeleteScheduleButton{
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.DeleteScheduleButton:hover{
+    cursor: pointer;
+}
+
 .DotwButton{
     height: 40px;
     min-width: 40px;
@@ -135,6 +144,10 @@
     outline-style: none;
     border: inset white 1.5px;
     border-radius: 10px;
+}
+
+.TimeInput:hover{
+    cursor:pointer;
 }
 
 .TimeInput::-webkit-calendar-picker-indicator{
