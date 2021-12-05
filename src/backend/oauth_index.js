@@ -6,7 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const PORT = process.env.PORT || 5000
 const {
-  tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet, like, unlike2, unretweet,scheduleTweet, updateTweet, all_schedules, unlike, singular_like, singular_retweet, singular_unretweet
+  tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet, like, unlike2, unretweet,scheduleTweet, updateTweet, all_schedules, unlike, singular_like, singular_retweet, singular_unretweet, delete_schedule
 } = require('./twitter_func/features')
 const { twitter, callback} = require('./oauth_util')
 const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE_SECRET
@@ -73,6 +73,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.post('/twitter/search/singular-unlike',unlike)
   app.post('/twitter/search/singular-retweet',singular_retweet)
   app.post('/twitter/search/singular-unretweet',singular_unretweet)
+  app.delete('/twitter/delete_schedule/:id',delete_schedule)
 
 
   

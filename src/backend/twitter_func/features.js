@@ -359,22 +359,35 @@ function all_schedules(req,res,next) {
 
 // updates tweeets
 function updateTweet(req,res,next) {
-    const {id} = req.params.id
+    const {id} = req.params
+    console.log(id)
     const {second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message} = req.body
-    if(typeof second !== "number" || typeof minute !== "number" || hour !== "number") {
-        return false
-    }
+    console.log(message)
+    console.log(second)
+
     // filters schedule by id
     const filter_id = database.schedule.filter(schedules=>schedules.id == id)[0]    // returns the whole schdule with that id
-    filter_id['text'] = message
+    filter_id['message'] = message
     filter_id['month'] = month
-    filter_id['day'] = dayOfmonth
+    filter_id['dayOfmonth'] = dayOfmonth
     filter_id['dayOfweek'] = dayOfweek
     filter_id['time'] = hour + ":" + minute + ":" + second
-
-    return filter_id
+    res.status(201).send(filter_id)
 }
 
+function delete_schedule(req,res,next) {
+    const {id} = req.params 
+    const schedule = database.schedule.filter(schedules=>schedules.id == id)[0]  
+    const find = database.schedule.indexOf(schedule)
+    if(find !== -1) {
+        console.log(find)
+        database.schedule.splice(find,1)
+        res.status(204).send({message:'ID DELETED'})
+    }    
+    else {
+        res.status(404).send('404 ERROR')
+    }
+}
 
 
 module.exports = {
@@ -394,7 +407,8 @@ module.exports = {
     singular_like,
     unlike,
     singular_retweet,
-    singular_unretweet
+    singular_unretweet,
+    delete_schedule
 }
 
 
