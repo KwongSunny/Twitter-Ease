@@ -309,8 +309,8 @@ function singular_retweet(req,res){
 }
 
 // unretweet tweets by id   
-function singular_unretweet(req,res){
-    twit.twitterAPI.post('statuses/unretweet/:id', {id: req.body}, function(err,data,response) {
+function singular_unretweet(id){
+    twit.twitterAPI.post('statuses/unretweet/:id', {id: id}, function(err,data,response) {
         console.log(data)
     })
 }
@@ -337,11 +337,9 @@ function scheduleTweet(req,res){
             repeat:repeat,
             twitterHandle: twitterHandle
         })
-    posted_data = ''
     const job = schedule.scheduleJob(date, function(){
        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
             console.log(data); 
-            posted_data = data
         })  
         if(repeat == false) {
             job.cancel() // stop the repetition of the job
@@ -361,7 +359,7 @@ function all_schedules(req,res,next) {
 function updateTweet(req,res,next) {
     const {id} = req.params
     console.log(id)
-    const {second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message} = req.body
+    const {second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat} = req.body
     console.log(message)
     console.log(second)
     if(typeof(second) !== ("number" || "*") || typeof(minute) !== ("number" || "*") || typeof(hour) !== ("number" || "*")) {
@@ -374,7 +372,24 @@ function updateTweet(req,res,next) {
     filter_id['dayOfmonth'] = dayOfmonth
     filter_id['dayOfweek'] = dayOfweek
     filter_id['time'] = hour + ":" + minute + ":" + second
-    res.status(201).send(filter_id)
+    filter_id['name'] = name
+    filter_id['active'] = active
+    filter_id['repeat'] = repeat
+    if(active == false) {
+        delete_schedule(id)
+        res.sendStatus(204)
+    }
+    else {
+    const job = schedule.scheduleJob(date, function(){
+        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
+             console.log(data); 
+         })  
+         if(repeat == false) {
+             job.cancel() // stop the repetition of the job
+            }
+     })
+    }
+    res.sendStatus(201)
 }
 
 function delete_schedule(req,res,next) {
@@ -384,7 +399,7 @@ function delete_schedule(req,res,next) {
     if(find !== -1) {
         console.log(find)
         database.schedule.splice(find,1)
-        res.status(204).send({message:'ID DELETED'})
+        res.sendStatus(204)
     }    
     else {
         res.status(404).send('404 ERROR')
