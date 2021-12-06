@@ -17,10 +17,10 @@ function Scheduler(props){
     
     //the current schedule being displayed
     const [currentSchedule, setCurrentSchedule] = React.useState(tweetSchedules[props.schedules.scheduleIndex]?tweetSchedules[props.schedules.scheduleIndex]:undefined);
-    if(!currentSchedule) setCreatingSchedule(true);
+    if(!creatingSchedule && tweetSchedules.length === 0) setCreatingSchedule(true);
 
     //staged changes for the current schedule
-    const stagedSchedule = creatingSchedule?{
+    const stagedSchedule = {
         id: uuidv4(),
         name: 'New Schedule',
         text: 'Enter some text...',
@@ -34,27 +34,27 @@ function Scheduler(props){
         time: '00:00',
         active: true,
         repeating: true,
-    }:
-    {
-        id: currentSchedule.id,
-        name: currentSchedule.name,
-        text: currentSchedule.text,
-        mon: currentSchedule.mon,
-        tue: currentSchedule.tue,
-        wed: currentSchedule.wed,
-        thur: currentSchedule.thur,
-        fri: currentSchedule.fri,
-        sat: currentSchedule.sat,
-        sun: currentSchedule.sun,
-        time: currentSchedule.time,
-        active: currentSchedule.active,
-        repeating: currentSchedule.repeating
     };
+    
+    console.log('tweetSchedules1: ',tweetSchedules);
+    console.log('currentSchedule1: ', currentSchedule);
 
-    console.log('Schedules:',tweetSchedules);
+    if(!creatingSchedule && currentSchedule){
+        stagedSchedule.id = currentSchedule.id;
+        stagedSchedule.name = currentSchedule.name;
+        stagedSchedule.text = currentSchedule.text;
+        stagedSchedule.mon = currentSchedule.mon;
+        stagedSchedule.tue = currentSchedule.tue;
+        stagedSchedule.wed = currentSchedule.wed;
+        stagedSchedule.thur = currentSchedule.thur;
+        stagedSchedule.fri = currentSchedule.fri;
+        stagedSchedule.sat = currentSchedule.sat;
+        stagedSchedule.sun = currentSchedule.sun;
+        stagedSchedule.time = currentSchedule.time;
+        stagedSchedule.active = currentSchedule.active;
+        stagedSchedule.repeating = currentSchedule.repeating;
+    }
 
-
-    if(currentSchedule){}
     return(
         <div className = {styles.SchedulerPage}>
             <div className = {styles.Header}><span>Scheduler</span>                
@@ -97,6 +97,7 @@ function Scheduler(props){
                 {!creatingSchedule && <span className = {styles.DeleteScheduleButton}
                     onClick = {() => {
                         tweetSchedules.splice(props.schedules.scheduleIndex,1);
+                        interfaceUtils.delete_schedule(stagedSchedule.id);
                         setCurrentSchedule(tweetSchedules[0]);
                     }}
                 ><img src = {delete_img}/></span>}
@@ -169,20 +170,6 @@ function Scheduler(props){
                         else{
                             tweetSchedules[props.schedules.scheduleIndex] = stagedSchedule;
                         }
-                            //need to update database
-                        console.log({id: stagedSchedule.id,
-                            second: '0',
-                            minute: stagedSchedule.time.substring(0,2),
-                            hour: stagedSchedule.time.substring(3), 
-                            month: '', 
-                            dayOfMonth: '', 
-                            dayOfWeek: dayOfWeek, 
-                            message: stagedSchedule.text,
-                            name: stagedSchedule.name,
-                            active: stagedSchedule.active,
-                            repeat: stagedSchedule.repeating,
-                            twitterHandle: twitterHandle}
-                        );
                         if(creatingSchedule){
                             interfaceUtils.scheduled_tweets(
                                 stagedSchedule.id,
@@ -200,16 +187,16 @@ function Scheduler(props){
                             );
                         }
                         else{
-                            interfaceUtils.update_schedules(
-                                stagedSchedule.id,
-                                '00',
-                                stagedSchedule.time.substring(0,2),
-                                stagedSchedule.time.substring(3), 
-                                '', 
-                                '', 
-                                dayOfWeek, 
-                                stagedSchedule.text
-                            );
+                            // interfaceUtils.update_schedules(
+                            //     stagedSchedule.id,
+                            //     '00',
+                            //     stagedSchedule.time.substring(0,2),
+                            //     stagedSchedule.time.substring(3), 
+                            //     '', 
+                            //     '', 
+                            //     dayOfWeek, 
+                            //     stagedSchedule.text
+                            // );
                         }
                     }}
                 >{creatingSchedule?"Create":"Apply"}</span>

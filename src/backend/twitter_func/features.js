@@ -309,8 +309,8 @@ function singular_retweet(req,res){
 }
 
 // unretweet tweets by id   
-function singular_unretweet(req,res){
-    twit.twitterAPI.post('statuses/unretweet/:id', {id: req.body}, function(err,data,response) {
+function singular_unretweet(id){
+    twit.twitterAPI.post('statuses/unretweet/:id', {id: id}, function(err,data,response) {
         console.log(data)
     })
 }
@@ -319,7 +319,7 @@ function singular_unretweet(req,res){
 
 function scheduleTweet(req,res){
     console.log('started')
-    const {id,second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=false,twitterHandle} = req.body
+    const {id,second,minute,hour,dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=false,twitterHandle} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(date)
     console.log(message)
@@ -337,11 +337,9 @@ function scheduleTweet(req,res){
             repeat:repeat,
             twitterHandle: twitterHandle
         })
-    posted_data = ''
     const job = schedule.scheduleJob(date, function(){
        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
             console.log(data); 
-            posted_data = data
         })  
         if(repeat == false) {
             job.cancel() // stop the repetition of the job
@@ -361,20 +359,51 @@ function all_schedules(req,res,next) {
 function updateTweet(req,res,next) {
     const {id} = req.params
     console.log(id)
-    const {second='*',minute='*',hour='*',dayOfmonth='*',month='*',dayOfweek='*',message} = req.body
+    const {second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active=true,repeat} = req.body
+    const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
     console.log(message)
     console.log(second)
-    if(typeof(second) !== ("number" || "*") || typeof(minute) !== ("number" || "*") || typeof(hour) !== ("number" || "*")) {
-        res.sendStatus(403)
-    }
     // filters schedule by id
     const filter_id = database.schedule.filter(schedules=>schedules.id == id)[0]    // returns the whole schdule with that id
-    filter_id['message'] = message
-    filter_id['month'] = month
-    filter_id['dayOfmonth'] = dayOfmonth
-    filter_id['dayOfweek'] = dayOfweek
-    filter_id['time'] = hour + ":" + minute + ":" + second
-    res.status(201).send(filter_id)
+    if (second !== undefined) { 
+        filter_id['message'] = message
+    }
+    if (month !== undefined) {
+        filter_id['month'] = month
+    }
+    if (dayOfmonth !== undefined) {
+        filter_id['dayOfmonth'] = dayOfmonth
+    }
+    if (dayOfweek !== undefined || '') {
+        filter_id['dayOfweek'] = dayOfweek
+    }
+    if (hour !== undefined && minute !== undefined && second !== undefined) {
+        filter_id['time'] = hour + ":" + minute + ":" + second
+    }
+    if (name !== undefined || '') {
+        filter_id['name'] = name
+    }
+    if (active !== undefined || '') {
+        filter_id['active'] = active
+    }
+    if (repeat !== undefined || '') {
+        filter_id['repeat'] = repeat
+    }
+    if(active == false) {
+        delete_schedule(id)
+        res.sendStatus(204)
+    }
+    else {
+    const job = schedule.scheduleJob(date, function(){
+        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
+             console.log(data); 
+         })  
+         if(repeat == false) {
+             job.cancel() // stop the repetition of the job
+            }
+     })
+    }
+    res.sendStatus(201)
 }
 
 function delete_schedule(req,res,next) {
@@ -384,7 +413,7 @@ function delete_schedule(req,res,next) {
     if(find !== -1) {
         console.log(find)
         database.schedule.splice(find,1)
-        res.status(204).send({message:'ID DELETED'})
+        res.sendStatus(204)
     }    
     else {
         res.status(404).send('404 ERROR')

@@ -45,23 +45,26 @@ function convertDBtoFE(db_schedules){
     // }
     const fe_schedules = [];
 
-    db_schedules.forEach((schedule) => {
-        fe_schedules.push({
-            id: schedule.id,
-            name: schedule.name,
-            text: schedule.text,
-            mon: schedule.dayOfweek.includes('mon'),
-            tue: schedule.dayOfweek.includes('tue'),
-            wed: schedule.dayOfweek.includes('wed'),
-            thur: schedule.dayOfweek.includes('thu'),
-            fri: schedule.dayOfweek.includes('fri'),
-            sat: schedule.dayOfweek.includes('sat'),
-            sun: schedule.dayOfweek.includes('sun'),
-            time: schedule.time.substring(0, 5),
-            active:schedule.active,
-            repeating: schedule.repeat
+    console.log(db_schedules);
+    if(db_schedules){
+        db_schedules.forEach((schedule) => {
+            fe_schedules.push({
+                id: schedule.id,
+                name: schedule.name,
+                text: schedule.message,
+                mon: schedule.dayOfweek.includes('mon'),
+                tue: schedule.dayOfweek.includes('tue'),
+                wed: schedule.dayOfweek.includes('wed'),
+                thur: schedule.dayOfweek.includes('thu'),
+                fri: schedule.dayOfweek.includes('fri'),
+                sat: schedule.dayOfweek.includes('sat'),
+                sun: schedule.dayOfweek.includes('sun'),
+                time: schedule.time.substring(0, 5),
+                active:schedule.active,
+                repeating: schedule.repeat
+            })
         })
-    })
+    }
     return fe_schedules;
 }
 

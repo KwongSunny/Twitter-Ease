@@ -356,17 +356,20 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
     }
 
   // insert id and what parts you want to modify -> defaults to null if left empty
-  function update_schedules(id,second,minute,hour,month,dayOfmonth,dayOfWeek,message) {
+  function update_schedules(id,second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat) {
       axios({
         url:`http://localhost:5000/twitter/scheduler/${id}`,
         method:'PUT',
         headers:{"Content-Type":"text/plain"},
         data: {
-          text: message,
+          message: message,
           month: month,       
-          day: dayOfmonth,
-          dayOfweek: dayOfWeek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
-          time: hour + ":" + minute + ":" + second
+          dayOfmonth: dayOfmonth,
+          dayOfweek: dayOfweek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
+          time: hour + ":" + minute + ":" + second,
+          name: name,
+          active: active,
+          repeat: repeat
         }
       })
       .then(response => {
@@ -375,7 +378,7 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
       .catch(function (error) {
         console.log(error);
       })   
-  }
+  } // end of function
 
   // likes a single tweet given the id
   const singleLike = (likeId) => {
@@ -430,6 +433,7 @@ const singleUnretweet = (unretweetID) => {
     axios({
       url:'http://localhost:5000/twitter/search/singular-unretweet', // change URL
       method:'POST',
+      headers:{"Content-Type":"text/plain"},
       data: unretweetID
     })
     .then(response => {
