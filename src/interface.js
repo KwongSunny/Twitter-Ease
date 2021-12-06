@@ -357,20 +357,23 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
 
   // insert id and what parts you want to modify -> defaults to null if left empty
   function update_schedules(id,second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat) {
+    const json_string = {
+      second:second,
+      minute:minute,
+      hour:hour,
+      dayOfmonth:dayOfmonth,
+      month:month,
+      dayOfweek:dayOfweek,
+      message:message,
+      name:name,
+      active:active,
+      repeat:repeat,
+    };
       axios({
         url:`http://localhost:5000/twitter/scheduler/${id}`,
         method:'PUT',
-        headers:{"Content-Type":"text/plain"},
-        data: {
-          message: message,
-          month: month,       
-          dayOfmonth: dayOfmonth,
-          dayOfweek: dayOfweek,           // able to put in multiple days of the weak ex: Mon,Tues -> split with commas
-          time: hour + ":" + minute + ":" + second,
-          name: name,
-          active: active,
-          repeat: repeat
-        }
+        headers:{"Content-Type":"application/json"},
+        data: json_string
       })
       .then(response => {
         console.log(response.data)
@@ -380,6 +383,7 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
       })   
   } // end of function
 
+  update_schedules('1234',1,1,1,'1','Jan','Mon','hello world','jello',true,true)
   // likes a single tweet given the id
   const singleLike = (likeId) => {
     axios({
