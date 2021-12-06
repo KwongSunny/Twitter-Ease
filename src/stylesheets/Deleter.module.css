@@ -1,8 +1,21 @@
 .ConfirmDelete{
     border: solid white 2px;
     border-radius: 20px;
-    height: 400px;
-    width: 400px;
+    height: fit-content;
+    width: fit-content;
+    right: 0;
+    top: 0;
+    left: 80px;
+    margin: auto;
+    bottom: 0;
+    position: absolute;
+    background-color:#555555;
+    visibility: hidden;
+    padding: 20px;
+}
+
+.ConfirmDelete div span:hover{
+    cursor:pointer;
 }
 
 .DeleteButton{
