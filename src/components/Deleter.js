@@ -8,9 +8,12 @@ function Deleter(props){
         <div className = {styles.DeleterPage}>
             <div className = {styles.DeleteButtonDiv}>
                 <div className = {styles.DeleteButton} onClick = {() => {
-                    interfaceUtil.mass_deletion();
-                    interfaceUtil.unretweet();
+                    //interfaceUtil.mass_deletion();
+                    //interfaceUtil.unretweet();
                 }}>Purge Tweets</div>
+            </div>
+            <div className = {styles.ConfirmDelete}>
+
             </div>
         </div>
     )

@@ -65,6 +65,7 @@ function Home(props){
                                     <div style = {{margin: '10px 0px'}}>
                                         <span style = {{width:'30%', display:'inline-block'}}><img src = {rt_src} id = {'rt_' + tweet.id_str} onClick = {() => {
                                             //DOESNT WORK, ASK BACKEND TEAM
+                                            console.log(tweet.id_str);
                                             if(tweet.retweeted){
                                                 interfaceUtil.singleUnretweet(tweet.id_str);
                                                 document.getElementById('rt_' + tweet.id_str).src = rt_img;
@@ -105,7 +106,7 @@ function Home(props){
             <div className = {styles.HomePage}>
                 <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span>
                     <div className = {styles.InfoButton} onMouseOver = {() => {document.getElementById('homeInfobox').style.visibility = 'visible'}} onMouseLeave = {() => {document.getElementById('homeInfobox').style.visibility = 'hidden'}}>
-                        i<Infobox id = {'homeInfobox'} title = {'Home Page'} desc = {'This is your home page, it lets you tweet and see recent Twitter Activity and allows you to like a retweet them.'}/>
+                        i<Infobox id = {'homeInfobox'} title = {'Home Page'} desc = {'This is your home page, it lets you tweet and see recent Twitter Activity and allows you to like and retweet them.'}/>
                     </div>
                 </div>
                 <hr style = {{marginTop: '28px'}}/>

@@ -17,40 +17,40 @@ function App() {
     const [currentPage, setCurrentPage] = React.useState('home'); //pages: Home, Scheduler, Retweeter, Mass Delete
     const page = {currentPage, setCurrentPage};
 
-    const [tweetSchedules, setTweetSchedules] = React.useState(
-        [
-            {
-                id: '001',
-                name: 'Weekend',
-                text: 'Have a great weekend Twitter!',
-                mon: false,
-                tue: false,
-                wed: false,
-                thur: false,
-                fri: true,
-                sat: true,
-                sun: true,
-                time: '07:00',
-                active: true,
-                repeating: true
-            },
-            {
-                id: '002',
-                name: 'Thursday Contest',
-                text: 'Remember to enter our raffle! httpz://raffl.co/12309/',
-                mon: false,
-                tue: false,
-                wed: false,
-                thur: true,
-                fri: false,
-                sat: false,
-                sun: false,
-                time: '12:30',
-                active: false,
-                repeating: true
-            }
-        ]
-    );
+    const [tweetSchedules, setTweetSchedules] = React.useState();
+    //     [
+    //         {
+    //             id: '001',
+    //             name: 'Weekend',
+    //             text: 'Have a great weekend Twitter!',
+    //             mon: false,
+    //             tue: false,
+    //             wed: false,
+    //             thur: false,
+    //             fri: true,
+    //             sat: true,
+    //             sun: true,
+    //             time: '07:00',
+    //             active: true,
+    //             repeating: true
+    //         },
+    //         {
+    //             id: '002',
+    //             name: 'Thursday Contest',
+    //             text: 'Remember to enter our raffle! httpz://raffl.co/12309/',
+    //             mon: false,
+    //             tue: false,
+    //             wed: false,
+    //             thur: true,
+    //             fri: false,
+    //             sat: false,
+    //             sun: false,
+    //             time: '12:30',
+    //             active: false,
+    //             repeating: true
+    //         }
+    //     ]
+    // );
 
     React.useEffect(() => {
       axios({
@@ -66,6 +66,8 @@ function App() {
           console.log(error);
       })
     }, []);
+
+    console.log('tweetSchedules: ', tweetSchedules);
 
     const schedules = {tweetSchedules, setTweetSchedules, scheduleIndex: 0};
 

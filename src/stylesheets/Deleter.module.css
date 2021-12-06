@@ -1,3 +1,10 @@
+.ConfirmDelete{
+    border: solid white 2px;
+    border-radius: 20px;
+    height: 400px;
+    width: 400px;
+}
+
 .DeleteButton{
     border: solid 2px white;
     border-radius: 20px;
