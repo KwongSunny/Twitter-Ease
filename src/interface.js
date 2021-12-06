@@ -383,7 +383,7 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
       })   
   } // end of function
 
-  update_schedules('1234',1,1,1,'1','Jan','Mon','hello world','jello',true,true)
+  //update_schedules('1234', '00', '00', '00','1','Jan','mon','This is an example schedule.','Example Schedule',false,true)
   // likes a single tweet given the id
   const singleLike = (likeId) => {
     axios({

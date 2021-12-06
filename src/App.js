@@ -67,8 +67,6 @@ function App() {
       })
     }, []);
 
-    console.log('tweetSchedules: ', tweetSchedules);
-
     const schedules = {tweetSchedules, setTweetSchedules, scheduleIndex: 0};
 
     return (

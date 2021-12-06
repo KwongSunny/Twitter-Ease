@@ -187,16 +187,22 @@ function Scheduler(props){
                             );
                         }
                         else{
-                            // interfaceUtils.update_schedules(
-                            //     stagedSchedule.id,
-                            //     '00',
-                            //     stagedSchedule.time.substring(0,2),
-                            //     stagedSchedule.time.substring(3), 
-                            //     '', 
-                            //     '', 
-                            //     dayOfWeek, 
-                            //     stagedSchedule.text
-                            // );
+                            console.log('STAGED');
+                            console.log(stagedSchedule);
+                            console.log(stagedSchedule.time.substring(0,2));
+                            console.log(stagedSchedule.time.substring(3));
+                            console.log(dayOfWeek);
+
+                            interfaceUtils.update_schedules(
+                                stagedSchedule.id,
+                                '00',
+                                stagedSchedule.time.substring(3),
+                                stagedSchedule.time.substring(0,2), 
+                                '', 
+                                '', 
+                                dayOfWeek, 
+                                stagedSchedule.text
+                            );
                         }
                     }}
                 >{creatingSchedule?"Create":"Apply"}</span>
