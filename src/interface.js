@@ -356,7 +356,7 @@ function scheduled_tweets(id=uuidv4(),second,minute,hour,dayOfmonth,month,dayOfw
     }
 
   // insert id and what parts you want to modify -> defaults to null if left empty
-  function update_schedules(second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat) {
+  function update_schedules(id,second,minute,hour,dayOfmonth,month,dayOfweek,message,name,active,repeat) {
       axios({
         url:`http://localhost:5000/twitter/scheduler/${id}`,
         method:'PUT',
