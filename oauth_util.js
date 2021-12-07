@@ -10,7 +10,7 @@ const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
   TWITTER_CONSUMER_API_KEY,
   TWITTER_CONSUMER_API_SECRET_KEY,
-  '1.0A', 'https://twitter-ease.herokuapp.com/twitter/callback', 'HMAC-SHA1')
+  '1.0A', 'http://localhost:5000/twitter/callback', 'HMAC-SHA1')
 
 // get user by id -> returns body of object type
 async function oauthGetUserById (userId, { oauthAccessToken, oauthAccessTokenSecret } = {}) {
