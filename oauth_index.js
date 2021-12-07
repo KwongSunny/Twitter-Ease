@@ -37,7 +37,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   }
   // simple home page
   app.get('/', (req, res, next) => {
-    res.redirect('https://twitter-ease.herokuapp.com/')
+    res.redirect('/')
   })
   // route to logout
   app.get('/twitter/logout', (req, res, next) => {
