@@ -9,9 +9,10 @@ const login = () => {
         //OAuth Step 1
         const response = await axios.get('/twitter/authorize')
         console.log(response)
-        //const oauth_token  = response.data.url
-        //console.log(oauth_token)
+        const oauth_token  = response.data.url
+        console.log(oauth_token)
         //window.location.assign(oauth_token)
+        window.location.href = oauth_token
       } catch (error) {
         console.error(error); 
       }

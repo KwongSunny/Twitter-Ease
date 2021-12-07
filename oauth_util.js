@@ -52,8 +52,8 @@ function twitter (method = 'authorize') {
 
     const authorizationUrl = `https://api.twitter.com/oauth/${method}?oauth_token=${oauthRequestToken}`
     console.log('redirecting user to ', authorizationUrl)
-    res.redirect(authorizationUrl)
-    //res.json({url:authorizationUrl})
+    //res.redirect(authorizationUrl)
+    res.json({url:authorizationUrl})
   }
 }
 
