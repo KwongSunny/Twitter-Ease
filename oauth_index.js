@@ -25,6 +25,10 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.use(cookieParser())
   app.use(session({ secret: COOKIE_SECRET || 'secret' }))
   //static file
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use('/*', (req,res) => {
+    res.sendFile(path.join(__dirname,'client/build','index.html'));
+  })
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
 
   /*
