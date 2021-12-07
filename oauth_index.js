@@ -27,7 +27,6 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   //static file
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
 
-  app.use(forceSSL)
   // ************ROUTERS AND STUFF**********
   if(process.env.NODE_ENV === 'production') { 
     app.use(express.static(path.join(__dirname, 'client/build')));
