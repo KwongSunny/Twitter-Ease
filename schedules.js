@@ -6,7 +6,7 @@ const schedule = [
         month: "month",
         dayOfmonth: "dayOfmonth",
         dayOfweek:"dayOfweek",
-        time: "hour:minute:second",
+        time: "0:1:1",
         active:"active",
         repeat:"repeat",
         twitterHandle: "TE_OfficiaI"
