@@ -234,9 +234,11 @@ const unlike_all = () => {
 // like and retweets all that match the given query keyword
 const like_n_retweet_all = (query) => {
     axios({
-        url:'http://localhost:5000/twitter/like-n-retweet/:q',
+        url:'http://localhost:5000/twitter/like-n-retweet',
         method:'GET',
-        params: query
+        params: {
+          q:query
+      }
     })
     .then((response)=> {
         console.log(response)
