@@ -30,7 +30,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   if(process.env.NODE_ENV === 'production') { 
     app.use(express.static(path.join(__dirname, 'client/build')));
     app.get('*', (req, res) => {
-       res.sendFile(path.join(__dirname = 'client/build/index.html'));  
+       res.sendFile(path.join(__dirname, 'client/build','index.html'));  
       })
   }
   
