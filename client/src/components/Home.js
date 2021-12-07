@@ -15,7 +15,7 @@ function Home(props){
     React.useEffect(() => {
         //timeline = interfaceUtil.homePage();
         axios({
-            url:'http://localhost:5000/twitter/home',
+            url:'/twitter/home',
             method:'GET',
         })
         .then((response) =>{

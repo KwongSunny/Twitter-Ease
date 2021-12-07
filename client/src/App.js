@@ -54,7 +54,7 @@ function App() {
 
     React.useEffect(() => {
       axios({
-          url:"http://localhost:5000/twitter/schedule_database",
+          url:"/twitter/schedule_database",
           method:"GET"          
       })
       .then((response)=> {
