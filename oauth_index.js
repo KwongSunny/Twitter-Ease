@@ -33,14 +33,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
  console.log(__dirname)
   // simple home page
   app.get('/', (req, res, next) => {
-    res.redirect('http://localhost:3000/')
-    //if (req.cookies && req.cookies.twitter_screen_name)  {
-    //  console.log('hello')
-      //return res.send(req.cookies.twitter_screen_name)
-      //res.sendFile(__dirname + '../../public' + 'index.html')
-      //res.sendFile(path.join(__dirname, "../../public", "index.html"));
-    //}
-  //return next()
+    res.redirect('/')
   })
   // route to logout
   app.get('/twitter/logout', (req, res, next) => {
@@ -62,7 +55,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.get('/twitter/home/purge',deleteTweet)
   app.get('/twitter/home/unlike1',unlike1)
   app.get('/twitter/home/')
-  app.get('/twitter/like-n-retweet/:q',likeNretweet)
+  app.get('/twitter/like-n-retweet',likeNretweet)
   app.get('/twitter/search/like',like)
   app.get('/twitter/home/unlike2',unlike2)
   app.get('/twitter/home/unretweet',unretweet)
