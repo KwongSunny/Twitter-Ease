@@ -27,6 +27,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   //static file
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
 
+  /*
   // ************ROUTERS AND STUFF**********
   if(process.env.NODE_ENV === 'production') { 
     app.use(express.static(path.join(__dirname, 'client/build')));
@@ -34,6 +35,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
        res.sendFile(path.join(__dirname,'client/build','index.html'));  
       })
   }
+  */
   // simple home page
   app.get('/', (req, res, next) => {
     res.redirect('/')
