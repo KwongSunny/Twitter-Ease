@@ -11,8 +11,7 @@ const login = () => {
         console.log(response)
         const oauth_token  = response.data.url
         console.log(oauth_token)
-        //window.location.assign(oauth_token)
-        window.location.href = oauth_token
+        window.location.assign(oauth_token)
       } catch (error) {
         console.error(error); 
       }

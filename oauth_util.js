@@ -42,7 +42,6 @@ async function getOAuthRequestToken () {
 // method defaults to authorize
 function twitter (method = 'authorize') {
   return async (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
     console.log(`/twitter/${method}`)
     const { oauthRequestToken, oauthRequestTokenSecret } = await getOAuthRequestToken() // gets the request token using getOAuthRequestToken()
     console.log(`/twitter/${method} ->`, { oauthRequestToken, oauthRequestTokenSecret })
@@ -60,7 +59,6 @@ function twitter (method = 'authorize') {
 
 // authenticate request token
 async function callback(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*")
   const { oauthRequestToken, oauthRequestTokenSecret } = req.session
   const { oauth_verifier: oauthVerifier } = req.query
   console.log('/twitter/callback', { oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
@@ -79,24 +77,11 @@ async function callback(req, res) {
   req.session.save(() => res.redirect('/'))
 }
 
-function forceSSL(req, res, next) {
-  if (req.header('x-forwarded-proto') === 'https') {
-    next();
-  } else {
-    var urlObj = {
-      protocol: 'https:',
-      hostname: req.header('host'),
-      pathname: req.url
-    }
-    res.redirect(url.format(urlObj));
-  }
-}
-
 module.exports = {
   twitter,
   oauthGetUserById,
   getOAuthAccessTokenWith,
   getOAuthRequestToken,
-  callback,
-  forceSSL
+  callback
+
 }
