@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 const {
   tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet, like, unlike2, unretweet,scheduleTweet, updateTweet, all_schedules, unlike, singular_like, singular_retweet, singular_unretweet, delete_schedule
 } = require('./twitter_func/features')
-const { twitter, callback, forceSSL} = require('./oauth_util')
+const { twitter, callback} = require('./oauth_util')
 const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE_SECRET
   const app = express()
   app.use(cors())
