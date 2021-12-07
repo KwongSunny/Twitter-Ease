@@ -27,7 +27,7 @@ function Home(props){
     }, []);
     console.log('timeline: ', timeline);
 
-    if(timeline && timeline.length > 1){
+    if(timeline && timeline.length > 0){
         return(
             <div className = {styles.HomePage}>
                 <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span>

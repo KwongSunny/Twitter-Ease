@@ -46,7 +46,7 @@ function convertDBtoFE(db_schedules){
     const fe_schedules = [];
 
     console.log(db_schedules);
-    if(db_schedules){
+    if(db_schedules && db_schedules.length > 0){
         db_schedules.forEach((schedule) => {
             fe_schedules.push({
                 id: schedule.id,
