@@ -37,12 +37,12 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
       })
   }
   */
-  app.get('*', (req,res) => {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'))
-  })
+ // app.get('*', (req,res) => {
+ //   res.sendFile(path.join(__dirname+'/client/build/index.html'))
+ // })
   // simple home page
   app.get('/', (req, res, next) => {
-    res.redirect('/')
+    res.redirect('https://twitter-ease.herokuapp.com/')
   })
   // route to logout
   app.get('/twitter/logout', (req, res, next) => {
