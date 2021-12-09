@@ -1,10 +1,9 @@
 
 require('dotenv').config()
-const CronJob = require('cron').CronJob
 const twit = require('./twitter')
 const database = require('../schedules')
 const schedule = require('node-schedule')
-const { v4: uuidv4 } = require('uuid');
+
 
 // ----------------retrieve all the posts youve made 
  const timeline = (req,res) => {

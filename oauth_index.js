@@ -45,7 +45,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   
   app.get('/', (req, res, next) => {
     //res.render(path.join(__dirname,'client/public','index.html'))
-    res.redirect('http://localhost:3000/twitter/callback/')
+    res.redirect('http://localhost:3000/')
   })
   
   // route to logout
