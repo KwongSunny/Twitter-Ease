@@ -128,7 +128,7 @@ const like_n_retweet_all = (query) => {
         url:'/twitter/like-n-retweet',
         method:'GET',
         params: {
-          q:query
+          qq:query
       }
     })
     .then((response)=> {
