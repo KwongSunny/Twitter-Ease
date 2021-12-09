@@ -24,24 +24,30 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   //app.use('public',express.static('public'))
   app.use(cookieParser())
   app.use(session({ secret: COOKIE_SECRET || 'secret' }))
+  //static file
+  app.use(express.static(path.join(__dirname, 'client/build')));
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
 
-
+  /*
   // ************ROUTERS AND STUFF**********
-  // path to client 
- // app.use(express.static(path.join(__dirname,'../../public','index.html')))
- console.log(__dirname)
+  if(process.env.NODE_ENV === 'production') { 
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (req, res) => {
+       res.sendFile(path.join(__dirname,'client/build','index.html'));  
+      })
+  }
+  */
+  //app.get('*', (req,res) => {
+  //  res.sendFile(path.join(__dirname+'/client/build/index.html'))
+  //})
+
   // simple home page
+  
   app.get('/', (req, res, next) => {
-    res.redirect('http://localhost:3000/')
-    //if (req.cookies && req.cookies.twitter_screen_name)  {
-    //  console.log('hello')
-      //return res.send(req.cookies.twitter_screen_name)
-      //res.sendFile(__dirname + '../../public' + 'index.html')
-      //res.sendFile(path.join(__dirname, "../../public", "index.html"));
-    //}
-  //return next()
+    //res.render(path.join(__dirname,'client/public','index.html'))
+    res.redirect('http://localhost:3000/twitter/callback/')
   })
+  
   // route to logout
   app.get('/twitter/logout', (req, res, next) => {
     res.clearCookie('twitter_screen_name')
@@ -62,7 +68,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.get('/twitter/home/purge',deleteTweet)
   app.get('/twitter/home/unlike1',unlike1)
   app.get('/twitter/home/')
-  app.get('/twitter/like-n-retweet/:q',likeNretweet)
+  app.get('/twitter/like-n-retweet',likeNretweet)
   app.get('/twitter/search/like',like)
   app.get('/twitter/home/unlike2',unlike2)
   app.get('/twitter/home/unretweet',unretweet)

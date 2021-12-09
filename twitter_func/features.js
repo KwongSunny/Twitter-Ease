@@ -147,7 +147,7 @@ function likeNretweet(req,res, resultType=recent)
 
 {
     let params={
-        q:req.params.q, 
+        q:req.query.q, 
         result_type:resultType,
         //count:count // how many posts to retweet 
     }
@@ -230,59 +230,6 @@ function retweet(req,res,resultType=recent)
     })
 }
 
-
-// ---------------- when someone follows you, you tweet and @ them 
-/*
- function tweeting(txt){// same thing as tweet() but this takes a param
-    twit.twitterAPI.post('statuses/update', {status:txt },function(err,data,response) {
-        console.log(data)
-    })
-}
-*/
-/*
-// ---------------- setting up a user stream 
-var stream = twit.twitterAPI.stream('user');
-stream.on ('follow', followed);  
-*/
-
-// ---------------- anyone who followed, this will happen 
-/*
-function followed(eventMsg) {
-    const name = eventMsg.source.name;
-    const screenName = eventMsg. source.screen_name; 
-    tweeting('@' + screenName + 'Thanks for following me')
-}
-*/
-
-// ---------------- scheduling tweets 
-/*
-function scheduleTweet(req, res, minute="*", hour="*", dayOfMonth="*", month="*", dayOfWeek="*"){ 
-   const job = new CronJob("*" + " " + minute + " " + hour +  " " + dayOfMonth + " " + month + " " + dayOfWeek, function(){
-      twit.twitterAPI.post('statuses/update', {status: req.body}, function(err,data,response) {
-           console.log(data);
-           if(err) {
-               console.log(err)
-           }
-           //res.send(data);
-           database.schedule.push({
-               id: uuidv4(),
-               name: data.user.name,
-               text: req.body,
-               day: dayOfMonth,
-               time: hour + ":" + minute,
-               active: active,
-               repeating: repeat,
-               twitterHandle: data.user.twitterHandle
-           })
-       })
-       res.send(data);
-       if(repeat != true) {
-           job.stop()
-       } 
-   })
-   job.start();
-}
-*/
 
 // function to like singular tweets by id
 function singular_like(req,res)
