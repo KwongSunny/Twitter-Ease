@@ -201,7 +201,10 @@ function Scheduler(props){
                                 '', 
                                 '', 
                                 dayOfWeek, 
-                                stagedSchedule.text
+                                stagedSchedule.text,
+                                stagedSchedule.name,
+                                stagedSchedule.active,
+                                stagedSchedule.repeating
                             );
                         }
                     }}
