@@ -146,7 +146,7 @@ function likeNretweet(req,res, resultType=recent)
 
 {
     let params={
-        q:req.params.q, 
+        q:req.query, 
         result_type:resultType,
         //count:count // how many posts to retweet 
     }
