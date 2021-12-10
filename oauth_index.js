@@ -69,5 +69,3 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
     app.delete('/twitter/delete_schedule/:id',delete_schedule)
   
 
-
-
