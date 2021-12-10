@@ -23,6 +23,13 @@ function Retweeter(){
                 Like retweets?
             </div>
             <div className = {styles.RetweetButtonDiv}><span className = {styles.RetweetButton} 
+                let query = document.getElementById('RTKeywords').value + ' ';
+                let filter = document.getElementById('RTFilters').value;
+
+                filter.split(' ').forEach((word) => {
+                    query += '-' + word;
+                })
+
                 onClick = {() => {
                     if(document.getElementById('likeRetweets').checked){
                         interfaceUtils.like_n_retweet_all(document.getElementById('RTKeywords').value);
