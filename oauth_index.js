@@ -25,7 +25,7 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
   app.get('/', (req, res, next) => {
-    res.redirect('http://localhost:3000/')
+    res.redirect('https://twitter-ease.herokuapp.com/')
   })
   // route to logout
   app.get('/twitter/logout', (req, res, next) => {
