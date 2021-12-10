@@ -29,15 +29,13 @@ function Retweeter(){
                 filter.split(' ').forEach((word) => {
                     query += '-' + word;
                 })
-
-                onClick = {() => {
-                    if(document.getElementById('likeRetweets').checked){
-                        interfaceUtils.like_n_retweet_all(document.getElementById('RTKeywords').value);
-                    }
-                    else{
-                        interfaceUtils.retweet(document.getElementById('RTKeywords').value);
-                    }
-                }}
+                if(document.getElementById('likeRetweets').checked){
+                    interfaceUtils.like_n_retweet_all(query);
+                }
+                else{
+                    interfaceUtils.retweet(query);
+                }
+            }}
             >Retweet</span></div>
             <hr style = {{marginTop: '28px'}}/>
         </div>
