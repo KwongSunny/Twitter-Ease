@@ -22,7 +22,7 @@ function Retweeter(){
                 <input id = 'likeRetweets' type = 'checkbox'/>
                 Like retweets?
             </div>
-            <div className = {styles.RetweetButtonDiv}><span className = {styles.RetweetButton} 
+            <div className = {styles.RetweetButtonDiv}><span className = {styles.RetweetButton} onClick = {() => {
                 let query = document.getElementById('RTKeywords').value + ' ';
                 let filter = document.getElementById('RTFilters').value;
 
