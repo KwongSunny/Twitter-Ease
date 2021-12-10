@@ -83,12 +83,6 @@ async function callback(req, res) {
   tokens.push(oauthAccessToken)
   tokens.push(oauthAccessTokenSecret)
 
-    twitterAPI = new twit({
-    consumer_key : process.env.api_key,
-    consumer_secret : process.env.api_secret,
-    access_token : tokens[0],
-    access_token_secret : tokens[1]
-  });
   console.log(tokens[0])
   console.log(tokens[1])
   req.session.oauthAccessToken = oauthAccessToken
@@ -113,6 +107,5 @@ module.exports = {
   getOAuthRequestToken,
   callback,
   export_tokens,
-  clear_token,
-  twitterAPI
+  clear_token
 }
