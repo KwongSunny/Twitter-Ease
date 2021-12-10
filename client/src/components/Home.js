@@ -32,7 +32,7 @@ function Home(props){
             <div className = {styles.HomePage}>
                 <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span>
                     <div className = {styles.InfoButton} onMouseOver = {() => {document.getElementById('homeInfobox').style.visibility = 'visible'}} onMouseLeave = {() => {document.getElementById('homeInfobox').style.visibility = 'hidden'}}>
-                        i<Infobox id = {'homeInfobox'} title = {'Home Page'} desc = {'This is your home page, it lets you tweet and see recent Twitter Activity and allows you to like a retweet them.'}/>
+                        i<Infobox id = {'homeInfobox'} title = {'Home Page'} desc = {'This is your home page, it lets you tweet and see recent Twitter Activity and allows you to like and retweet them.'}/>
                     </div>
                 </div>
                 <hr style = {{marginTop: '28px'}}/>
