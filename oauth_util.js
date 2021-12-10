@@ -2,8 +2,8 @@ const oauth = require('oauth')
 const { promisify } = require('util')
 require('dotenv').config()
 
-const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key 
-const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key
+const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key || process.env.api_key
+const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key || process.env.api_secret
 
 
 const oauthConsumer = new oauth.OAuth(
