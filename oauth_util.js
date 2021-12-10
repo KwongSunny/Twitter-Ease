@@ -1,16 +1,31 @@
 const oauth = require('oauth')
 const { promisify } = require('util')
 require('dotenv').config()
+const twit = require('twit')
 
 const TWITTER_CONSUMER_API_KEY = process.env.npm_config_twitter_consumer_api_key || process.env.api_key
 const TWITTER_CONSUMER_API_SECRET_KEY = process.env.npm_config_twitter_consumer_api_secret_key || process.env.api_secret
+
+
+let tokens = []
+
+function export_tokens() {
+  return tokens
+}
+
+function clear_token() {
+  tokens.splice(0,tokens.length)
+}
+
+let twitterAPI;
 
 
 const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
   TWITTER_CONSUMER_API_KEY,
   TWITTER_CONSUMER_API_SECRET_KEY,
-  '1.0A', 'https://twitter-ease.herokuapp.com/twitter/callback', 'HMAC-SHA1')
+  '1.0A', 'http://localhost:5000/twitter/callback', 'HMAC-SHA1')
+
 
 // get user by id -> returns body of object type
 async function oauthGetUserById (userId, { oauthAccessToken, oauthAccessTokenSecret } = {}) {
@@ -51,7 +66,7 @@ function twitter (method = 'authorize') {
 
     const authorizationUrl = `https://api.twitter.com/oauth/${method}?oauth_token=${oauthRequestToken}`
     console.log('redirecting user to ', authorizationUrl)
-    res.redirect({url:authorizationUrl})
+    res.json({url:authorizationUrl})
   }
 }
 
@@ -63,6 +78,19 @@ async function callback(req, res) {
   console.log('/twitter/callback', { oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
 
   const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
+  console.log(oauthAccessToken)
+  console.log(oauthAccessTokenSecret)
+  tokens.push(oauthAccessToken)
+  tokens.push(oauthAccessTokenSecret)
+
+    twitterAPI = new twit({
+    consumer_key : process.env.api_key,
+    consumer_secret : process.env.api_secret,
+    access_token : tokens[0],
+    access_token_secret : tokens[1]
+  });
+  console.log(tokens[0])
+  console.log(tokens[1])
   req.session.oauthAccessToken = oauthAccessToken
 
   const { user_id: userId } = results
@@ -76,10 +104,15 @@ async function callback(req, res) {
   req.session.save(() => res.redirect('/'))
 }
 
+
+
 module.exports = {
   twitter,
   oauthGetUserById,
   getOAuthAccessTokenWith,
   getOAuthRequestToken,
-  callback
+  callback,
+  export_tokens,
+  clear_token,
+  twitterAPI
 }

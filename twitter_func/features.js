@@ -4,6 +4,9 @@ const twit = require('./twitter')
 const database = require('../schedules')
 const schedule = require('node-schedule')
 
+
+
+
 // ----------------retrieve all the posts youve made 
  const timeline = (req,res) => {
     twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
