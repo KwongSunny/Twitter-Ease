@@ -35,9 +35,6 @@ function Scheduler(props){
         active: true,
         repeating: true,
     };
-    
-    console.log('tweetSchedules1: ',tweetSchedules);
-    console.log('currentSchedule1: ', currentSchedule);
 
     if(!creatingSchedule && currentSchedule){
         stagedSchedule.id = currentSchedule.id;
@@ -187,12 +184,6 @@ function Scheduler(props){
                             );
                         }
                         else{
-                            console.log('STAGED');
-                            console.log(stagedSchedule);
-                            console.log(stagedSchedule.time.substring(0,2));
-                            console.log(stagedSchedule.time.substring(3));
-                            console.log(dayOfWeek);
-
                             interfaceUtils.update_schedules(
                                 stagedSchedule.id,
                                 '00',

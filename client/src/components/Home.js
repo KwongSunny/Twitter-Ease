@@ -7,6 +7,7 @@ import rt_img from '../images/twitter_retweet_button.png';
 import rted_img from '../images/twitter_retweeted_button.png';
 import like_img from '../images/twitter_like_button.png';
 import liked_img from '../images/twitter_liked_button.png';
+import { time } from 'cron';
 
 function Home(props){
     const twitterHandle = props.twitterHandle;
@@ -25,7 +26,6 @@ function Home(props){
             console.log(error);
         })
     }, []);
-    console.log('timeline: ', timeline);
 
     if(timeline && timeline.length > 0){
         return(
@@ -81,8 +81,6 @@ function Home(props){
                                     <div className = {styles.TimelineItemText}>{tweet_text}<br /><a href = {tweet_hyperlink}>{tweet_hyperlink}</a></div>
                                     <div style = {{margin: '10px 0px'}}>
                                         <span style = {{width:'30%', display:'inline-block'}}><img src = {rt_src} id = {'rt_' + tweet.id_str} onClick = {() => {
-                                            //DOESNT WORK, ASK BACKEND TEAM
-                                            console.log(tweet.id_str);
                                             if(tweet.retweeted){
                                                 interfaceUtil.singleUnretweet(tweet.id_str);
                                                 document.getElementById('rt_' + tweet.id_str).src = rt_img;
@@ -95,7 +93,6 @@ function Home(props){
                                             tweet.retweeted = !tweet.retweeted;
                                         }}/></span>
                                         <span style = {{width:'30%', display:'inline-block'}}><img src = {like_src} id = {'like_' + tweet.id_str} onClick = {() => {
-                                            //DOESNT WORK, ASK BACKEND TEAM
                                             if(tweet.favorited){
                                                 interfaceUtil.singleUnlike(tweet.id_str);
                                                 document.getElementById('like_' + tweet.id_str).src = like_img;
@@ -118,7 +115,9 @@ function Home(props){
     }
     else{
         let message = '...Loading Timeline...';
-        if(timeline && timeline.errors) message = 'Twitter Rate Limit Exceeded';
+        if(timeline && timeline.errors){
+            message = 'Twitter Rate Limit Exceeded';
+        }
         return(
             <div className = {styles.HomePage}>
                 <div className = {styles.Header}><span>Welcome Back {twitterHandle}!</span>

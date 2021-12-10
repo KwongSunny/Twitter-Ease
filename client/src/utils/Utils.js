@@ -61,11 +61,27 @@ function convertDBtoFE(db_schedules){
                 sun: schedule.dayOfweek.includes('sun'),
                 time: schedule.time.substring(0, 5),
                 active:schedule.active,
-                repeating: schedule.repeat
+                repeating: schedule.repeat,
+                twitterHandle: schedule.twitterHandle
             })
         })
     }
     return fe_schedules;
 }
 
-export default {convertDBtoFE};
+function filterTwitterHandles(db_schedules, handle){
+    const result_schedules = [];
+    
+    if(db_schedules && db_schedules.length > 0){
+        db_schedules.forEach((schedule) => {
+            if(schedule.twitterHandle === handle){
+                result_schedules.push(schedule);
+            }
+        })
+    }
+    return result_schedules;
+
+}
+
+
+export default {convertDBtoFE, filterTwitterHandles};
