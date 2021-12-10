@@ -24,7 +24,7 @@ const oauthConsumer = new oauth.OAuth(
   'https://twitter.com/oauth/request_token', 'https://twitter.com/oauth/access_token',
   TWITTER_CONSUMER_API_KEY,
   TWITTER_CONSUMER_API_SECRET_KEY,
-  '1.0A', 'http://localhost:5000/twitter/callback', 'HMAC-SHA1')
+  '1.0A', 'https://twitter-ease.herokuapp.com/twitter/callback', 'HMAC-SHA1')
 
 
 // get user by id -> returns body of object type
@@ -71,8 +71,6 @@ function twitter (method = 'authorize') {
 }
 
 
-
-const oauth_between = require('./oauth_between');
 // authenticate request token
 async function callback(req, res) {
   const { oauthRequestToken, oauthRequestTokenSecret } = req.session
@@ -80,16 +78,20 @@ async function callback(req, res) {
   console.log('/twitter/callback', { oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
 
   const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
-  console.log('ACCESSTOKENS');
-  console.log(oauthAccessToken);
-  console.log(oauthAccessTokenSecret);
+  console.log(oauthAccessToken)
+  console.log(oauthAccessTokenSecret)
+  tokens.push(oauthAccessToken)
+  tokens.push(oauthAccessTokenSecret)
 
-  while(oauth_between.getAccessTokens().length > 0){
-    oauth_between.popAccessTokens();
-  }
-
-  oauth_between.pushAccessTokens(oauthAccessToken);
-  oauth_between.pushAccessTokens(oauthAccessTokenSecret);
+    twitterAPI = new twit({
+    consumer_key : process.env.api_key,
+    consumer_secret : process.env.api_secret,
+    access_token : tokens[0],
+    access_token_secret : tokens[1]
+  });
+  console.log(tokens[0])
+  console.log(tokens[1])
+  req.session.oauthAccessToken = oauthAccessToken
 
   const { user_id: userId } = results
   const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret })
