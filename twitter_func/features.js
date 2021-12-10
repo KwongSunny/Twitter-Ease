@@ -1,15 +1,19 @@
 
 require('dotenv').config()
-const twit = require('./twitter')
+const twit = require('twit');
+const oauth_between = require('../oauth_between');
 const database = require('../schedules')
 const schedule = require('node-schedule')
 
-
-
-
 // ----------------retrieve all the posts youve made 
  const timeline = (req,res) => {
-    twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('statuses/home_timeline',function(err,data,response) {// gets the tweets of the timeline
     console.log(data); 
     res.send(data)
     })
@@ -18,7 +22,13 @@ const schedule = require('node-schedule')
 // ----------------posts a tweet 
 
  const tweet = (req,res) => { 
-        twit.twitterAPI.post('statuses/update', {status:req.body}, (err,data,response) =>{
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+        twitterAPI.post('statuses/update', {status:req.body}, (err,data,response) =>{
             console.log(req.body)
             res.send(data)
         }) 
@@ -28,17 +38,29 @@ const schedule = require('node-schedule')
 
 // currently not needed
 function intervalTweet(req,res){
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
 
     var r = Math.floor(Math.random()*100); 
 
-    twit.twitterAPI.post('statuses/update', {status:req.body + r },function(err,data,response) {
+    twitterAPI.post('statuses/update', {status:req.body + r },function(err,data,response) {
         console.log(data)
     })
 }
 
 // ----------------deletes all the tweets on your timeline
  function deleteTweet(){
-    twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
         let tweets=data
@@ -47,7 +69,7 @@ function intervalTweet(req,res){
             for (let dat of tweets)
             {
                 let deleteId = dat.id_str; 
-                twit.twitterAPI.post('statuses/destroy/:id', {id: deleteId}, (err, response)=>
+                twitterAPI.post('statuses/destroy/:id', {id: deleteId}, (err, response)=>
                 {
                     if (response)
                         console.log('Post deleted!!! with retweetID - ' + deleteId)
@@ -69,7 +91,13 @@ function like(res, req, resultType, count)
         count:count // how many posts to retweet 
     }
 
-    twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
             if(!err)
@@ -77,7 +105,7 @@ function like(res, req, resultType, count)
                     for(let dat of tweets)
                     {
                         let likeId = dat.id_str;
-                        twit.twitterAPI.post('favorites/create', {id: likeId}, (err, response)=>
+                        twitterAPI.post('favorites/create', {id: likeId}, (err, response)=>
                         {
                             if (response)
                                 console.log('Post liked!!! with likeId - ' + likeId)
@@ -93,7 +121,13 @@ function like(res, req, resultType, count)
 // ----------------unlikes all (works when theres are posts that are retweeted) 
 
  function unlike1 (){
-    twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
         let tweets=data
@@ -102,7 +136,7 @@ function like(res, req, resultType, count)
             for (let dat of tweets)
             {
                 let unlikeID = dat.id_str; 
-                twit.twitterAPI.post('favorites/destroy', {id: unlikeID}, (err, response)=>
+                twitterAPI.post('favorites/destroy', {id: unlikeID}, (err, response)=>
                 {
                     if (response)
                         console.log('Post unliked!!! with retweetID - ' + unlikeID)
@@ -119,7 +153,13 @@ function like(res, req, resultType, count)
 
 // ----------------unlike all (unlike posts that are just liked) 
  function unlike2(){
-    twit.twitterAPI.get('favorites/list',function(err,data,response) // gets the tweets of the timeline
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('favorites/list',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
         let tweets=data
@@ -128,7 +168,7 @@ function like(res, req, resultType, count)
             for (let dat of tweets)
             {
                 let unlikeID = dat.id_str; 
-                twit.twitterAPI.post('favorites/destroy', {id: unlikeID}, (err, response)=>
+                twitterAPI.post('favorites/destroy', {id: unlikeID}, (err, response)=>
                 {
                     if (response)
                         console.log('Post unliked!!! with retweetID - ' + unlikeID)
@@ -145,14 +185,19 @@ function like(res, req, resultType, count)
 
 
 function likeNretweet(req,res, resultType=recent)
-
 {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
     let params={
         q:req.query.qq, 
         result_type:resultType,
         //count:count // how many posts to retweet 
     }
-    twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
+    twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
             if(!err)
@@ -160,8 +205,8 @@ function likeNretweet(req,res, resultType=recent)
                     for(let dat of tweets)
                     {
                         let tweetID = dat.id_str;
-                        twit.twitterAPI.post('statuses/retweet/:id', {id: tweetID}, (err, response)=>
-                        twit.twitterAPI.post('favorites/create', {id: tweetID}, (err, response)=>
+                        twitterAPI.post('statuses/retweet/:id', {id: tweetID}, (err, response)=>
+                        twitterAPI.post('favorites/create', {id: tweetID}, (err, response)=>
                         {
                             if (response)
                                 console.log('Post liked & retweeted!!! with likeId/tweetID - ' + tweetID)
@@ -178,6 +223,12 @@ function likeNretweet(req,res, resultType=recent)
 
 function retweet(req,res,resultType=recent) 
 {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
     let params={
         q:req.query.q,
         //q:req.query,
@@ -186,7 +237,7 @@ function retweet(req,res,resultType=recent)
         //count:count// how many posts to retweet 
     }
     console.log(params)
-    twit.twitterAPI.get('search/tweets', params,(err,data,response)=>
+    twitterAPI.get('search/tweets', params,(err,data,response)=>
         {
             let tweets=data.statuses
             if(!err)
@@ -194,7 +245,7 @@ function retweet(req,res,resultType=recent)
                     for(let dat of tweets)
                     {
                         let retweetId = dat.id_str;
-                        twit.twitterAPI.post('statuses/retweet/:id', {id: retweetId}, (err, response)=>
+                        twitterAPI.post('statuses/retweet/:id', {id: retweetId}, (err, response)=>
                         {
                             if (response)
                                 console.log('Post retweeted with retweetID - ' + retweetId)
@@ -209,8 +260,13 @@ function retweet(req,res,resultType=recent)
 
 // ----------------unretweet everything
  function unretweet(){
-
-    twit.twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.get('statuses/home_timeline',function(err,data,response) // gets the tweets of the timeline
     {   
         // console.log(data);
         let tweets=data
@@ -219,7 +275,7 @@ function retweet(req,res,resultType=recent)
             for (let dat of tweets)
             {
                 let deleteId = dat.id_str; 
-                twit.twitterAPI.post('statuses/unretweet/:id', {id: deleteId}, (err, response)=>
+                twitterAPI.post('statuses/unretweet/:id', {id: deleteId}, (err, response)=>
                 {
                     if (response)
                         console.log('Post untweeted!!! with retweetID - ' + deleteId)
@@ -234,7 +290,13 @@ function retweet(req,res,resultType=recent)
 // function to like singular tweets by id
 function singular_like(req,res)
 {
-    twit.twitterAPI.post('favorites/create', {id: req.body}, function(err,data,response) {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.post('favorites/create', {id: req.body}, function(err,data,response) {
         // console.log(err)
         console.log(data)
         // console.log(response)
@@ -243,21 +305,39 @@ function singular_like(req,res)
 
 // function to unlike tweets by id
 function unlike(req,res){   
-    twit.twitterAPI.post('favorites/destroy', {id: req.body}, function(err,data,response) {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.post('favorites/destroy', {id: req.body}, function(err,data,response) {
         console.log(data)
     })
 }
 
 // retweet tweets by id
 function singular_retweet(req,res){
-    twit.twitterAPI.post('statuses/retweet/:id', {id: req.body}, function(err,data,response) {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.post('statuses/retweet/:id', {id: req.body}, function(err,data,response) {
         console.log(data)
     })
 }
 
 // unretweet tweets by id   
 function singular_unretweet(id){
-    twit.twitterAPI.post('statuses/unretweet/:id', {id: id}, function(err,data,response) {
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
+    twitterAPI.post('statuses/unretweet/:id', {id: id}, function(err,data,response) {
         console.log(data)
     })
 }
@@ -265,6 +345,12 @@ function singular_unretweet(id){
 // express only takes 3 pamraeters
 
 function scheduleTweet(req,res){
+    const twitterAPI = new twit({
+        consumer_key : process.env.api_key,
+        consumer_secret : process.env.api_secret,
+        access_token : oauth_between.getAccessTokens()[0],
+        access_token_secret : oauth_between.getAccessTokens()[1]
+    });
     console.log('started')
     const {id,second,minute,hour,dayOfmonth='*',month='*',dayOfweek='*',message,name,active=true,repeat=false,twitterHandle} = req.body
     const date = `${second} ${minute} ${hour} ${dayOfmonth} ${month} ${dayOfweek}`
@@ -285,7 +371,7 @@ function scheduleTweet(req,res){
             twitterHandle: twitterHandle
         })
     const job = schedule.scheduleJob(date, function(){
-       twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
+       twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
             console.log(data); 
         })  
         if(repeat == false) {
@@ -342,7 +428,7 @@ function updateTweet(req,res,next) {
     }
     else {
     const job = schedule.scheduleJob(date, function(){
-        twit.twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
+        twitterAPI.post('statuses/update', {status: req.body.message},function(err,data,response) {
              console.log(data); 
          })  
          if(repeat == false) {

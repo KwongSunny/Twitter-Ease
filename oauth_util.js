@@ -71,6 +71,8 @@ function twitter (method = 'authorize') {
 }
 
 
+
+const oauth_between = require('./oauth_between');
 // authenticate request token
 async function callback(req, res) {
   const { oauthRequestToken, oauthRequestTokenSecret } = req.session
@@ -78,20 +80,16 @@ async function callback(req, res) {
   console.log('/twitter/callback', { oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
 
   const { oauthAccessToken, oauthAccessTokenSecret, results } = await getOAuthAccessTokenWith({ oauthRequestToken, oauthRequestTokenSecret, oauthVerifier })
-  console.log(oauthAccessToken)
-  console.log(oauthAccessTokenSecret)
-  tokens.push(oauthAccessToken)
-  tokens.push(oauthAccessTokenSecret)
+  console.log('ACCESSTOKENS');
+  console.log(oauthAccessToken);
+  console.log(oauthAccessTokenSecret);
 
-    twitterAPI = new twit({
-    consumer_key : process.env.api_key,
-    consumer_secret : process.env.api_secret,
-    access_token : tokens[0],
-    access_token_secret : tokens[1]
-  });
-  console.log(tokens[0])
-  console.log(tokens[1])
-  req.session.oauthAccessToken = oauthAccessToken
+  while(oauth_between.getAccessTokens().length > 0){
+    oauth_between.popAccessTokens();
+  }
+
+  oauth_between.pushAccessTokens(oauthAccessToken);
+  oauth_between.pushAccessTokens(oauthAccessTokenSecret);
 
   const { user_id: userId } = results
   const user = await oauthGetUserById(userId, { oauthAccessToken, oauthAccessTokenSecret })
