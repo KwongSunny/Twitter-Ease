@@ -3,7 +3,6 @@ const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const path = require('path')
-const fs = require('fs')
 const PORT = process.env.PORT || 5000
 const {
   tweet, timeline, retweet, deleteTweet, unlike1, likeNretweet, like, unlike2, unretweet,scheduleTweet, updateTweet, all_schedules, unlike, singular_like, singular_retweet, singular_unretweet, delete_schedule
@@ -20,27 +19,11 @@ const COOKIE_SECRET = process.env.npm_config_cookie_secret || process.env.COOKIE
   )
   app.use(express.raw())
   app.use(express.text())
-  //app.use(express.static('src'))
-  //app.use('public',express.static('public'))
   app.use(cookieParser())
   app.use(session({ secret: COOKIE_SECRET || 'secret' }))
   //static file
   app.use(express.static(path.join(__dirname, 'client/build')));
   app.listen(PORT, () => console.log(`listening on ${PORT}`))
-
-  /*
-  // ************ROUTERS AND STUFF**********
-  if(process.env.NODE_ENV === 'production') { 
-    app.use(express.static(path.join(__dirname, 'client/build')));
-    app.get('*', (req, res) => {
-       res.sendFile(path.join(__dirname,'client/build','index.html'));  
-      })
-  }
-  */
- // app.get('*', (req,res) => {
- //   res.sendFile(path.join(__dirname+'/client/build/index.html'))
- // })
-  // simple home page
   app.get('/', (req, res, next) => {
     res.redirect('https://twitter-ease.herokuapp.com/')
   })
