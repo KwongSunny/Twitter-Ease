@@ -47,6 +47,7 @@ function Home(props){
                 <div className = {styles.TweetButtonDiv}><span className = {styles.TweetButton} onClick = {
                     () => {
                         interfaceUtil.tweeting(document.getElementById('Home_Tweet_Input').value);
+                        document.getElementById('Home_Tweet_Input').value = '';
                         setTimeout(() => {
                             axios({
                             url:'/twitter/home',
