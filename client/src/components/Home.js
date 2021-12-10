@@ -44,7 +44,23 @@ function Home(props){
                         readOnly = {false} 
                         onClick = {() => {document.getElementById('Home_Tweet_Input').value = ''}}/>
                 </div>
-                <div className = {styles.TweetButtonDiv}><span className = {styles.TweetButton} onClick = {() => {interfaceUtil.tweeting(document.getElementById('Home_Tweet_Input').value)}}>Tweet</span></div>
+                <div className = {styles.TweetButtonDiv}><span className = {styles.TweetButton} onClick = {
+                    () => {
+                        interfaceUtil.tweeting(document.getElementById('Home_Tweet_Input').value);
+                        setTimeout(() => {
+                            axios({
+                            url:'/twitter/home',
+                            method:'GET',
+                            })
+                            .then((response) =>{
+                                setTimeline(response.data);
+                            })
+                            .catch((error)=> {
+                                console.log(error);
+                            });
+                        }, 1000)
+                    }
+                }>Tweet</span></div>
                 <hr style = {{marginTop: '28px'}}/>
                 <div className = {styles.Timeline}>
                     {
