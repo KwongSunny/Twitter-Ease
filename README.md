@@ -25,6 +25,14 @@ The inital plan for this project was to keep some of the basic twitter functions
 
 ![te_timeline](https://user-images.githubusercontent.com/26192840/146596195-f7ddfb19-80d2-4ae4-975e-3094d2bab339.gif)
 
+* Mass Retweeting
+
+![te_timeline](https://user-images.githubusercontent.com/26192840/146596326-aecc14ff-2bc5-4466-835b-af7bd09f9dfe.gif)
+
+* Scheduled Tweeting
+
+![te_timeline](https://user-images.githubusercontent.com/26192840/146596571-428121a7-d71b-41d7-87e0-bdc47723df65.gif)
+
 ### Technologies
 The languages and the Api's we used are
 * JavaScript
