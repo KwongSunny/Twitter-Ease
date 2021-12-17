@@ -23,6 +23,8 @@ The inital plan for this project was to keep some of the basic twitter functions
 * Unretweet - unretweet everything 
 * timeline - the timeline is visible on webapp 
 
+![te_timeline](https://user-images.githubusercontent.com/26192840/146596195-f7ddfb19-80d2-4ae4-975e-3094d2bab339.gif)
+
 ### Technologies
 The languages and the Api's we used are
 * JavaScript
