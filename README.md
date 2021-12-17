@@ -46,4 +46,4 @@ The languages and the Api's we used are
 Sunny Kwong, Christy Li, Justin Quach, Leonardo Ridwan, Danny You 
 
 ### Summary
-The purpose of our app, Twitter Ease is to provide our users with a sufficient platform that will help manage their twitter accounts. The webapp provides various features, such as schedule tweets, mass deleting, retweeting etc. These features are performed in seconds which allows our users to save time and money.
+The purpose of our app, Twitter Ease is to provide our users with a sufficient platform that will help manage their twitter account. The webapp provides various features, such as schedule tweets, mass deleting, retweeting etc. These features are performed in seconds which allows our users to save time and money.
